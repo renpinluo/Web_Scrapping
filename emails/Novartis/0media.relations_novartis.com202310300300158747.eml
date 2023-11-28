@@ -1,0 +1,776 @@
+﻿Received: from SJ2PR01MB8126.prod.exchangelabs.com (2603:10b6:a03:4fb::6) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Mon, 30 Oct 2023 06:16:07
+ +0000
+Received: from BY5PR20CA0016.namprd20.prod.outlook.com (2603:10b6:a03:1f4::29)
+ by SJ2PR01MB8126.prod.exchangelabs.com (2603:10b6:a03:4fb::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6907.26; Mon, 30 Oct 2023 06:16:06 +0000
+Received: from CO1PEPF000042A7.namprd03.prod.outlook.com
+ (2603:10b6:a03:1f4:cafe::cd) by BY5PR20CA0016.outlook.office365.com
+ (2603:10b6:a03:1f4::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.26 via Frontend
+ Transport; Mon, 30 Oct 2023 06:16:06 +0000
+Authentication-Results: spf=softfail (sender IP is 148.168.40.5)
+ smtp.mailfrom=gnw.novartis.com; dkim=fail (signature did not verify)
+ header.d=novartis.com;dmarc=fail action=oreject header.from=novartis.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ gnw.novartis.com discourages use of 148.168.40.5 as permitted sender)
+Received: from mail.pfizer.com (148.168.40.5) by
+ CO1PEPF000042A7.mail.protection.outlook.com (10.167.243.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6933.15 via Frontend Transport; Mon, 30 Oct 2023 06:16:06 +0000
+Received: from drmamrexdg01.amer.pfizer.com (141.173.144.45) by
+ drmamrexdg01.amer.pfizer.com (141.173.144.45) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16; Mon, 30 Oct 2023 02:16:04 -0400
+Received: from gromsgo.pfizer.com (10.128.230.31) by
+ drmamrexdg01.amer.pfizer.com (141.173.144.45) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16 via Frontend Transport; Mon, 30 Oct 2023 02:16:04 -0400
+Received: from pps.filterd (svaamrppa04.pfizer.com [127.0.0.1])
+	by svaamrppa04.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 39U46nRY009820
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 02:16:04 -0400
+Authentication-Results-Original: pfizer.com;	spf=softfail
+ smtp.mailfrom=0102018b7f3983d1-65648c10-ff6a-49ac-9683-08365f60cc6c-000000@gnw.novartis.com;
+	dkim=fail header.s=63qbsolantppa6jjq5zsijtzjzmsekpw header.d=novartis.com;
+	dkim=fail header.s=shh3fegwg5fppqsuzphvschd53n6ihuv header.d=amazonses.com;
+	dmarc=fail header.from=novartis.com
+Received: from sva-feex-02.pfizer.com (ndh-feex-02-int.pfizer.com [10.128.230.38])
+	by svaamrppa04.pfizer.com (PPS) with ESMTPS id 3u1mg5v7fd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 02:16:03 -0400
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by sva-feex-02.pfizer.com (Postfix) with SMTP id 4SJjh359NVz2VYlN
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 06:16:03 +0000 (UTC)
+Received: from mailstream-west.mxrecord.io (mailstream-uswest-egress002.mxrecord.io [52.11.209.211])
+	by sva-feex-02.pfizer.com (Postfix) with ESMTPS id 4SJjh24W7Kz2VYn6
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 06:16:02 +0000 (UTC)
+Received: from mailstream007.us-west-2.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-west.mxrecord.io (Postfix) with ESMTP id 4SJjh16yx7zDqNP
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 06:16:01 +0000 (UTC)
+Received-SPF: pass (mailstream-west.mxrecord.io: gnw.novartis.com designates 54.240.2.58 as permitted sender) client-ip=54.240.2.58; envelope-from=0102018b7f3983d1-65648c10-ff6a-49ac-9683-08365f60cc6c-000000@gnw.novartis.com; helo=a2-58.smtp-out.eu-west-1.amazonses.com;
+Received: from mailstream-west.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LOCIAWJV
+        for bi_vox@pfizer.com;
+        Mon, 30 Oct 2023 06:16:01 +0000 (GMT)
+Received: from mx0a-00013f02.pphosted.com (mx0a-00013f02.pphosted.com [208.84.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-west.mxrecord.io (Postfix) with ESMTPS id 4SJjh13JWTzDqHB
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 06:16:01 +0000 (UTC)
+Received: from pps.filterd (m0366520.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 39TNZLKj008902
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 02:16:01 -0400
+Received: from a2-58.smtp-out.eu-west-1.amazonses.com (a2-58.smtp-out.eu-west-1.amazonses.com [54.240.2.58])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3u0vh39qkt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=NOT)
+	for <BI_VOX@pfizer.com>; Mon, 30 Oct 2023 02:16:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=63qbsolantppa6jjq5zsijtzjzmsekpw; d=novartis.com; t=1698646557;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=HoM4zOljdd814KdIFMMOE+LK4MN1F0P+mrWok1enIYk=;
+	b=KdX6kuQlZeBw4Ui0QygxELycKG2ASGxdDVdXa70HFBIiN3PlFAK/dIrifEqzLQ53
+	Sd+LHiaJxAi+NsTBjpLGn0BdyTLHSEq34DoTRIu6onvEuwsEMr2hgWWyiufIgz/rd3h
+	wi81zCHvmQ3zjpOU4ftUQs7pXNsiOtIBSI6aHwTQ=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1698646557;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=HoM4zOljdd814KdIFMMOE+LK4MN1F0P+mrWok1enIYk=;
+	b=SVVRJHJaprtM6C0+eG9glwmAekjXAIL5u1tV7oEWMp4sUknFdHw3+TAI10pPvlJP
+	eh7Fq4bsmAkPLQP6PcTPlVQYcL0YmgITiFPA1wKlhlFt1Gv3uKubElxQrroIyYJ4C5S
+	HjxdilzHXJ+6x1FHXQpQPLUZizfBOw3VqBY6uSsI=
+X-Sender: "=?UTF-8?Q?Novartis=20Release?=" <media.relations@novartis.com>
+X-Receiver: BI_VOX@pfizer.com
+X-FireEye: Clean
+From: =?UTF-8?Q?Novartis=20Release?= <media.relations@novartis.com>
+To: BI_VOX@pfizer.com
+Reply-To: media.relations@novartis.com
+Date: Mon, 30 Oct 2023 06:15:57 +0000
+Message-ID: <0102018b7f3983d1-65648c10-ff6a-49ac-9683-08365f60cc6c-000000@eu-west-1.amazonses.com>
+Feedback-ID: 1.eu-west-1.lzb4fhJZei7Cr1QiW4H/IVCBlOzetPgeQ5iybk43ioI=:AmazonSES
+X-SES-Outgoing: 2023.10.30-54.240.2.58
+X-Proofpoint-GUID: vryxAc6MdYk3YbL2rTiQwGEvFbJZdHmD
+X-CLX-Response: 1TFkXGx0TEQpMehcZGhkRCllEF25OEnpeb35SU0dzEQpYWBdib3oFTn0bc1l 5UhEKeE4XYVhiQ1x+U2h/YhsRCnhLF2JvegVOfRtzWXlSEQp5TBdiThxTZGBeeWdGWxEKQ0gXBx gcHhEKQ1kXBxgcHhEKQ0kXGgQaGhoRCllNF2dmchEKWUkXGnEaEBp3BhsfE3EbExITEB8adwYYG
+ gYaEQpZXhdsbHkRCklGF1pMQ1BPWHVCRVleT04RCklHF3hPTREKQ04XXFhTUmtJHGdOc0EZc0hm GFh+Q3tdbW9cbEhgcE5iR24RClhcFx8EGgQZGRIFGxoEGxoaBBsZHgQZHxAbHhofGhEKXlkXSU5 lHB0RCk1cFx8dHhEKTFoXaWttTU1NEQpMRhdva2tra2sRCkJPF2VHb3lzZExQS39kEQpDWhcfHg
+ QYHhoEGAQfEhEKQl4XGxEKQlwXGxEKXk4XGxEKQksXYVhiQ1x+U2h/YhsRCkJJF2FYYkNcflNof 2IbEQpCRRduaEJGE0xYZUdtThEKQk4XYVhiQ1x+U2h/YhsRCkJMF2JvegVOfRtzWXlSEQpCbBdv ektme35uTWBBchEKQkAXZ2FieWdLb1sBY2gRCkJYF2thbG5bXgV6RAUcEQpaWBcbGxEKeUMXaxt
+ JYxJCRmhLREERCllLFxsaGh0YEQpaSxcbGhodGBEKcGgXaHx7Y18ZTGIdRW0QHBoRCnBoF2FseX 8TYEZyX1NBEBwaEQpwaBdjbURQYHsfQXNJZxAcGhEKcGgXZ1NIZmtTAVhbQB8QHBoRCnBoF2JJG FBha0RQG1keEBwaEQpwaBdjYEF8WG18HlpgQRAcGhEKcGgXZEh4blsZQmlcU2cQHBoRCnBoF2RN
+ f0t8U0YdbWZ8EBwaEQpwfRdnXmhBcE1QGHBBBRAbGhIRCnB9F2Z/bl0YRWVeHU0aEBwaEQpwfRd saHJnXgVAHxISYRAbHxoRCnB9F2xbZkZAGHoTblBgEBwaEQpwfRdtW29mT20ZHGddBRAcGhEKcH 0XawF4EkkYblB/WGUQHBoRCnB9F3oTHHJbH2BiXnJHEBwaEQpwfRdgbmJPb2FgAUxrfBAcGhEKc
+ H8XZmNaRltfR2UFXGgQEx8RCnBfF2deaEFwTVAYcEEFEBsaEhEKcH8XZgFeYUVtSUt8H3MQHRoR CnBfF2wTZ0BJRgF+a20SEB0aEQpwfxdoGWJiY2hcBR0eRRAbGxwRCnBfF2xsTG16fn1ZZ1tcEBs fGhEKcH8XZnkdZX9pARxPa2QQExoRCnBfF2dwZV5sZUITXE9eEBwaEQpwfxdhTx8ZeUlpXHkaZh
+ ASHREKcF8Xb0cBSwVoYH9QUBgQHBoRCnB/F28bQWh6Y2YeSGYTEBMeEQpwXxdvXnpZGFIZRBleH RAZGhEKcH8XYVwZc0J5b3lCQF4QGxoeEQpwXxd6SF9yTkAaWUBnTBAdEhEKcH8XY2BLBRtCRmdl fB8QHBoRCnBfF25CHhpEWk5He0NAEBwaEQpwbBdoTURtWRwBZ05GWRAdGhEKbX4XGhEKWE0XSxE g
+X-CLX-Shades: MLX
+X-Proofpoint-ORIG-GUID: vryxAc6MdYk3YbL2rTiQwGEvFbJZdHmD
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-PFERule: PODI-Spoofsafe
+x-pfe-proofpoint-bulk: safe
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:amazonses.com ~all
+x-pfepod-dmarc-rule: pass
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: allow
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-30_04,2023-10-27_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=low_aspam_notspam policy=low_aspam score=0 mlxlogscore=999 mlxscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 clxscore=179 spamscore=0 priorityscore=303
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2310240000
+ definitions=main-2310300045 domainage_hfrom=10072 domainage_replyto=10072
+X-Area1Security-Origin: EXTERNAL 
+X-Area1Security-Processed: b3fcb4d809bbba31a060803c45e4a109;2;NONE;2023-10-30T06:16:01;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: [EXTERNAL] Novartis investigational atrasentan Phase III study demonstrates
+ clinically meaningful and highly statistically significant proteinuria
+ reduction in patients with IgA nephropathy (IgAN)             
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-30_04,2023-10-27_01,2023-05-22_02
+Return-Path:
+ 0102018b7f3983d1-65648c10-ff6a-49ac-9683-08365f60cc6c-000000@gnw.novartis.com
+X-OrganizationHeadersPreserved: drmamrexdg01.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 30 Oct 2023 06:16:06.3972
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 3fa3b398-97c7-47d0-74ab-08dbd90fb399
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: drmamrexdg01.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: CO1PEPF000042A7.namprd03.prod.outlook.com
+X-CrossPremisesHeadersFiltered: CO1PEPF000042A7.namprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ CO1PEPF000042A7:EE_|SJ2PR01MB8126:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: Pfizer.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id: 3fa3b398-97c7-47d0-74ab-08dbd90fb399
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.40.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:iad-us-a-148-168-40-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 06:16:06.2253
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fa3b398-97c7-47d0-74ab-08dbd90fb399
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.40.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: drmamrexdg01.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR01MB8126
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.5679879
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6907.032
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	yEI+cFAqC4zzrHvNRvfzhW0/F7m6Ut2MjQlmwUNWKfRLgWKlKalFyU6u7aLn45YR/HDK7QMbWIsx8H56FKzJeAHHx0gTofdfNJFtYOi744nN+1FfUT3FvDlPPZbit1gAtDsjwODgvNljGPFcG0KqdyGBpI6RVfViZeu8iOiqdbTAyTzRDyjU8jx5MrssExkO9HfG8++d4SQpQsatXoqbGeVbjTwsK5/SDfvEAs+tck4k2e+lPXR6Jj3RQdBiGa4OmV84IJ8se3ctoCHatbYfygMRATcE503LEapmFbdb3l+1s+24ZeldYwWn5p2imCwlug+nsLBPhOPLlj0p8kNVkYhqqImhF6T4Upoa8t9Tmnxs9q4Q6FHJytyUqjYV9rPmjtW3QHHHoYC1aPz4ib1HaWfNseB77Q+6t6m85zbZoDHOaoex3vkJ6eMY+c2zSAlu1cKa/jXo3wVuxzcHqx0UF8GEn/aay7yVMzsPKgfad6pivC9oU9t7gSpkNmYd0AaLe+3lvSqAbV8XImBLxaUj7t7faitj8VcQ8EHBpL0wfqp8VH1CXxHOdvBViSvqQpgCAWA8+6Qr4B6sx5a2Xm+Kz23p2XLuVrTiMvGgkOZAgKvTSoNlgmc2tiycQeRq29TMosiOdCyWs8RwM8hXn9y0XPDBxtJqlqzUuLHxnwM/Fsh4M5Loesxb4rKSwsRgZj+ckQszAmyMIGv6tIEp5SZi3YEHOTE8dP/5epzFlH/+YhZyje3hJmc3Df/sDDgc6k36tcbJq4RJMYWpPxfreJnvUA==
+MIME-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><t=
+itle></title></head><body style=3D"font-family:Arial;font-size: 14px;"><spa=
+n style=3D"padding: 0px;"></span>
+<table style=3D"width: 100%;">
+<tbody>
+<tr><!-- LEFT LOGO -->
+<td style=3D"display: inline-block; float: left; width: 33%; text-align: le=
+ft;"><a href=3D"https://urldefense.com/v3/__http://www.novartis.com__;!!H9n=
+ueQsQ!756rE5uQZewqIa3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9=
+IguLMDNBG2oW-Lb1Aybct6i$"><img src=3D"http://hugin.info/134323/B/762459.jpg=
+" alt=3D""></a></td>
+<!-- CENTRE LOGO -->
+<td style=3D"display: inline-block; margin: 0 auto; width: 33%; text-align:=
+ center;">&nbsp;</td>
+<!-- RIGHT LOGO -->
+<td style=3D"display: inline-block; float: right; width: 33%; text-align: r=
+ight;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div><br>
+<section>
+<article><strong><span style=3D"font-family: arial, helvetica, sans-serif; =
+font-size: 12pt;">Novartis investigational atrasentan Phase III study demon=
+strates clinically meaningful and highly statistically significant proteinu=
+ria reduction in patients with IgA nephropathy (IgAN)<br><br> </span></stro=
+ng></article>
+<article><p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"fon=
+t-size:10pt; font-family:'arial';"><strong>Ad hoc announcement pursuant to =
+Art. 53 LR</strong></span></p>  <ul type=3D"disc"><li style=3D"font-size:11=
+pt; font-family:'Arial';"><span style=3D"font-size:11pt; font-family:'Arial=
+';"><em>Phase III ALIGN study met its primary endpoint, demonstrating super=
+iority of atrasentan vs. placebo in proteinuria reduction at 36-week interi=
+m analysis</em></span><span style=3D"font-size:11pt; font-family:'Arial';">=
+<sup><em>1</em></sup></span><span style=3D"font-size:11pt; font-family:'Ari=
+al';"><em>; the safety profile of atrasentan was consistent with previously=
+ reported data</em></span><span style=3D"font-size:11pt; font-family:'Arial=
+';"><sup><em>1,2-</em></sup></span><span style=3D"font-size:11pt; font-fami=
+ly:'Arial';"><sup><em>4</em></sup></span></li></ul>  <ul type=3D"disc"><li =
+style=3D"font-size:11pt; font-family:'Arial';"><span style=3D"font-size:11p=
+t; font-family:'Arial';"><em>IgAN is a progressive kidney disease, affectin=
+g mostly young adults, and is a major cause of chronic kidney disease and k=
+idney failure worldwide</em></span><span style=3D"font-size:11pt; font-fami=
+ly:'Arial';"><sup><em>5</em></sup></span></li></ul>  <ul type=3D"disc"><li =
+style=3D"font-size:11pt; font-family:'Arial';"><span style=3D"font-size:11p=
+t; font-family:'Arial';"><em>Novartis plans to review interim results with =
+FDA to enable a potential regulatory submission for accelerated approval; s=
+tudy continues with final readout expected in the first quarter of 2026</em=
+></span></li></ul>  <ul type=3D"disc"><li style=3D"font-size:11pt; font-fam=
+ily:'Arial';"><span style=3D"font-size:11pt; font-family:'Arial';"><em>Nova=
+rtis is advancing the development of three highly differentiated therapies =
+in IgAN, with the potential to address unmet needs for people living with t=
+he disease</em></span></li></ul>  <p style=3D"margin-top:0pt; margin-bottom=
+:0pt;"><span style=3D"font-size:10pt; font-family:'Arial';"><strong>Basel, =
+October 30, 2023</strong></span><span style=3D"font-size:10pt; font-family:=
+'Arial';"> =E2=80=94 Novartis today announced positive topline results from=
+ the interim analysis of the ongoing pivotal Phase III ALIGN study (NCT0457=
+3478) of atrasentan, an oral endothelin A receptor antagonist (ERA), in pat=
+ients with IgA nephropathy (IgAN)</span><span style=3D"font-size:10pt; font=
+-family:'Arial';"><sup>1</sup></span><span style=3D"font-size:10pt; font-fa=
+mily:'Arial';">. The study met its primary efficacy endpoint at the 36-week=
+ interim analysis, with atrasentan demonstrating superiority versus placebo=
+ with a clinically meaningful and highly statistically significant reductio=
+n in proteinuria (protein in urine) in patients with IgAN receiving support=
+ive care (maximally tolerated and stable dose of a </span><span style=3D"ba=
+ckground-color:rgb(255, 255, 255); color:rgb(23, 23, 22); font-size:10pt; f=
+ont-family:'Arial';">renin-angiotensin system [</span><span style=3D"font-s=
+ize:10pt; font-family:'Arial';">RAS] inhibitor)</span><span style=3D"font-s=
+ize:10pt; font-family:'Arial';"><sup>1</sup></span><span style=3D"font-size=
+:10pt; font-family:'Arial';">. In the study, the safety profile of atrasent=
+an was consistent with previously reported data from the Phase II AFFINITY =
+study IgAN cohort</span><span style=3D"font-size:10pt; font-family:'Arial';=
+"><sup>1,</sup></span><span style=3D"font-size:10pt; font-family:'Arial';">=
+<sup>2</sup></span><span style=3D"font-size:10pt; font-family:'Arial';"><su=
+p>=E2=80=93</sup></span><span style=3D"font-size:10pt; font-family:'Arial';=
+"><sup>4</sup></span><span style=3D"font-size:10pt; font-family:'Arial';">.=
+ Based on the results from this interim proteinuria endpoint analysis, Nova=
+rtis plans to submit an application in 2024 for possible accelerated approv=
+al in the US.</span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&=
+nbsp;</p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"f=
+ont-size:10pt; font-family:'Arial';">=E2=80=9CThese positive topline Phase =
+III data showcase the potential of atrasentan to improve outcomes for patie=
+nts with IgAN by demonstrating clinically meaningful proteinuria reduction,=
+=E2=80=9D said Shreeram Aradhye, M.D., President, Development and Chief Med=
+ical Officer, Novartis. =E2=80=9CAlong with investigational iptacopan, whic=
+h recently also showed positive topline Phase III results, and investigatio=
+nal zigakibart, our development portfolio of three highly differentiated la=
+te-stage therapies in IgAN has the potential to provide much-needed treatme=
+nt options for people living with this debilitating disease.=E2=80=9D</span=
+></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>  <p style=
+=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; font=
+-family:'Arial';">IgAN is a major cause of chronic kidney disease and kidne=
+y failure, and mostly affects young adults</span><span style=3D"font-size:1=
+0pt; font-family:'Arial';"><sup>5</sup></span><span style=3D"font-size:10pt=
+; font-family:'Arial';">. Up to 30% of people who have IgAN with persistent=
+ higher levels of proteinuria (=E2=89=A51 g/day) progress to kidney failure=
+ within 10 years</span><span style=3D"font-size:10pt; font-family:'Arial';"=
+><sup>6</sup></span><span style=3D"font-size:10pt; font-family:'Arial';">. =
+There is a need for effective therapies for IgAN that can help slow progres=
+sion to kidney failure</span><span style=3D"font-size:10pt; font-family:'Ar=
+ial';"><sup>5</sup></span><span style=3D"font-size:10pt; font-family:'Arial=
+';"><sup>,7,8</sup></span><span style=3D"font-size:10pt; font-family:'Arial=
+';">.</span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p=
+>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size=
+:10pt; font-family:'Arial';">Atrasentan, an investigational oral endothelin=
+ A receptor antagonist in development for IgAN and other rare kidney diseas=
+es, was added to the Novartis portfolio through the recent acquisition of C=
+hinook Therapeutics along with investigational zigakibart (BION-1301), a su=
+bcutaneously administered anti-APRIL monoclonal antibody in Phase III devel=
+opment for IgAN</span><span style=3D"font-size:10pt; font-family:'Arial';">=
+<sup>9</sup></span><span style=3D"font-size:10pt; font-family:'Arial';">. T=
+he addition of these two late-stage medicines, as well as an early-stage pi=
+peline, expands the Novartis renal portfolio, which also includes iptacopan=
+, an investigational factor B inhibitor that recently achieved positive Pha=
+se III interim results in IgAN</span><span style=3D"font-size:10pt; font-fa=
+mily:'Arial';"><sup>10</sup></span><span style=3D"font-size:10pt; font-fami=
+ly:'Arial';">. Novartis is advancing the development of these three potenti=
+al therapeutic options, with </span><span style=3D"color:rgb(0, 0, 0); font=
+-size:10pt; font-family:'Arial';">different mechanisms of action</span><spa=
+n style=3D"font-size:10pt; font-family:'Arial';">, to address unmet needs i=
+n IgAN and other rare kidney diseases</span><span style=3D"color:rgb(0, 0, =
+0); font-size:10pt; font-family:'Arial';">.</span></p>  <p style=3D"margin-=
+top:0pt; margin-bottom:0pt;">&nbsp;</p>  <p style=3D"margin-top:0pt; margin=
+-bottom:0pt;"><span style=3D"font-size:10pt; font-family:'Arial';">The ALIG=
+N study continues in a blinded manner to evaluate the change in kidney func=
+tion over 136 weeks as measured by estimated glomerular filtration rate (eG=
+FR), with topline results from the confirmatory endpoint analysis expected =
+in the first quarter of 2026</span><span style=3D"font-size:10pt; font-fami=
+ly:'Arial';"><sup>11,12</sup></span><span style=3D"font-size:10pt; font-fam=
+ily:'Arial';">. </span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;=
+">&nbsp;</p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=
+=3D"font-size:10pt; font-family:'Arial';"><strong>About the study</strong><=
+/span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"=
+font-size:10pt; font-family:'Arial';">The ALIGN study (NCT04573478) is a gl=
+obal, randomized, multicenter, double-blind, placebo-controlled Phase III c=
+linical trial comparing the efficacy and safety of atrasentan versus placeb=
+o in patients with IgAN at risk of progressive loss of kidney function</spa=
+n><span style=3D"font-size:10pt; font-family:'Arial';"><sup>11,12</sup></sp=
+an><span style=3D"font-size:10pt; font-family:'Arial';">. Approximately 340=
+ patients with biopsy-proven IgAN with baseline total proteinuria over one =
+gram per day despite optimized RAS inhibitor treatment were randomized to r=
+eceive once-daily oral doses of atrasentan (0.75 mg) or placebo for approxi=
+mately 2.5 years (132 weeks)</span><span style=3D"font-size:10pt; font-fami=
+ly:'Arial';"><sup>11,12</sup></span><span style=3D"font-size:10pt; font-fam=
+ily:'Arial';">. Patients continue receiving a maximally tolerated and stabl=
+e dose of a RAS (renin-angiotensin system) inhibitor as supportive care (un=
+less they are unable to tolerate RAS inhibitor therapy)</span><span style=
+=3D"font-size:10pt; font-family:'Arial';"><sup>11,12</sup></span><span styl=
+e=3D"font-size:10pt; font-family:'Arial';">. An additional group of up to 6=
+4 patients receiving a stable dose of SGLT2 inhibitor for at least 12 weeks=
+ have also been enrolled</span><span style=3D"font-size:10pt; font-family:'=
+Arial';"><sup>11,12</sup></span><span style=3D"font-size:10pt; font-family:=
+'Arial';">.</span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nb=
+sp;</p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"fon=
+t-size:10pt; font-family:'Arial';">The primary efficacy endpoint of the stu=
+dy is change in proteinuria as measured by urine protein to creatinine rati=
+o (UPCR) from baseline to 36 weeks</span><span style=3D"font-size:10pt; fon=
+t-family:'Arial';"><sup>11,12</sup></span><span style=3D"font-size:10pt; fo=
+nt-family:'Arial';">. Secondary and exploratory objectives include evaluati=
+ng the change in kidney function from baseline to week 136 as measured by e=
+GFR, as well as safety and tolerability</span><span style=3D"font-size:10pt=
+; font-family:'Arial';"><sup>11,12</sup></span><span style=3D"font-size:10p=
+t; font-family:'Arial';">. Topline results from the confirmatory endpoint a=
+nalysis are expected in the first quarter of 2026</span><span style=3D"font=
+-size:10pt; font-family:'Arial';"><sup>11,12</sup></span><span style=3D"fon=
+t-size:10pt; font-family:'Arial';">.</span></p>  <p style=3D"margin-top:0pt=
+; margin-bottom:0pt;">&nbsp;</p>  <p style=3D"margin-top:0pt; margin-bottom=
+:0pt;"><span style=3D"font-size:10pt; font-family:'Arial';"><strong>About a=
+trasentan</strong></span></p>  <p style=3D"margin-top:0pt; margin-bottom:0p=
+t;"><span style=3D"font-size:10pt; font-family:'Arial';">Atrasentan is an i=
+nvestigational oral endothelin A receptor antagonist (ERA), currently in Ph=
+ase III development for IgAN and early-stage development for other rare kid=
+ney diseases</span><span style=3D"font-size:10pt; font-family:'Arial';"><su=
+p>2</sup></span><span style=3D"font-size:10pt; font-family:'Arial';"><sup>=
+=E2=80=93</sup></span><span style=3D"font-size:10pt; font-family:'Arial';">=
+<sup>4</sup></span><span style=3D"font-size:10pt; font-family:'Arial';"><su=
+p>,9,11,12</sup></span><span style=3D"font-size:10pt; font-family:'Arial';"=
+>. Atrasentan has shown significant reductions in proteinuria versus baseli=
+ne in a Phase II trial for IgAN</span><span style=3D"font-size:10pt; font-f=
+amily:'Arial';"><sup>2-4</sup></span><span style=3D"font-size:10pt; font-fa=
+mily:'Arial';">. </span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt=
+;">&nbsp;</p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=
+=3D"font-size:10pt; font-family:'Arial';"><strong>About IgA nephropathy (Ig=
+AN)</strong></span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><s=
+pan style=3D"font-size:10pt; font-family:'Arial';">IgAN is a progressive, r=
+are kidney disease that mostly affects young adults</span><span style=3D"fo=
+nt-size:10pt; font-family:'Arial';"><sup>5</sup></span><span style=3D"font-=
+size:10pt; font-family:'Arial';">. It is estimated that approximately 110,0=
+00 people in the US and 47,000 people across 10 European countries live wit=
+h IgAN, with approximately 25 people per million newly diagnosed with IgAN =
+each year globally</span><span style=3D"font-size:10pt; font-family:'Arial'=
+;"><sup>5</sup></span><span style=3D"font-size:10pt; font-family:'Arial';">=
+<sup>,13</sup></span><span style=3D"font-size:10pt; font-family:'Arial';"><=
+sup>=E2=80=93</sup></span><span style=3D"font-size:10pt; font-family:'Arial=
+';"><sup>16</sup></span><span style=3D"font-size:10pt; font-family:'Arial';=
+">. </span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>=
+  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:=
+10pt; font-family:'Arial';">In IgAN, autoimmune reaction to an abnormal for=
+m of IgA results in formation of immune complexes that deposit in the kidne=
+y</span><span style=3D"font-size:10pt; font-family:'Arial';"><sup>5</sup></=
+span><span style=3D"font-size:10pt; font-family:'Arial';"><sup>,7,1</sup></=
+span><span style=3D"font-size:10pt; font-family:'Arial';"><sup>7</sup></spa=
+n><span style=3D"font-size:10pt; font-family:'Arial';"><sup>=E2=80=931</sup=
+></span><span style=3D"font-size:10pt; font-family:'Arial';"><sup>9</sup></=
+span><span style=3D"font-size:10pt; font-family:'Arial';">. These immune co=
+mplexes trigger an inflammatory response leading to progressive kidney dama=
+ge and loss of kidney function</span><span style=3D"font-size:10pt; font-fa=
+mily:'Arial';"><sup>5</sup></span><span style=3D"font-size:10pt; font-famil=
+y:'Arial';"><sup>,7,1</sup></span><span style=3D"font-size:10pt; font-famil=
+y:'Arial';"><sup>7</sup></span><span style=3D"font-size:10pt; font-family:'=
+Arial';"><sup>=E2=80=93</sup></span><span style=3D"font-size:10pt; font-fam=
+ily:'Arial';"><sup>19</sup></span><span style=3D"font-size:10pt; font-famil=
+y:'Arial';">. Up to 30% of people who have IgAN with persistent higher leve=
+ls of proteinuria (=E2=89=A51 g/day) progress to kidney failure within 10 y=
+ears</span><span style=3D"font-size:10pt; font-family:'Arial';"><sup>6</sup=
+></span><span style=3D"font-size:10pt; font-family:'Arial';">.</span></p>  =
+<p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>  <p style=3D"lin=
+e-height:12.8pt; margin-top:0pt; margin-bottom:8pt;"><span style=3D"font-si=
+ze:10pt; font-family:'Arial';">There is a need for effective therapies for =
+IgAN that can help slow progression to kidney failure</span><span style=3D"=
+font-size:10pt; font-family:'Arial';"><sup>5</sup></span><span style=3D"fon=
+t-size:10pt; font-family:'Arial';"><sup>,7,8</sup></span><span style=3D"fon=
+t-size:10pt; font-family:'Arial';">.</span></p>  <p style=3D"margin-top:0pt=
+; margin-bottom:0pt;"><span style=3D"font-size:10pt; font-family:'Arial';">=
+<strong>Disclaimer</strong></span></p>  <p style=3D"margin-top:0pt; margin-=
+bottom:0pt;"><span style=3D"font-size:10pt; font-family:'Arial';">This pres=
+s release contains forward-looking statements within the meaning of the Uni=
+ted States Private Securities Litigation Reform Act of 1995. Forward-lookin=
+g statements can generally be identified by words such as &quot;plans,&quot=
+; &quot;accelerated,&quot; &quot;continues,&quot; &quot;advancing,&quot; &q=
+uot;potential,&quot; &quot;to address,&quot; &quot;ongoing,&quot; &quot;to =
+submit,&quot; &quot;transform,&quot; &quot;investigational,&quot; &quot;adv=
+ancing,&quot; &quot;will,&quot; to evaluate,&quot; &quot;can,&quot; &quot;e=
+xpected,&quot; &quot;progressive,&quot; or similar terms, or by express or =
+implied discussions regarding potential marketing approvals, new indication=
+s or labeling for atrasentan or the other investigational or approved produ=
+cts described in this press release, or regarding potential future revenues=
+ from such products. You should not place undue reliance on these statement=
+s. Such forward-looking statements are based on our current beliefs and exp=
+ectations regarding future events, and are subject to significant known and=
+ unknown risks and uncertainties. Should one or more of these risks or unce=
+rtainties materialize, or should underlying assumptions prove incorrect, ac=
+tual results may vary materially from those set forth in the forward-lookin=
+g statements. There can be no guarantee that atrasentan or the other invest=
+igational or approved products described in this press release will be subm=
+itted or approved for sale or for any additional indications or labeling in=
+ any market, or at any particular time. Nor can there be any guarantee that=
+ such products will be commercially successful in the future. In particular=
+, our expectations regarding atrasentan or the other investigational or app=
+roved products described in this press release could be affected by, among =
+other things, the uncertainties inherent in research and development, inclu=
+ding clinical trial results and additional analysis of existing clinical da=
+ta; regulatory actions or delays or government regulation generally; global=
+ trends toward health care cost containment, including government, payor an=
+d general public pricing and reimbursement pressures and requirements for i=
+ncreased pricing transparency; our ability to obtain or maintain proprietar=
+y intellectual property protection; the particular prescribing preferences =
+of physicians and patients; general political, economic and business condit=
+ions, including the effects of and efforts to mitigate pandemic diseases; s=
+afety, quality, data integrity or manufacturing issues; potential or actual=
+ data security and data privacy breaches, or disruptions of our information=
+ technology systems, and other risks and factors referred to in Novartis AG=
+=E2=80=99s current Form 20-F on file with the US Securities and Exchange Co=
+mmission. Novartis is providing the information in this press release as of=
+ this date and does not undertake any obligation to update any forward-look=
+ing statements contained in this press release as a result of new informati=
+on, future events or otherwise.</span></p>  <p style=3D"margin-top:0pt; mar=
+gin-bottom:0pt;">&nbsp;</p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;=
+"><span style=3D"font-size:10pt; font-family:'Arial';"><strong>About Novart=
+is</strong></span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><sp=
+an style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">Novar=
+tis is a focused innovative medicines company. Every day, we work to reimag=
+ine medicine to improve and extend people=E2=80=99s lives so that patients,=
+ healthcare professionals and societies are empowered in the face of seriou=
+s disease. Our medicines reach more than 250 million people worldwide.</spa=
+n></p>  <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;">&=
+nbsp;</p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"c=
+olor:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">Reimagine medicine=
+ with us: Visit us at </span><span style=3D"color:rgb(0, 0, 0); font-size:1=
+0pt; font-family:'Arial';"><a href=3D"https://urldefense.com/v3/__https://w=
+ww.novartis.com/__;!!H9nueQsQ!756rE5uQZewqIa3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJX=
+hBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1Fxm_c09$" rel=3D"nofollow" style=3D=
+"color:rgb(0, 0, 0);" target=3D"_blank">https://www.novartis.com</a></span>=
+ <span style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">a=
+nd connect with us on </span><span style=3D"color:rgb(0, 0, 0); font-size:1=
+0pt; font-family:'Arial';"><a href=3D"https://urldefense.com/v3/__https://w=
+ww.linkedin.com/company/novartis__;!!H9nueQsQ!756rE5uQZewqIa3pdGiMxwaJjwFoF=
+J4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1HPEQk1k$" rel=3D"no=
+follow" style=3D"color:rgb(0, 0, 0);" target=3D"_blank">LinkedIn</a></span>=
+<span style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">, =
+</span><span style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Aria=
+l';"><a href=3D"https://urldefense.com/v3/__https://www.facebook.com/novart=
+is/__;!!H9nueQsQ!756rE5uQZewqIa3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9=
+FdG_za7Ubk9IguLMDNBG2oW-Lb1BH26aXt$" rel=3D"nofollow" style=3D"color:rgb(0,=
+ 0, 0);" target=3D"_blank">Facebook</a></span><span style=3D"color:rgb(0, 0=
+, 0); font-size:10pt; font-family:'Arial';">, </span><span style=3D"color:r=
+gb(0, 0, 0); font-size:10pt; font-family:'Arial';"><a href=3D"https://urlde=
+fense.com/v3/__https://twitter.com/Novartis__;!!H9nueQsQ!756rE5uQZewqIa3pdG=
+iMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1AdhHMh8$=
+" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0);" target=3D"_blank">X/Twitte=
+r</a></span><span style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:=
+'Arial';"> and </span><span style=3D"color:rgb(0, 0, 0); font-size:10pt; fo=
+nt-family:'Arial';"><a href=3D"https://urldefense.com/v3/__https://www.inst=
+agram.com/novartis/?hl=3Dde__;!!H9nueQsQ!756rE5uQZewqIa3pdGiMxwaJjwFoFJ4YDu=
+XYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1PmQmRzi$" rel=3D"nofollo=
+w" style=3D"color:rgb(0, 0, 0);" target=3D"_blank">Instagram</a></span><spa=
+n style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">.</spa=
+n></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>  <p styl=
+e=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; fon=
+t-family:'Arial';"><strong>References</strong></span></p>  <ol style=3D"lis=
+t-style-type:decimal;"><li style=3D"font-size:8pt; font-family:'Arial';"><s=
+pan style=3D"font-size:8pt; font-family:'Arial';">Novartis data on file.</s=
+pan></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D"f=
+ont-size:8pt; font-family:'Arial';">Chinook Therapeutics Presents Updated D=
+ata from Atrasentan Phase 2 AFFINITY IgA Nephropathy (IgAN) Patient Cohort,=
+ Preclinical Atrasentan Research and Ongoing Clinical Trials at the America=
+n Society of Nephrology (ASN) Kidney Week 2022. Chinook Therapeutics, Inc. =
+Accessed October 18, 2023. </span><span style=3D"color:rgb(0, 0, 0); font-s=
+ize:8pt; font-family:'Arial';"><a href=3D"https://urldefense.com/v3/__https=
+://investors.chinooktx.com/news-releases/news-release-details/chinook-thera=
+peutics-presents-updated-data-atrasentan-phase-2__;!!H9nueQsQ!756rE5uQZewqI=
+a3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1EAm=
+nliD$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-decoration:none;"=
+ target=3D"_blank">https://investors.chinooktx.com/news-releases/news-relea=
+se-details/chinook-therapeutics-presents-updated-data-atrasentan-phase-2</a=
+></span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=
+=3D"font-size:8pt; font-family:'Arial';">Kim SG, Akinfolarin AA, Inker LA, =
+et al. WCN23-1117 ATRASENTAN IN PATIENTS WITH PROTEINURIC GLOMERULAR DISEAS=
+ES =E2=80=93 THE AFFINITY STUDY. </span><span style=3D"font-size:8pt; font-=
+family:'Arial';"><em>Kidney Int Rep</em></span><span style=3D"font-size:8pt=
+; font-family:'Arial';">. 2023;8(9):1902. doi:10.1016/j.ekir.2023.02.1089.<=
+/span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D=
+"font-size:8pt; font-family:'Arial';">Kim SG, Inker LA, Packham DK, et al. =
+WCN23-1126 ATRASENTAN FOR THE TREATMENT OF IGA NEPHROPATHY: INTERIM RESULTS=
+ OF THE AFFINITY STUDY. </span><span style=3D"font-size:8pt; font-family:'A=
+rial';"><em>Kidney Int Rep</em></span><span style=3D"font-size:8pt; font-fa=
+mily:'Arial';">. 2023;8(9):1902. doi:10.1016/j.ekir.2023.02.1088.</span></l=
+i><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D"font-siz=
+e:8pt; font-family:'Arial';">Rovin BH, Adler SG, Barratt J, et al. KDIGO 20=
+21 Clinical Practice Guideline for the Management of Glomerular Diseases. <=
+/span><span style=3D"font-size:8pt; font-family:'Arial';"><em>Kidney Int</e=
+m></span><span style=3D"font-size:8pt; font-family:'Arial';">. 2021;100(4):=
+S1-S276. doi:10.1016/j.kint.2021.05.021.</span></li><li style=3D"font-size:=
+8pt; font-family:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial=
+';">Reich HN, Troyanov SAA, Scholey JW, Cattran DC. Remission of Proteinuri=
+a Improves Prognosis in IgA Nephropathy. </span><span style=3D"font-size:8p=
+t; font-family:'Arial';"><em>J Am Soc Nephrol</em></span><span style=3D"fon=
+t-size:8pt; font-family:'Arial';">. 2007;18(12):3177-3183. doi:10.1681/ASN.=
+2007050526.</span></li><li style=3D"font-size:8pt; font-family:'Arial';"><s=
+pan style=3D"font-size:8pt; font-family:'Arial';">Boyd JK, Cheung CK, Molyn=
+eux K, Feehally J, Barratt J. An update on the pathogenesis and treatment o=
+f IgA nephropathy. </span><span style=3D"font-size:8pt; font-family:'Arial'=
+;"><em>Kidney Int</em></span><span style=3D"font-size:8pt; font-family:'Ari=
+al';">. 2012;81(9):833-843. doi:10.1038/ki.2011.501.</span></li><li style=
+=3D"font-size:8pt; font-family:'Arial';"><span style=3D"font-size:8pt; font=
+-family:'Arial';">Xie J, Kiryluk K, Wang W, et al. Predicting Progression o=
+f IgA Nephropathy: New Clinical Progression Risk Score. Moura IC, ed. </spa=
+n><span style=3D"font-size:8pt; font-family:'Arial';"><em>PLoS ONE</em></sp=
+an><span style=3D"font-size:8pt; font-family:'Arial';">. 2012;7(6):e38904. =
+doi:10.1371/journal.pone.0038904.</span></li><li style=3D"font-size:8pt; fo=
+nt-family:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';">Nov=
+artis completes acquisition of Chinook Therapeutics. Novartis. Accessed Oct=
+ober 18, 2023.&nbsp;<span style=3D"color:rgb(0, 0, 0); font-size:8pt; font-=
+family:'Arial';"><a href=3D"https://urldefense.com/v3/__https://www.novarti=
+s.com/news/media-releases/novartis-completes-acquisition-chinook-therapeuti=
+cs__;!!H9nueQsQ!756rE5uQZewqIa3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9F=
+dG_za7Ubk9IguLMDNBG2oW-Lb1E1D_LZc$" rel=3D"nofollow" style=3D"color:rgb(0, =
+0, 0);" target=3D"_blank">https://www.novartis.com/news/media-releases/nova=
+rtis-completes-acquisition-chinook-therapeutics</a></span></span></li><li s=
+tyle=3D"font-size:8pt; font-family:'Arial';"><span style=3D"font-size:8pt; =
+font-family:'Arial';">Novartis investigational iptacopan Phase III study de=
+monstrates clinically meaningful and highly statistically significant prote=
+inuria reduction in patients with IgA nephropathy (IgAN). Novartis. Accesse=
+d October 18, 2023.&nbsp;<span style=3D"color:rgb(0, 0, 0); font-size:8pt; =
+font-family:'Arial';"><a href=3D"https://urldefense.com/v3/__https://www.no=
+vartis.com/news/media-releases/novartis-investigational-iptacopan-phase-iii=
+-study-demonstrates-clinically-meaningful-and-highly-statistically-signific=
+ant-proteinuria-reduction-patients-iga-nephropathy-igan__;!!H9nueQsQ!756rE5=
+uQZewqIa3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW=
+-Lb1HaSTQsa$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0);" target=3D"_bla=
+nk">https://www.novartis.com/news/media-releases/novartis-investigational-i=
+ptacopan-phase-iii-study-demonstrates-clinically-meaningful-and-highly-stat=
+istically-significant-proteinuria-reduction-patients-iga-nephropathy-igan</=
+a></span></span></li><li style=3D"font-size:8pt; font-family:'Arial';"><spa=
+n style=3D"font-size:8pt; font-family:'Arial';"><a href=3D"https://urldefen=
+se.com/v3/__http://ClinicalTrials.gov__;!!H9nueQsQ!756rE5uQZewqIa3pdGiMxwaJ=
+jwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1O7gsbZS$">Clin=
+icalTrials.gov</a>. Atrasentan in Patients With IgA Nephropathy (ALIGN). NC=
+T04573478. Accessed October 18, 2023.&nbsp;<span style=3D"color:rgb(0, 0, 0=
+); font-size:8pt; font-family:'Arial';"><a href=3D"https://urldefense.com/v=
+3/__https://clinicaltrials.gov/study/NCT04573478__;!!H9nueQsQ!756rE5uQZewqI=
+a3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1JJq=
+73m2$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0);" target=3D"_blank">htt=
+ps://clinicaltrials.gov/study/NCT04573478</a></span></span></li><li style=
+=3D"font-size:8pt; font-family:'Arial';"><span style=3D"font-size:8pt; font=
+-family:'Arial';">Lambers Heerspink H, Jardine M, Kohan DE, et al. WCN23-10=
+85 A PHASE 3, RANDOMIZED, DOUBLE-BLIND, PLACEBO-CONTROLLED STUDY OF ATRASEN=
+TAN IN PATIENTS WITH IGA NEPHROPATY- THE ALIGN STUDY. </span><span style=3D=
+"font-size:8pt; font-family:'Arial';"><em>Kidney Int Rep</em></span><span s=
+tyle=3D"font-size:8pt; font-family:'Arial';">. 2023;8(3):S279-S280. doi:10.=
+1016/j.ekir.2023.02.630.</span></li><li style=3D"font-size:8pt; font-family=
+:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';">McGrogan A, =
+Franssen CFM, de Vries CS. The incidence of primary glomerulonephritis worl=
+dwide: a systematic review of the literature. </span><span style=3D"font-si=
+ze:8pt; font-family:'Arial';"><em>Nephrol Dial Transplant</em></span><span =
+style=3D"font-size:8pt; font-family:'Arial';">. 2011;26(2):414-430. doi:10.=
+1093/ndt/gfq665.</span></li><li style=3D"font-size:8pt; font-family:'Arial'=
+;"><span style=3D"font-size:8pt; font-family:'Arial';">Lerma EV, Bensink ME=
+, Thakker KM, et al. Impact of Proteinuria and Kidney Function Decline on H=
+ealth Care Costs and Resource Utilization in Adults With IgA Nephropathy in=
+ the United States: A Retrospective Analysis. </span><span style=3D"font-si=
+ze:8pt; font-family:'Arial';"><em>Kidney Med</em></span><span style=3D"font=
+-size:8pt; font-family:'Arial';">. 2023;5(9). doi:10.1016/j.xkme.2023.10069=
+3.</span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=
+=3D"font-size:8pt; font-family:'Arial';">U.S. Census Bureau. QuickFacts: Un=
+ited States. Accessed October 26, 2023.&nbsp;<span style=3D"color:rgb(0, 0,=
+ 0); font-size:8pt; font-family:'Arial';"><a href=3D"https://urldefense.com=
+/v3/__https://www.census.gov/quickfacts/fact/table/US/PST045222__;!!H9nueQs=
+Q!756rE5uQZewqIa3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4jaNEz2d9FdG_za7Ubk9IguL=
+MDNBG2oW-Lb1Fc_eayp$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0);" target=
+=3D"_blank">https://www.census.gov/quickfacts/fact/table/US/PST045222</a></=
+span></span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span st=
+yle=3D"font-size:8pt; font-family:'Arial';">Willey CJ, Coppo R, Schaefer F,=
+ Mizerska-Wasiak M, Mathur M, Schultz MJ. The incidence and prevalence of I=
+gA nephropathy in Europe. </span><span style=3D"font-size:8pt; font-family:=
+'Arial';"><em>Nephrol Dial Transplant</em></span><span style=3D"font-size:8=
+pt; font-family:'Arial';">. 2023;38(10):2340-2349. doi:10.1093/ndt/gfad082.=
+</span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=
+=3D"font-size:8pt; font-family:'Arial';">Lafayette RA, Kelepouris E. Immuno=
+globulin A Nephropathy: Advances in Understanding of Pathogenesis and Treat=
+ment. </span><span style=3D"font-size:8pt; font-family:'Arial';"><em>Am J N=
+ephrol</em></span><span style=3D"font-size:8pt; font-family:'Arial';">. 201=
+8;47(Suppl. 1):43-52. doi:10.1159/000481636.</span></li><li style=3D"font-s=
+ize:8pt; font-family:'Arial';"><span style=3D"font-size:8pt; font-family:'A=
+rial';">Lai KN, Tang SCW, Schena FP, et al. IgA nephropathy. </span><span s=
+tyle=3D"font-size:8pt; font-family:'Arial';"><em>Nat Rev Dis Primer</em></s=
+pan><span style=3D"font-size:8pt; font-family:'Arial';">. 2016;2(1):16001. =
+doi:10.1038/nrdp.2016.1.</span></li><li style=3D"font-size:8pt; font-family=
+:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';">Rodrigues JC=
+, Haas M, Reich HN. IgA Nephropathy. </span><span style=3D"font-size:8pt; f=
+ont-family:'Arial';"><em>Clin J Am Soc Nephrol</em></span><span style=3D"fo=
+nt-size:8pt; font-family:'Arial';">. 2017;12(4):677-686. doi:10.2215/CJN.07=
+420716.</span></li></ol>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&=
+nbsp;</p>  <p align=3D"center" style=3D"margin-top:0pt; margin-bottom:0pt; =
+text-align:center;"><span style=3D"font-size:10pt; font-family:'Arial';"># =
+# #</span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p> =
+ <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p> <table style=3D=
+"border-collapse: collapse; width:800px; border-collapse:collapse ;"><tr><t=
+d colspan=3D"3" style=3D"vertical-align: top ; "> <p style=3D"margin-top:0p=
+t; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">=
+<strong>Novartis Media Relations</strong></span></p>  <p style=3D"margin-to=
+p:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial=
+';">E-mail: </span><span style=3D"color:rgb(0, 0, 0); font-size:10pt; font-=
+family:'Arial';"><a href=3D"mailto:media.relations@novartis.com" rel=3D"nof=
+ollow" style=3D"color:rgb(0, 0, 0); text-decoration:none;" target=3D"_blank=
+">media.relations@novartis.com</a></span></p>  <p style=3D"margin-top:0pt; =
+margin-bottom:0pt">&nbsp;</p> </td><td style=3D"vertical-align: top ; "> <p=
+ style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p> </td><td colspan=3D=
+"2" style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margin-bo=
+ttom:0pt">&nbsp;</p> </td></tr><tr><td style=3D"max-width:200px; width:200p=
+x; min-width:200px;;vertical-align: top ; "> <p style=3D"margin-top:0pt; ma=
+rgin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">Centr=
+al</span></p> </td><td colspan=3D"2" style=3D"max-width:200px; width:200px;=
+ min-width:200px;;vertical-align: top ; "> <p style=3D"margin-top:0pt; marg=
+in-bottom:0pt">&nbsp;</p> </td><td style=3D"max-width:200px; width:200px; m=
+in-width:200px;;vertical-align: top ; "> <p style=3D"margin-top:0pt; margin=
+-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">North Ame=
+rica</span></p> </td><td colspan=3D"2" style=3D"max-width:200px; width:200p=
+x; min-width:200px;;vertical-align: top ; "> <p style=3D"margin-top:0pt; ma=
+rgin-bottom:0pt">&nbsp;</p> </td></tr><tr><td style=3D"vertical-align: top =
+; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-siz=
+e:10pt; font-family:'Arial';">Richard Jarvis</span></p> </td><td colspan=3D=
+"2" style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margin-bo=
+ttom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">+41 79 584 2=
+326</span></p> </td><td style=3D"vertical-align: top ; "> <p style=3D"margi=
+n-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'A=
+rial';">Julie Masow</span></p> </td><td colspan=3D"2" style=3D"vertical-ali=
+gn: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"=
+font-size:10pt; font-family:'Arial';">+1 862 579 8456</span></p> </td></tr>=
+<tr><td style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margi=
+n-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">Anja von=
+ Treskow</span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span s=
+tyle=3D"font-size:10pt; font-family:'Arial';">Anna Sch=C3=A4fers</span></p>=
+ </td><td colspan=3D"2" style=3D"vertical-align: top ; "> <p style=3D"margi=
+n-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'A=
+rial';">+41 79 392 9697</span></p>  <p style=3D"margin-top:0pt; margin-bott=
+om:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">+41 79 801 726=
+7</span></p> </td><td style=3D"vertical-align: top ; "> <p style=3D"margin-=
+top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Ari=
+al';">Michael Meo</span></p>  <p style=3D"margin-top:0pt; margin-bottom:0pt=
+"><span style=3D"font-size:10pt; font-family:'Arial';">Marlena Abdinoor</sp=
+an></p> </td><td colspan=3D"2" style=3D"vertical-align: top ; "> <p style=
+=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"color:rgb(0, 0, 0); f=
+ont-size:10pt; font-family:'Arial';">+1 862 274 5414</span></p>  <p style=
+=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"color:rgb(0, 0, 0); f=
+ont-size:10pt; font-family:'Arial';">+</span><span style=3D"font-size:10pt;=
+ font-family:'Arial';">1 617 335 9525</span></p> </td></tr><tr><td style=3D=
+"vertical-align: top ; "><span style=3D"font-size:10pt;">Switzerland</span>=
+</td><td colspan=3D"2" style=3D"vertical-align: top ; ">&nbsp;</td><td styl=
+e=3D"vertical-align: top ; ">&nbsp;</td><td colspan=3D"2" style=3D"vertical=
+-align: top ; ">&nbsp;</td></tr><tr><td style=3D"vertical-align: top ; "> <=
+p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt=
+; font-family:'arial';">Satoshi Sugimoto</span></p> </td><td colspan=3D"2" =
+style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom=
+:0pt"><span style=3D"font-size:10pt; font-family:'arial';">+41 79 619 2035<=
+/span></p> </td><td style=3D"vertical-align: top ; "> <p style=3D"margin-to=
+p:0pt; margin-bottom:0pt">&nbsp;</p> </td><td colspan=3D"2" style=3D"vertic=
+al-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p=
+> </td></tr><tr><td style=3D"vertical-align: top ; "> <p style=3D"margin-to=
+p:0pt; margin-bottom:0pt">&nbsp;</p> </td><td colspan=3D"2" style=3D"vertic=
+al-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p=
+> </td><td style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; ma=
+rgin-bottom:0pt">&nbsp;</p> </td><td colspan=3D"2" style=3D"vertical-align:=
+ top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p> </td></=
+tr><tr><td colspan=3D"3" style=3D"vertical-align: top ; "> <p style=3D"marg=
+in-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'=
+Arial';"><strong>Novartis Investor Relations</strong></span></p>  <p style=
+=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-=
+family:'Arial';">Central investor relations line: +41 61 324 7944</span></p=
+>  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:=
+10pt; font-family:'Arial';">E-mail: </span><span style=3D"color:rgb(0, 0, 0=
+); font-size:10pt; font-family:'Arial';"><a href=3D"mailto:investor.relatio=
+ns@novartis.com" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-decorat=
+ion:none;" target=3D"_blank">investor.relations@novartis.com</a></span></p>=
+  <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p> </td><td colspa=
+n=3D"3" style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margi=
+n-bottom:0pt">&nbsp;</p> </td></tr><tr><td colspan=3D"2" style=3D"vertical-=
+align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=
+=3D"font-size:10pt; font-family:'Arial';">Central</span></p> </td><td style=
+=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"=
+>&nbsp;</p> </td><td colspan=3D"2" style=3D"vertical-align: top ; "> <p sty=
+le=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; fon=
+t-family:'Arial';">North America</span></p> </td><td style=3D"vertical-alig=
+n: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p> </td>=
+</tr><tr><td colspan=3D"2" style=3D"vertical-align: top ; "> <p style=3D"ma=
+rgin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family=
+:'Arial';">Samir Shah</span></p> </td><td style=3D"vertical-align: top ; ">=
+ <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10=
+pt; font-family:'Arial';">+41 61 324 7944</span></p> </td><td colspan=3D"2"=
+ style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margin-botto=
+m:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">Sloan Simpson</=
+span></p> </td><td style=3D"vertical-align: top ; "> <p style=3D"margin-top=
+:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial'=
+;">+1 862 345 4440</span></p> </td></tr><tr><td colspan=3D"2" style=3D"vert=
+ical-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"><span s=
+tyle=3D"font-size:10pt; font-family:'Arial';">Nicole Zinsli-Somm</span></p>=
+ </td><td style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; mar=
+gin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">+41 61=
+ 324 3809</span></p> </td><td colspan=3D"2" style=3D"vertical-align: top ; =
+"> <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:=
+10pt; font-family:'Arial';">Parag Mahanti</span></p> </td><td style=3D"vert=
+ical-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"><span s=
+tyle=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">+1 </span=
+><span style=3D"font-size:10pt; font-family:'Arial';">973 876 4912</span></=
+p> </td></tr><tr><td colspan=3D"2" style=3D"vertical-align: top ; "> <p sty=
+le=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; fon=
+t-family:'Arial';">Isabella Zinck</span></p> </td><td style=3D"vertical-ali=
+gn: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"=
+font-size:10pt; font-family:'Arial';">+41 61 324 7188</span></p> </td><td c=
+olspan=3D"2" style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; =
+margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">Jon=
+athan Graham</span></p> </td><td style=3D"vertical-align: top ; "> <p style=
+=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span style=3D"fon=
+t-size:10pt; font-family:'Arial';">+1 201 602 9921</span></p> </td></tr><tr=
+><td colspan=3D"2" style=3D"vertical-align: top ; "> <p style=3D"margin-top=
+:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial'=
+;">Imke Kappes</span></p> </td><td style=3D"vertical-align: top ; "> <p sty=
+le=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; fon=
+t-family:'Arial';">+41 61 324 8269</span></p> </td><td colspan=3D"2" style=
+=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt"=
+>&nbsp;</p> </td><td style=3D"vertical-align: top ; "> <p style=3D"line-hei=
+ght:12pt; margin-top:0pt; margin-bottom:0pt">&nbsp;</p> </td></tr><tr><td c=
+olspan=3D"2" style=3D"vertical-align: top ; "> <p style=3D"margin-top:0pt; =
+margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">Zai=
+n Iqbal</span></p> </td><td style=3D"vertical-align: top ; "> <p style=3D"m=
+argin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-famil=
+y:'Arial';">+41 61 324 0390</span></p> </td><td colspan=3D"2" style=3D"vert=
+ical-align: top ; "> <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;<=
+/p> </td><td style=3D"vertical-align: top ; "> <p style=3D"line-height:12pt=
+; margin-top:0pt; margin-bottom:0pt">&nbsp;</p> </td></tr></table></article=
+>
+</section>
+<p>&nbsp;</p>
+<p>If you would like to unsubscribe from the Novartis Press Release distrib=
+ution click on the following link to cancel your subscription directly:&nbs=
+p;<a href=3D"https://urldefense.com/v3/__https://www.novartis.com/news/stay=
+-up-to-date__;!!H9nueQsQ!756rE5uQZewqIa3pdGiMxwaJjwFoFJ4YDuXYDgYHOtGJXhBak4=
+jaNEz2d9FdG_za7Ubk9IguLMDNBG2oW-Lb1Bn9VhJn$">https://www.novartis.com/news/=
+stay-up-to-date</a></p>
+<div style=3D"border-top: 1px solid #aba8a8; margin-top: 1em; padding: 1em =
+0; font-size: 11px !important; color: #aba8a8;">&nbsp;</div>
+</div>
+<img src=3D"https://contacts-eu.globenewswire.com/Ros/TrackEmailOpen?recipi=
+entId=3Dbase64v2%3aFG9zT0OPwU3Hhk0%2b%2fNSSeyElGdndrRrY6wC3rwlQr5lMq67aOsVV=
+%2fHvF3OGkmYbh" width=3D"1" height=3D"1" style=3D"display:none;"></body></h=
+tml>=
+

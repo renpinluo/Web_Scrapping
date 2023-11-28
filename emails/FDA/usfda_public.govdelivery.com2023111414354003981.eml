@@ -1,0 +1,823 @@
+﻿Received: from DM8PR01MB6934.prod.exchangelabs.com (2603:10b6:8:13::11) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Tue, 14 Nov 2023 19:23:22
+ +0000
+Received: from SA1P222CA0179.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c4::9)
+ by DM8PR01MB6934.prod.exchangelabs.com (2603:10b6:8:13::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7002.17; Tue, 14 Nov 2023 19:23:20 +0000
+Received: from SN1PEPF0002636C.namprd02.prod.outlook.com
+ (2603:10b6:806:3c4:cafe::a) by SA1P222CA0179.outlook.office365.com
+ (2603:10b6:806:3c4::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17 via Frontend
+ Transport; Tue, 14 Nov 2023 19:23:20 +0000
+Authentication-Results: spf=fail (sender IP is 148.168.40.5)
+ smtp.mailfrom=public.govdelivery.com; dkim=fail (signature did not verify)
+ header.d=public.govdelivery.com;dmarc=none action=none
+ header.from=public.govdelivery.com;
+Received-SPF: Fail (protection.outlook.com: domain of public.govdelivery.com
+ does not designate 148.168.40.5 as permitted sender)
+ receiver=protection.outlook.com; client-ip=148.168.40.5;
+ helo=mail.pfizer.com;
+Received: from mail.pfizer.com (148.168.40.5) by
+ SN1PEPF0002636C.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7002.14 via Frontend Transport; Tue, 14 Nov 2023 19:23:20 +0000
+Received: from drmamrexdg03.amer.pfizer.com (141.173.144.47) by
+ drmamrexdg02.amer.pfizer.com (141.173.144.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Tue, 14 Nov 2023 14:23:03 -0500
+Received: from gromsgo.pfizer.com (10.128.230.30) by
+ drmamrexdg03.amer.pfizer.com (141.173.144.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34 via Frontend Transport; Tue, 14 Nov 2023 14:23:03 -0500
+Received: from pps.filterd (svaamrppa03.pfizer.com [127.0.0.1])
+	by svaamrppa03.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 3AEIeQMi014786
+	for <bi_vox@pfizer.com>; Tue, 14 Nov 2023 14:23:03 -0500
+Authentication-Results-Original: pfizer.com;	spf=fail
+ smtp.mailfrom=messages@public.govdelivery.com;	dkim=fail
+ header.d=public.govdelivery.com header.s=13q2;	dmarc=none
+Received: from sva-feex-02.pfizer.com (ndh-feex-02-int.pfizer.com [10.128.230.38])
+	by svaamrppa03.pfizer.com (PPS) with ESMTPS id 3uaqgxsbag-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Tue, 14 Nov 2023 14:23:03 -0500
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by sva-feex-02.pfizer.com (Postfix) with SMTP id 4SVGRC0Qb8z2VYYp
+	for <bi_vox@pfizer.com>; Tue, 14 Nov 2023 19:23:03 +0000 (UTC)
+Received: from mailstream-east.mxrecord.io (mailstream-useast-egress001.mxrecord.io [52.0.67.109])
+	by sva-feex-02.pfizer.com (Postfix) with ESMTPS id 4SVGR92jWsz2VYY1
+	for <bi_vox@pfizer.com>; Tue, 14 Nov 2023 19:23:01 +0000 (UTC)
+Received: from mailstream015.us-east-1.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-east.mxrecord.io (Postfix) with ESMTP id 4SVGR91p6Lz1W3Dw
+	for <bi_vox@pfizer.com>; Tue, 14 Nov 2023 19:23:01 +0000 (UTC)
+Received-SPF: pass (mailstream-east.mxrecord.io: public.govdelivery.com designates 69.5.86.121 as permitted sender) client-ip=69.5.86.121; envelope-from=messages@public.govdelivery.com; helo=mailer086121.service.govdelivery.com;
+Received: from mailstream-east.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LOYPX1MI
+        for bi_vox@pfizer.com;
+        Tue, 14 Nov 2023 19:23:00 +0000 (GMT)
+Received: from mx0b-00013f02.pphosted.com (mx0b-00013f02.pphosted.com [208.86.201.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-east.mxrecord.io (Postfix) with ESMTPS id 4SVGR82Tshz1W3JB
+	for <bi_vox@pfizer.com>; Tue, 14 Nov 2023 19:23:00 +0000 (UTC)
+Received: from pps.filterd (m0240275.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 3AEJLThA029096
+	for <bi_vox@pfizer.com>; Tue, 14 Nov 2023 14:23:00 -0500
+Received: from mailer086121.service.govdelivery.com (mailer086121.service.govdelivery.com [69.5.86.121])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3uc2h21jm2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <BI_VOX@pfizer.com>; Tue, 14 Nov 2023 14:22:59 -0500
+Received: from gasdp-smeds14-1.systems.dc.gdi ([10.1.36.89])
+	by mailer086121.service.govdelivery.com (-); Tue, 14 Nov 2023 19:22:57 +0000
+X-VirtualServer: VSG001, mailer086121.service.govdelivery.com, 10.1.37.21
+X-VirtualServerGroup: VSG001
+X-MailingID: 16836428::20231114.85632651::1001::MDB-PRD-BUL-20231114.85632651::BI_VOX@pfizer.com::173285_0_0
+X-SMHeaderMap: mid="X-MailingID"
+X-Destination-ID: BI_VOX@pfizer.com
+X-SMFBL: QklfVk9YQHBmaXplci5jb20=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=public.govdelivery.com; s=13q2; i=@public.govdelivery.com; h=Content-Transfer-Encoding:
+	Content-Type:x-subscriber:List-Unsubscribe:X-Accountcode:
+	Errors-To:MIME-Version:Message-ID:X-ReportingKey:Subject:Date:To:
+	Reply-To:From; bh=ooq7aoJqxmph3KXx9bLIFeLE7XBEG452XRxPACFhJsc=;
+	b=JQP2asaBZpNaJ4I5MV57u5IXqC+fGZLbbxXIIu4RrnAhd/zqutJU3nNFPkn4Bj
+	76sAw5jr2fofAOx+aCSNAhC0DUNWRvi1BpRVilhdXBlVwmAfZ8O4w3o5IbR5W66x
+	c+zsIjECaA720pEp0VuehFGRnIIlZX0TpNiOA/7rdG7Bf7mfc/9CGPPnHlsgN9FW
+	Mxnno0wlm59QNyqg8JSVu75tfBi7qKFBAqXKNLfARWeSu37TD8xgw5oSVYiCZ21a
+	GHkkC/Q7ftkP7cCyAYYuFdsiX9JgQBTsJQk3j4LuFLoAyOu9Zg4UYzj7uBAzJDjI
+	MnZtJOnVo3xlWSEmqukLRN9A==
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_112_E1CD_6E4D8F16.49312731"
+x-subscriber: 3.sc8OEeI15ChPGiTDqrNjP3ddtNLYy/pCdbbxhBafLdsmQMXY+6fhzJDMnb3TiBM6dwX2cS+uyqlxff3v9kEz3XICS0BAxZfqaVczXK2CJ+p14yVwr8jzrxP65Jn6dWRgB/9IOdCEzhb2vrS/+/okrQ==
+List-Unsubscribe: <https://public.govdelivery.com/accounts/USFDA/subscriber/one_click_unsubscribe?verification=5.9292e6efc31c5043e5f9f1b464fb48a8&destination=BI_VOX%40pfizer.com>
+X-Accountcode: USFDA
+Errors-To: messages@public.govdelivery.com
+Message-ID: <16836428.173285@public.govdelivery.com>
+X-ReportingKey: MJJJ2EWJK8C0RJJ1650OJJJ::BI_VOX@pfizer.com::BI_VOX@pfizer.com
+Date: Tue, 14 Nov 2023 19:22:42 +0000
+To: BI_VOX@pfizer.com
+Reply-To: usfda@public.govdelivery.com
+X-FireEye: Clean
+From: "=?US-ASCII?Q?U.S._Food_and_Drug_Administration?=" <usfda@public.govdelivery.com>
+X-CLX-Response: 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
+X-Proofpoint-GUID: 4SaSmzuBLQ7rC910IFNhbr2MqcUJKVvV
+X-Proofpoint-ORIG-GUID: 4SaSmzuBLQ7rC910IFNhbr2MqcUJKVvV
+X-CLX-Shades: MLX
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:spf.as.service.govdelivery.com
+ include:spf.ep.service.govdelivery.com
+ include:spf.sp.service.govdelivery.com a mx -all
+ exp=spferror.service.govdelivery.com
+x-pfepod-dmarc-rule: norecord
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: none
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-14_19,2023-11-14_01,2023-05-22_02
+X-Proofpoint-PODISpam-Reason: orgsafe
+X-Proofpoint-PFERule: PODI-GSafe
+X-Area1Security-Disposition: BULK 4SVGR82Tshz1W3JB-2023-11-14T19:23:00
+X-Area1Security-Origin: EXTERNAL 4SVGR82Tshz1W3JB-2023-11-14T19:23:00
+X-Area1Security-Processed: 8d682b5c8dc5d6544042c45e69a5dfbd;2;BULK;2023-11-14T19:23:01;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: =?UTF-8?Q?[EXTERNAL]_WanaBana_Recalls_WanaBana,_Weis,_and_Schnucks_Apple_?=
+ =?UTF-8?Q?Cinnamon_Fruit_Pur=C3=A9e_Pouches_&_Cinnamon_Apple_Sauce_Due_to?=
+ =?UTF-8?Q?_Elevated_Lead_Levels?=
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-14_19,2023-11-14_01,2023-05-22_02
+Return-Path: messages@public.govdelivery.com
+X-OrganizationHeadersPreserved: drmamrexdg02.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 14 Nov 2023 19:23:20.8614
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 6e95518f-3713-4cc8-f6d4-08dbe54729ba
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: drmamrexdg03.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: SN1PEPF0002636C.namprd02.prod.outlook.com
+X-CrossPremisesHeadersFiltered: SN1PEPF0002636C.namprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ SN1PEPF0002636C:EE_|DM8PR01MB6934:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: Pfizer.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id: 6e95518f-3713-4cc8-f6d4-08dbe54729ba
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.40.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:iad-us-a-148-168-40-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2023 19:23:20.7052
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e95518f-3713-4cc8-f6d4-08dbe54729ba
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.40.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: drmamrexdg03.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR01MB6934
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.4029595
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6977.026
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	UukHP58v0FyAAMmQGB5emrylqIMIOf/GX3ZZ8zDJbrGt0V/PwecCFjIO2Py6F/ojyPrPk11L8NfWoV6Nh8tgl6+bnKI4qWLdQbrLNN9v0YJ0vWUBUaxFuK+MYXRd8s7KlNDBu/FodRr4tbXikZQUMjubldv9HNb7KgjbSa+ISScpM4YEXcOCWvtZ7UMC89BKYg6gChV1ai71JJB1xKqp92TiKMWK+vihrFqNf1/OPkzhPwvDEWTDInCUFgCjhb+JbrtKTDBnL6bJIAVw9XHPN0+7K6c3wvvovlRcgKkevIl0p6qbRVYXqCcLicwxIi9fKDDfANR8JmZEMZVdrZhR8Ku4EbFm9+rbQftKR2DZQ7Kz9OF6JPt2ZwmGmsXAzbktbC1EZ6/6Vq+Gd7QgDujXVR63dw26EPqSCRrFH7QBfi/0CObjM30775TyiBhqAKtpDvdXStU6IX3wvIUztVcUVSk3j+eY+S37ewpi0p+EW6+Ll7lCcVNxQtYxEKFUqMffiJdRpBVdNMxl3fH24CY49MxWwpw1u1EySBeMV0r5hQtCLyUbjAV9K23/HoiumAf1nr8PtS9aY5wm7qNJZV4qvI1MoCzOYKCqzD7/+3gbyYGxhKZkGLdYKkwDXP9phfat00hE/uwykYKFQ/mbFih0qmbPl2nogDoiGJfmrxSCiSNaQ9vXgBADGcdfBE8inr/mdR3BjUAuHGSCdAl8/Y7kro3pLU421PBlKNs8UvP5XHtbExWzlKHSqYPeL2YiovC6oR6PeVUjcdPqCJqlaSWUxblER9NEXmRF9CFodiJa1ND/G/NH/MaSQUtmmw5Nnv8X
+MIME-Version: 1.0
+
+------=_NextPart_112_E1CD_6E4D8F16.49312731
+Content-Type: text/plain;	charset="Cp1252"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+If your email program has trouble displaying this email, view as a webpage =
+[ https://urldefense.com/v3/__https://content.govdelivery.com/accounts/USFD=
+A/bulletins/37afffa__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1T=
+GqR3hXt7ekgktRZvOTxYyyLFC3JNma6YYVnD-Z_fLTGWUt$  ].
+
+=20
+=20
+=20
+=20
+
+US Food and Drug Administration=20
+=20
+=20
+=20
+
+WanaBana Recalls WanaBana, Weis, and Schnucks Apple Cinnamon Fruit Pur=E9e =
+Pouches & Cinnamon Apple Sauce Due to Elevated Lead Levels [ https://urldef=
+ense.com/v3/__https://www.fda.gov/safety/recalls-market-withdrawals-safety-=
+alerts/wanabana-recalls-wanabana-weis-and-schnucks-apple-cinnamon-fruit-pur=
+ee-pouches-cinnamon-apple-sauce?utm_medium=3Demail&utm_source=3Dgovdelivery=
+__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTx=
+YyyLFC3JNma6YYVnD-Z_eiWWnYA$  ]
+
+*For Immediate Release =96*=A0November 9, 2023 - United States - WanaBana U=
+SA is voluntarily recalling all lots of WanaBana Apple Cinnamon Fruit Pur=
+=E9e pouches due to reports of elevated levels of lead found in certain uni=
+ts of the product.
+
+Pursuant to the FDA, lead is toxic to humans and can affect people of any a=
+ge or health status. Protecting children from exposure to lead is important=
+ to lifelong good health. Lead exposure in children is often difficult to s=
+ee. Most children have no obvious immediate symptoms. If you suspect that y=
+our child might have consumed this product, parents should talk to your chi=
+ld=92s healthcare provider about getting a blood lead test. Lead poisoning =
+can only be diagnosed through clinical testing. Although signs and symptoms=
+ of lead toxicity vary, short term exposure to lead could result in the fol=
+lowing symptoms:
+
+
+  * Headache=20
+  * Abdominal pain/Colic=20
+  * Vomiting=20
+  * Anemia=20
+=20
+=20
+=20
+=20
+=20=20
+=20
+
+feed [ https://urldefense.com/v3/__https://www.fda.gov/about-fda/contact-fd=
+a/subscribe-podcasts-and-news-feeds?utm_medium=3Demail&utm_source=3Dgovdeli=
+very__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZ=
+vOTxYyyLFC3JNma6YYVnD-Z_RGBqiDo$  ]twitter [ https://urldefense.com/v3/__ht=
+tps://www.twitter.com/US_FDA?utm_medium=3Demail&utm_source=3Dgovdelivery__;=
+!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyy=
+LFC3JNma6YYVnD-Z_Vhto_RE$  ]facebook [ https://urldefense.com/v3/__https://=
+www.facebook.com/FDA?utm_medium=3Demail&utm_source=3Dgovdelivery__;!!H9nueQ=
+sQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNma=
+6YYVnD-Z_SupuRig$  ]youtube [ https://urldefense.com/v3/__https://www.youtu=
+be.com/user/USFoodandDrugAdmin?utm_medium=3Demail&utm_source=3Dgovdelivery_=
+_;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxY=
+yyLFC3JNma6YYVnD-Z_XWTXDi8$  ]flickr [ https://urldefense.com/v3/__https://=
+www.flickr.com/photos/fdaphotos/albums/?utm_medium=3Demail&utm_source=3Dgov=
+delivery__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekg=
+ktRZvOTxYyyLFC3JNma6YYVnD-Z_VG3UQwo$  ]=20=20
+
+*Manage Subscriptions* [ https://urldefense.com/v3/__https://public.govdeli=
+very.com/accounts/USFDA/subscriber/edit?preferences=3Dtrue*tab1__;Iw!!H9nue=
+QsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNm=
+a6YYVnD-Z_Ub3-zAU$  ] =A0|=A0 *Unsubscribe All* [ https://urldefense.com/v3=
+/__https://public.govdelivery.com/accounts/USFDA/subscriber/one_click_unsub=
+scribe?verification=3D5.9292e6efc31c5043e5f9f1b464fb48a8&destination=3DBI_V=
+OX*40pfizer.com__;JQ!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGq=
+R3hXt7ekgktRZvOTxYyyLFC3JNma6YYVnD-Z_Xf8eDhh$  ] =A0|=A0 *Help* [ https://u=
+rldefense.com/v3/__https://subscriberhelp.govdelivery.com/__;!!H9nueQsQ!5G3=
+vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNma6YYVnD=
+-Z_RRMxpih$  ]
+
+=20
+=20
+=20
+=20
+body .abe-column-block {min-height: 5px;} td {line-height:1;}=20
+
+________________________________________________________________________
+
+ This email was sent to BI_VOX@pfizer.com using GovDelivery Communications =
+Cloud on behalf of: U.S. Food and Drug Administration =B7=A0
+10903 New Hampshire Ave=A0=B7=A0Silver Spring, MD =B7=A0 20993-0002=A0=B7=
+=A0=A01-888-INFO-FDA GovDelivery logo [ https://urldefense.com/v3/__https:/=
+/subscriberhelp.granicus.com/?utm_medium=3Demail&utm_source=3Dgovdelivery__=
+;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYy=
+yLFC3JNma6YYVnD-Z_YPCwPIQ$  ]=20
+=20
+body .abe-column-block { min-height: 5px; } table.gd_combo_table img {margi=
+n-left:10px; margin-right:10px;} table.gd_combo_table div.govd_image_displa=
+y img, table.gd_combo_table td.gd_combo_image_cell img {margin-left:0px; ma=
+rgin-right:0px;}
+
+
+------=_NextPart_112_E1CD_6E4D8F16.49312731
+Content-Type: text/html;	charset="Cp1252"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns=3D"=
+http://www.w3.org/1999/xhtml" xml:lang=3D"en" lang=3D"en"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252"><title>    WanaBana Recalls WanaBana, Weis, and Schnucks Apple Cinnamo=
+n Fruit Pur=E9e Pouches &amp; Cinnamon Apple Sauce Due to Elevated Lead Lev=
+els
+</title>
+    <meta name=3D"viewport" content=3D"initial-scale=3D1.0">
+<meta name=3D"format-detection" content=3D"telephone=3Dno">
+<!--[if (gte mso 9)|(IE)]>
+  <style type=3D"text/css">
+      table {border-collapse: collapse;}
+  </style>
+  <![endif]-->
+<style type=3D"text/css">
+  /* Make columns expand to 100% on small screens */
+  @media only screen and (max-width: 480px) {
+    .abe-column-block {
+      min-width: 100%;
+    }
+  }
+  /* Disables Apple clients adding blue color and underline to links and ot=
+her text */
+  a[x-apple-data-detectors] {
+    color: inherit !important;
+    text-decoration: none !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+  }
+</style>
+
+
+</head>
+<body style=3D"margin:0;padding:0;margin:0;padding:0;width:100% !important;=
+">
+
+
+<!--[if (gte mso 9)|(IE)]>
+  <table style=3D"display:none"><tr><td><a name=3D"gd_top" id=3D"gd_top"></=
+a></td></tr></table>
+<![endif]-->
+<a name=3D"gd_top" id=3D"gd_top"></a>
+
+ =20
+
+
+
+ =20
+  <table width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" border=3D"0" al=
+ign=3D"center" class=3D"gd_tbl_wrap"><tr><td style=3D"background-color: #FF=
+FFFF; margin: 0; padding: 0; width: 100% !important" bgcolor=3D"#FFFFFF">
+<table id=3D"flexible-abe-main-table" width=3D"100%" align=3D"center" borde=
+r=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"-webkit-text-size-adju=
+st: 100%; -ms-text-size-adjust: 100%; border-spacing: 0; mso-table-lspace: =
+0pt; mso-table-rspace: 0pt; padding-top: 20px; padding-bottom: 20px;">
+  <tr>
+    <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"></td>
+    <!-- centered column -->
+    <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<!--[if (gte mso 9)|(IE)]>
+  <table width=3D"600" align=3D"center" border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0">
+    <tr>
+      <td>
+<![endif]-->
+<div class=3D"abe-section-block" data-block-type=3D"FancyBlockSection" data=
+-block-id=3D"103780770">
+  <table class=3D"abe-section-table" width=3D"100%" align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"m=
+ax-width: 600px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+    <tr id=3D"abe-section-row-bbc029f2-7a3c-4044-ba66-8687e2fdb56f" class=
+=3D"abe-section-row" style=3D"background-color: #FFFFFF;" bgcolor=3D"#FFFFF=
+F">
+      <td style=3D"text-align: center; vertical-align: top; font-size: 0; -=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt;" align=3D"center" valign=3D"top">
+        <!--[if (gte mso 9)|(IE)]>
+  <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjus=
+t: 100%; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+    <tr>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  <td width=3D"600" valign=3D"top" id=3D"abe-column-block-cd091cbf-02dc-49b=
+2-98f1-fe064a70b304-outlook-only" class=3D"abe-column-block-outlook-only" s=
+tyle=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-tab=
+le-lspace: 0pt; mso-table-rspace: 0pt;">
+<![endif]-->
+<div id=3D"abe-column-block-cd091cbf-02dc-49b2-98f1-fe064a70b304" class=3D"=
+abe-column-block" data-block-type=3D"FancyBlockColumn" data-block-id=3D"103=
+780771" style=3D"width: 100%; box-sizing: border-box; display: inline-block=
+; font-size: 16px; vertical-align: top;">
+  <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" role=3D"presentation" style=3D"table-layout: fixed; overflow=
+-wrap: break-word; word-wrap: break-word; text-align: left; -webkit-text-si=
+ze-adjust: 100%; -ms-text-size-adjust: 100%; border-spacing: 0; mso-table-l=
+space: 0pt; mso-table-rspace: 0pt;">
+    <tr>
+      <td class=3D"abe-column-block-padding" id=3D"abe-column-block-cd091cb=
+f-02dc-49b2-98f1-fe064a70b304-padding" style=3D"-webkit-text-size-adjust: 1=
+00%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0=
+pt; padding: 0px 15px 20px;"><p style=3D"text-align: center; -webkit-text-s=
+ize-adjust: 100%; -ms-text-size-adjust: 100%; line-height: 1.4; font-size: =
+12px; font-family: arial, helvetica, sans-serif; color: #000000; margin: 0 =
+0 0px;" align=3D"center">If your email program has trouble displaying this =
+email, <a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJ=
+IUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDAsInVyaSI6ImJwMjpjbGljayIsInVybCI6I=
+mh0dHBzOi8vY29udGVudC5nb3ZkZWxpdmVyeS5jb20vYWNjb3VudHMvVVNGREEvYnVsbGV0aW5z=
+LzM3YWZmZmEiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTE0Ljg1NjMyNjUxIn0.atFszOPdsH47rcn=
+VJDMfnraLGQNI5bTI8BGdOEr2SW8/s/3046837151/br/230753675391-l__;!!H9nueQsQ!5G=
+3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNma6YYVn=
+D-Z_Yx8KQQl$" target=3D"_blank" rel=3D"noopener" style=3D"-webkit-text-size=
+-adjust: 100%; -ms-text-size-adjust: 100%; color: #007CBA;">view as a webpa=
+ge</a>.</p></td>
+    </tr>
+  </table>
+</div>
+<!--[if (gte mso 9)|(IE)]>
+  </td>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  </tr>
+  </table>
+<![endif]-->
+      </td>
+    </tr>
+  </table>
+</div>
+<!--[if (gte mso 9)|(IE)]>
+      </td>
+    </tr>
+  </table>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  <table width=3D"600" align=3D"center" border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0">
+    <tr>
+      <td>
+<![endif]-->
+<div class=3D"abe-section-block" data-block-type=3D"FancyBlockSection" data=
+-block-id=3D"103780773">
+  <table class=3D"abe-section-table" width=3D"100%" align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"m=
+ax-width: 600px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+    <tr id=3D"abe-section-row-356acd39-8928-4fd0-9165-c5ce81edc97c" class=
+=3D"abe-section-row" style=3D"background-color: #FFFFFF;" bgcolor=3D"#FFFFF=
+F">
+      <td style=3D"text-align: center; vertical-align: top; font-size: 0; -=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt;" align=3D"center" valign=3D"top">
+        <!--[if (gte mso 9)|(IE)]>
+  <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjus=
+t: 100%; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+    <tr>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  <td width=3D"600" valign=3D"top" id=3D"abe-column-block-8aec1250-099f-4be=
+a-b1ae-5193a1599259-outlook-only" class=3D"abe-column-block-outlook-only" s=
+tyle=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-tab=
+le-lspace: 0pt; mso-table-rspace: 0pt;">
+<![endif]-->
+<div id=3D"abe-column-block-8aec1250-099f-4bea-b1ae-5193a1599259" class=3D"=
+abe-column-block" data-block-type=3D"FancyBlockColumn" data-block-id=3D"103=
+780774" style=3D"width: 100%; box-sizing: border-box; display: inline-block=
+; font-size: 16px; vertical-align: top;">
+  <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" role=3D"presentation" style=3D"table-layout: fixed; overflow=
+-wrap: break-word; word-wrap: break-word; text-align: left; -webkit-text-si=
+ze-adjust: 100%; -ms-text-size-adjust: 100%; border-spacing: 0; mso-table-l=
+space: 0pt; mso-table-rspace: 0pt;">
+    <tr>
+      <td class=3D"abe-column-block-padding" id=3D"abe-column-block-8aec125=
+0-099f-4bea-b1ae-5193a1599259-padding" style=3D"-webkit-text-size-adjust: 1=
+00%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0=
+pt; padding: 0px;"><img class=3D"govd_template_image" src=3D"https://conten=
+t.govdelivery.com/attachments/fancy_images/USFDA/2020/07/3501807/abe2_origi=
+nal.png" style=3D"width: 600px; height: auto; -ms-interpolation-mode: bicub=
+ic; line-height: 1; outline: none; text-decoration: none; max-width: 100%; =
+border: none;" alt=3D"US Food and Drug Administration" width=3D"600" height=
+=3D"85"></td>
+    </tr>
+  </table>
+</div>
+<!--[if (gte mso 9)|(IE)]>
+  </td>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  </tr>
+  </table>
+<![endif]-->
+      </td>
+    </tr>
+  </table>
+</div>
+<!--[if (gte mso 9)|(IE)]>
+      </td>
+    </tr>
+  </table>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  <table width=3D"600" align=3D"center" border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0">
+    <tr>
+      <td>
+<![endif]-->
+<div class=3D"abe-section-block" data-block-type=3D"FancyBlockSection" data=
+-block-id=3D"103780776">
+  <table class=3D"abe-section-table" width=3D"100%" align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"m=
+ax-width: 600px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+    <tr id=3D"abe-section-row-e916b552-e7ef-43c2-9673-f2f86d88167d" class=
+=3D"abe-section-row" style=3D"background-color: #FFFFFF;" bgcolor=3D"#FFFFF=
+F">
+      <td style=3D"text-align: center; vertical-align: top; font-size: 0; -=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt;" align=3D"center" valign=3D"top">
+        <!--[if (gte mso 9)|(IE)]>
+  <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjus=
+t: 100%; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+    <tr>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  <td width=3D"600" valign=3D"top" id=3D"abe-column-block-59e543a6-e579-48b=
+0-ba15-cc1196c00972-outlook-only" class=3D"abe-column-block-outlook-only" s=
+tyle=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-tab=
+le-lspace: 0pt; mso-table-rspace: 0pt;">
+<![endif]-->
+<div id=3D"abe-column-block-59e543a6-e579-48b0-ba15-cc1196c00972" class=3D"=
+abe-column-block" data-block-type=3D"FancyBlockColumn" data-block-id=3D"103=
+780777" style=3D"width: 100%; box-sizing: border-box; display: inline-block=
+; font-size: 16px; vertical-align: top;">
+  <table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" role=3D"presentation" style=3D"table-layout: fixed; overflow=
+-wrap: break-word; word-wrap: break-word; text-align: left; -webkit-text-si=
+ze-adjust: 100%; -ms-text-size-adjust: 100%; border-spacing: 0; mso-table-l=
+space: 0pt; mso-table-rspace: 0pt;">
+    <tr>
+      <td class=3D"abe-column-block-padding" id=3D"abe-column-block-59e543a=
+6-e579-48b0-ba15-cc1196c00972-padding" style=3D"-webkit-text-size-adjust: 1=
+00%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0=
+pt; padding: 30px 15px;">
+<h2 class=3D"content-title text-center" style=3D"line-height: 1.2; font-fam=
+ily: arial, helvetica, sans-serif; font-size: 19px; color: #007CBA; text-al=
+ign: left; margin: 0 0 5px;" align=3D"left"><a href=3D"https://urldefense.c=
+om/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjox=
+MDEsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3Yvc2FmZXR5L3J=
+lY2FsbHMtbWFya2V0LXdpdGhkcmF3YWxzLXNhZmV0eS1hbGVydHMvd2FuYWJhbmEtcmVjYWxscy=
+13YW5hYmFuYS13ZWlzLWFuZC1zY2hudWNrcy1hcHBsZS1jaW5uYW1vbi1mcnVpdC1wdXJlZS1wb=
+3VjaGVzLWNpbm5hbW9uLWFwcGxlLXNhdWNlP3V0bV9tZWRpdW09ZW1haWwmdXRtX3NvdXJjZT1n=
+b3ZkZWxpdmVyeSIsImJ1bGxldGluX2lkIjoiMjAyMzExMTQuODU2MzI2NTEifQ.ZwCbxp4XSaRL=
+ljZMN8oMRkJclJg1SGVZxodYJQ7iaPk/s/3046837151/br/230753675391-l__;!!H9nueQsQ=
+!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNma6Y=
+YVnD-Z_dJtgsZr$" target=3D"_blank" title=3D"WanaBana Recalls WanaBana, Weis=
+, and Schnucks Apple Cinnamon Fruit Pur=E9e Pouches &amp; Cinnamon Apple Sa=
+uce Due to Elevated Lead Levels" rel=3D"noopener" style=3D"-webkit-text-siz=
+e-adjust: 100%; -ms-text-size-adjust: 100%; color: #007CBA;">WanaBana Recal=
+ls WanaBana, Weis, and Schnucks Apple Cinnamon Fruit Pur=E9e Pouches &amp; =
+Cinnamon Apple Sauce Due to Elevated Lead Levels</a></h2>
+<div class=3D"alert alert-danger text-center col-xs-12" id=3D"disclaimer"><=
+/div>
+<p style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; lin=
+e-height: 1.4; font-family: arial, helvetica, sans-serif; font-size: 14px; =
+color: #000000; text-align: left; margin: 0 0 15px;" align=3D"left"><strong=
+>For Immediate Release =96</strong>&nbsp;November 9, 2023 - United States -=
+ WanaBana USA is voluntarily recalling all lots of WanaBana Apple Cinnamon =
+Fruit Pur=E9e pouches due to reports of elevated levels of lead found in ce=
+rtain units of the product.</p>
+<p style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; lin=
+e-height: 1.4; font-family: arial, helvetica, sans-serif; font-size: 14px; =
+color: #000000; text-align: left; margin: 0 0 15px;" align=3D"left">Pursuan=
+t to the FDA, lead is toxic to humans and can affect people of any age or h=
+ealth status. Protecting children from exposure to lead is important to lif=
+elong good health. Lead exposure in children is often difficult to see. Mos=
+t children have no obvious immediate symptoms. If you suspect that your chi=
+ld might have consumed this product, parents should talk to your child=92s =
+healthcare provider about getting a blood lead test. Lead poisoning can onl=
+y be diagnosed through clinical testing. Although signs and symptoms of lea=
+d toxicity vary, short term exposure to lead could result in the following =
+symptoms:</p>
+<ul style=3D"margin-top: 0px; margin-bottom: 15px;">
+<li style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; li=
+ne-height: 1.4; font-family: arial, helvetica, sans-serif; font-size: 14px;=
+ color: #000000; text-align: left; margin-top: 0px;">Headache</li>
+<li style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; li=
+ne-height: 1.4; font-family: arial, helvetica, sans-serif; font-size: 14px;=
+ color: #000000; text-align: left;">Abdominal pain/Colic</li>
+<li style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; li=
+ne-height: 1.4; font-family: arial, helvetica, sans-serif; font-size: 14px;=
+ color: #000000; text-align: left;">Vomiting</li>
+<li style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; li=
+ne-height: 1.4; font-family: arial, helvetica, sans-serif; font-size: 14px;=
+ color: #000000; text-align: left; margin-bottom: 15px;">Anemia</li>
+</ul>
+</td>
+    </tr>
+  </table>
+</div>
+<!--[if (gte mso 9)|(IE)]>
+  </td>
+<![endif]-->
+<!--[if (gte mso 9)|(IE)]>
+  </tr>
+  </table>
+<![endif]-->
+      </td>
+    </tr>
+  </table>
+</div>
+<!--[if (gte mso 9)|(IE)]>
+      </td>
+    </tr>
+  </table>
+<![endif]-->
+</td>
+    <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"></td>
+  </tr>
+</table>
+</td></tr></table>
+ =20
+
+
+<div id=3D"mail_footer">
+    <table width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" align=3D"cent=
+er">
+<tbody>
+<tr>
+<td style=3D"background: #FFFFFF; padding: 20px 0;" bgcolor=3D"#FFFFFF" wid=
+th=3D"100%">
+<!--[if mso]>
+<table width=3D"600" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" s=
+tyle=3D"width:600px;">
+<tr>
+<td>
+<![endif]-->
+<div style=3D"margin: 0 auto; max-width: 600px; width: 100%;">
+<table style=3D"background: #222C67;" width=3D"100%" cellspacing=3D"0" cell=
+padding=3D"0" align=3D"center" bgcolor=3D"#222C67">
+<tbody>
+<tr>
+<td style=3D"padding: 0 0 8px 0; background: #222C67;" align=3D"center" bgc=
+olor=3D"#222C67" width=3D"100%">
+<table style=3D"background: #007CBA;" width=3D"100%" cellspacing=3D"0" cell=
+padding=3D"0" align=3D"center" bgcolor=3D"#007CBA">
+<tbody>
+<tr>
+<td style=3D"padding: 30px 30px 15px 30px; background: #007CBA;" align=3D"c=
+enter" bgcolor=3D"#007CBA" width=3D"100%">
+<a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1Ni=
+J9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDIsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBz=
+Oi8vd3d3LmZkYS5nb3YvYWJvdXQtZmRhL2NvbnRhY3QtZmRhL3N1YnNjcmliZS1wb2RjYXN0cy1=
+hbmQtbmV3cy1mZWVkcz91dG1fbWVkaXVtPWVtYWlsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnkiLC=
+JidWxsZXRpbl9pZCI6IjIwMjMxMTE0Ljg1NjMyNjUxIn0.5rUeYCyQhTKhUKoV65FjmjSb94kKl=
+HFm0EhIodvEHvo/s/3046837151/br/230753675391-l__;!!H9nueQsQ!5G3vYMUxzvzRrOAZ=
+JcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNma6YYVnD-Z_Xt1mN3T$" =
+target=3D"_blank" rel=3D"noopener"><img class=3D"govd_template_image" src=
+=3D"https://content.govdelivery.com/attachments/fancy_images/USFDA/2020/07/=
+3501621/social-01_original.png" alt=3D"feed" width=3D"40" style=3D"width: 4=
+0px; height: auto; border: 0px none;"></a><a href=3D"https://urldefense.com=
+/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMD=
+MsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LnR3aXR0ZXIuY29tL1VTX0ZEQ=
+T91dG1fbWVkaXVtPWVtYWlsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnkiLCJidWxsZXRpbl9pZCI6=
+IjIwMjMxMTE0Ljg1NjMyNjUxIn0.AKOAjZUKA8OZS-ayedUAfXToKl797jQNE0sy3g65ojg/s/3=
+046837151/br/230753675391-l__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z=
+-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNma6YYVnD-Z_YlK_DUE$" target=3D"_blank" =
+rel=3D"noopener"><img class=3D"govd_template_image" src=3D"https://content.=
+govdelivery.com/attachments/fancy_images/USFDA/2020/07/3501624/social-02_or=
+iginal.png" alt=3D"twitter" width=3D"40" style=3D"width: 40px; height: auto=
+; border: 0px none;"></a><a href=3D"https://urldefense.com/v3/__https://lnk=
+s.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDQsInVyaSI6ImJwMjp=
+jbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9GREE_dXRtX21lZGl1bT1lbW=
+FpbCZ1dG1fc291cmNlPWdvdmRlbGl2ZXJ5IiwiYnVsbGV0aW5faWQiOiIyMDIzMTExNC44NTYzM=
+jY1MSJ9.DLjZLimq-zY1uutAskZpDMBvUTfbxL8iQUxIWktEJVo/s/3046837151/br/2307536=
+75391-l__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgk=
+tRZvOTxYyyLFC3JNma6YYVnD-Z_fNgyoYM$" target=3D"_blank" rel=3D"noopener"><im=
+g class=3D"govd_template_image" src=3D"https://content.govdelivery.com/atta=
+chments/fancy_images/USFDA/2020/07/3501626/social-03_original.png" alt=3D"f=
+acebook" width=3D"40" style=3D"width: 40px; height: auto; border: 0px none;=
+"></a><a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJI=
+UzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDUsInVyaSI6ImJwMjpjbGljayIsInVybCI6Im=
+h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3VzZXIvVVNGb29kYW5kRHJ1Z0FkbWluP3V0bV9tZWRpd=
+W09ZW1haWwmdXRtX3NvdXJjZT1nb3ZkZWxpdmVyeSIsImJ1bGxldGluX2lkIjoiMjAyMzExMTQu=
+ODU2MzI2NTEifQ.ifvR3j0IDplXV9Vhbhh8QXUsT2ztdF86wzJ9N9Z16Cg/s/3046837151/br/=
+230753675391-l__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3h=
+Xt7ekgktRZvOTxYyyLFC3JNma6YYVnD-Z_RIoteMP$" target=3D"_blank" rel=3D"noopen=
+er"><img class=3D"govd_template_image" src=3D"https://content.govdelivery.c=
+om/attachments/fancy_images/USFDA/2020/07/3501627/social-04_original.png" a=
+lt=3D"youtube" width=3D"40" style=3D"width: 40px; height: auto; border: 0px=
+ none;"></a><a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbG=
+ciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDYsInVyaSI6ImJwMjpjbGljayIsInVy=
+bCI6Imh0dHBzOi8vd3d3LmZsaWNrci5jb20vcGhvdG9zL2ZkYXBob3Rvcy9hbGJ1bXMvP3V0bV9=
+tZWRpdW09ZW1haWwmdXRtX3NvdXJjZT1nb3ZkZWxpdmVyeSIsImJ1bGxldGluX2lkIjoiMjAyMz=
+ExMTQuODU2MzI2NTEifQ.i_JvyuaZUMG5CSJthS-t9xwJNu_kMyP2jm9lunj9CUo/s/30468371=
+51/br/230753675391-l__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1=
+TGqR3hXt7ekgktRZvOTxYyyLFC3JNma6YYVnD-Z_aUI2RX8$" target=3D"_blank" rel=3D"=
+noopener"><img class=3D"govd_template_image" src=3D"https://content.govdeli=
+very.com/attachments/fancy_images/USFDA/2020/07/3501628/social-05_original.=
+png" alt=3D"flickr" width=3D"40" style=3D"width: 40px; height: auto; border=
+: 0px none;"></a>
+</td>
+</tr>
+<tr>
+<td style=3D"padding: 0 30px 30px 30px; background: #007CBA;" align=3D"cent=
+er" bgcolor=3D"#007CBA" width=3D"100%">
+<p style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; lin=
+e-height: 1.4; font-family: arial, helvetica, sans-serif; font-size: 14px; =
+color: #ffffff; text-align: center; margin: 0;" align=3D"center"><a href=3D=
+"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWx=
+sZXRpbl9saW5rX2lkIjoxMDcsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vcHVibG=
+ljLmdvdmRlbGl2ZXJ5LmNvbS9hY2NvdW50cy9VU0ZEQS9zdWJzY3JpYmVyL2VkaXQ_cHJlZmVyZ=
+W5jZXM9dHJ1ZSN0YWIxIiwiYnVsbGV0aW5faWQiOiIyMDIzMTExNC44NTYzMjY1MSJ9.ZDzJfh5=
+zgwXrU_SgWJGPfb6x1DSLN5CBqCZWQ1nYLaQ/s/3046837151/br/230753675391-l__;!!H9n=
+ueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3J=
+Nma6YYVnD-Z_eeCKAA0$" target=3D"_blank" style=3D"-webkit-text-size-adjust: =
+100%; -ms-text-size-adjust: 100%; color: #ffffff;" rel=3D"noopener"><strong=
+ style=3D"font-weight: normal; color: #ffffff;">Manage Subscriptions</stron=
+g></a> &nbsp;|&nbsp; <a href=3D"https://urldefense.com/v3/__https://lnks.gd=
+/l/eyJhbGciOiJIUzI1NiJ9.eyJxdWVyeV9wYXJhbXMiOlsidmVyaWZpY2F0aW9uIiwiZGVzdGl=
+uYXRpb24iXSwiYnVsbGV0aW5fbGlua19pZCI6MTA4LCJ1cmkiOiJicDI6Y2xpY2siLCJ1cmwiOi=
+JodHRwczovL3B1YmxpYy5nb3ZkZWxpdmVyeS5jb20vYWNjb3VudHMvVVNGREEvc3Vic2NyaWJlc=
+i9vbmVfY2xpY2tfdW5zdWJzY3JpYmUiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTE0Ljg1NjMyNjUx=
+In0.trXv_cIXR8qZ_Lke-5An7vCytypJJv3xzQZPYQapvpE/s/3046837151/br/23075367539=
+1-l?verification=3D5.9292e6efc31c5043e5f9f1b464fb48a8&amp;destination=3DBI_=
+VOX*40pfizer.com__;JQ!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TG=
+qR3hXt7ekgktRZvOTxYyyLFC3JNma6YYVnD-Z_UfKLFQK$" target=3D"_blank" style=3D"=
+-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #ffffff;=
+" rel=3D"noopener"><strong style=3D"font-weight: normal; color: #ffffff;">U=
+nsubscribe All</strong></a> &nbsp;|&nbsp; <a href=3D"https://urldefense.com=
+/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMD=
+ksInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vc3Vic2NyaWJlcmhlbHAuZ292ZGVsa=
+XZlcnkuY29tLyIsImJ1bGxldGluX2lkIjoiMjAyMzExMTQuODU2MzI2NTEifQ.qRTj3WYGWtB60=
+MK3MywimWAN1n9WFpnIxzXh2yFb20M/s/3046837151/br/230753675391-l__;!!H9nueQsQ!=
+5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekgktRZvOTxYyyLFC3JNma6YY=
+VnD-Z_Th1A9GC$" target=3D"_blank" style=3D"-webkit-text-size-adjust: 100%; =
+-ms-text-size-adjust: 100%; color: #ffffff;" rel=3D"noopener"><strong style=
+=3D"font-weight: normal; color: #ffffff;">Help</strong></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if mso]>
+</td>
+</tr>
+</table>
+<![endif]-->
+</td>
+</tr>
+</tbody>
+</table>
+<style type=3D"text/css">body .abe-column-block {min-height: 5px;} td {line=
+-height:1;}</style>
+
+</div>
+<div id=3D"tagline">
+    <table style=3D"border-collapse: collapse; margin: 0px auto; width: 100=
+%;" border=3D"0" cellspacing=3D"0" cellpadding=3D"0">
+<tbody>
+<tr>
+<td style=3D"padding: 0 10px 0 10px;" valign=3D"top">
+<table class=3D"mobile-tagline" style=3D"border-collapse: collapse; margin:=
+ 0px auto; width: 100%;" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" a=
+lign=3D"right">
+<tbody>
+<tr>
+<td style=3D"padding: 10px 0 0 0;" colspan=3D"2" valign=3D"top"><hr></td>
+</tr>
+<tr>
+<td style=3D"padding: 10px 5px 10px 0;" align=3D"left" valign=3D"top"><span=
+ style=3D"color: #757575; font-size: 10px; font-family: arial, helvetica, s=
+ans-serif;">This email was sent to BI_VOX@pfizer.com using GovDelivery Comm=
+unications Cloud on behalf of: U.S. Food and Drug Administration =B7&nbsp;<=
+br>10903 New Hampshire Ave&nbsp;=B7&nbsp;Silver Spring, MD =B7&nbsp; 20993-=
+0002&nbsp;=B7&nbsp;&nbsp;1-888-INFO-FDA</span></td>
+<td style=3D"width: 95px; padding-top: 10px;" align=3D"right" valign=3D"top=
+" width=3D"95"><a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJ=
+hbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMTAsInVyaSI6ImJwMjpjbGljayIsI=
+nVybCI6Imh0dHBzOi8vc3Vic2NyaWJlcmhlbHAuZ3JhbmljdXMuY29tLz91dG1fbWVkaXVtPWVt=
+YWlsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnkiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTE0Ljg1NjM=
+yNjUxIn0.Yfhmjw0VCHY2qwCjbsKifRj2fa5J-Qi_yStheF3c8Ak/s/3046837151/br/230753=
+675391-l__;!!H9nueQsQ!5G3vYMUxzvzRrOAZJcXy8jOtHHWm4-XJ3z-YAIYh1TGqR3hXt7ekg=
+ktRZvOTxYyyLFC3JNma6YYVnD-Z_cHxVJat$" target=3D"_blank" rel=3D"noopener"><i=
+mg src=3D"https://content.govdelivery.com/images/govd-logo-dark.png" border=
+=3D"0" alt=3D"GovDelivery logo" width=3D"95" height=3D"27" align=3D"right">=
+</a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<style type=3D"text/css">body .abe-column-block { min-height: 5px; } table.=
+gd_combo_table img {margin-left:10px; margin-right:10px;} table.gd_combo_ta=
+ble div.govd_image_display img, table.gd_combo_table td.gd_combo_image_cell=
+ img {margin-left:0px; margin-right:0px;}</style>
+
+</div>
+
+<img src=3D"https://links.govdelivery.com/track?enid=3DZWFzPTEmYnVsbGV0aW5y=
+ZWNpcGllbnRpZD0yMzA3NTM2NzUzOTEtbCZzdWJzY3JpYmVyaWQ9MzA0NjgzNzE1MSZtc2lkPSZ=
+hdWlkPSZtYWlsaW5naWQ9MjAyMzExMTQuODU2MzI2NTEmbWVzc2FnZWlkPU1EQi1QUkQtQlVMLT=
+IwMjMxMTE0Ljg1NjMyNjUxJmRhdGFiYXNlaWQ9MTAwMSZ0eXBlPW9wZW4mc2VyaWFsPTE2ODM2N=
+DI4JmVtYWlsaWQ9QklfVk9YQHBmaXplci5jb20mdXNlcmlkPUJJX1ZPWEBwZml6ZXIuY29tJnRh=
+cmdldGlkPSZmbD0mbXZpZD0mZXh0cmE9JiYm" width=3D"1" height=3D"1" style=3D"bor=
+der-width:0; border-style:hidden;" alt=3D""></body>
+</html>
+
+
+------=_NextPart_112_E1CD_6E4D8F16.49312731--
+

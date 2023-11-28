@@ -1,0 +1,9 @@
+{
+    "endpts":"endpts.py",
+    "globaldata":"globaldata.py",
+    "owler":"owler.py",
+    "pj.jiho":"pharmajapan.py",
+    "moderhealthcare":"moderhealthcare.py",
+    "statnews":"statnews.py",
+    "citeline":"citeline.py"
+}

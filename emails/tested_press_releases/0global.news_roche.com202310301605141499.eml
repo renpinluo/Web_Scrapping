@@ -1,0 +1,647 @@
+﻿Received: from CO6PR01MB7452.prod.exchangelabs.com (2603:10b6:303:143::7) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Mon, 30 Oct 2023 20:02:05
+ +0000
+Received: from CYZPR11CA0004.namprd11.prod.outlook.com (2603:10b6:930:8d::15)
+ by CO6PR01MB7452.prod.exchangelabs.com (2603:10b6:303:143::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6933.23; Mon, 30 Oct 2023 20:02:04 +0000
+Received: from CY4PEPF0000EE38.namprd03.prod.outlook.com
+ (2603:10b6:930:8d:cafe::f1) by CYZPR11CA0004.outlook.office365.com
+ (2603:10b6:930:8d::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.28 via Frontend
+ Transport; Mon, 30 Oct 2023 20:02:03 +0000
+Authentication-Results: spf=softfail (sender IP is 148.168.96.5)
+ smtp.mailfrom=gnw1.roche.com; dkim=fail (signature did not verify)
+ header.d=roche.com;dmarc=fail action=quarantine header.from=roche.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ gnw1.roche.com discourages use of 148.168.96.5 as permitted sender)
+Received: from mail.pfizer.com (148.168.96.5) by
+ CY4PEPF0000EE38.mail.protection.outlook.com (10.167.242.12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6933.15 via Frontend Transport; Mon, 30 Oct 2023 20:02:03 +0000
+Received: from somamrexdf04.amer.pfizer.com (170.116.144.42) by
+ somamrexdg06.amer.pfizer.com (170.116.144.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16; Mon, 30 Oct 2023 16:02:03 -0400
+Received: from gromsgo.pfizer.com (10.128.230.31) by
+ somamrexdf04.amer.pfizer.com (170.116.144.42) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16 via Frontend Transport; Mon, 30 Oct 2023 16:02:03 -0400
+Received: from pps.filterd (svaamrppa04.pfizer.com [127.0.0.1])
+	by svaamrppa04.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 39UIPcZb019700
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 16:02:03 -0400
+Authentication-Results-Original: pfizer.com;	spf=softfail
+ smtp.mailfrom=0102018b822da037-ed7c8919-ccc6-40fe-95eb-769dfc09f932-000000@gnw1.roche.com;
+	dkim=fail header.d=roche.com header.s=kcxgafkbbhlmwpxmylqf3p2vvmopglvr;
+	dkim=fail header.d=amazonses.com header.s=shh3fegwg5fppqsuzphvschd53n6ihuv;
+	dmarc=fail header.from=roche.com
+Received: from som-feex-02.pfizer.com (som-feex-02-int.pfizer.com [10.34.104.38])
+	by svaamrppa04.pfizer.com (PPS) with ESMTPS id 3u2hrq1s0s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 16:02:03 -0400
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by som-feex-02.pfizer.com (Postfix) with SMTP id 4SK4164yywz3B8JX
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 20:02:02 +0000 (UTC)
+Received: from mailstream-west.mxrecord.io (mailstream-uswest-egress002.mxrecord.io [52.11.209.211])
+	by som-feex-02.pfizer.com (Postfix) with ESMTPS id 4SK4154Brjz3B8JR
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 20:02:01 +0000 (UTC)
+Received: from mailstream010.us-west-2.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-west.mxrecord.io (Postfix) with ESMTP id 4SK41473Nkz1vngt
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 20:02:00 +0000 (UTC)
+Received-SPF: pass (mailstream-west.mxrecord.io: gnw1.roche.com designates 54.240.2.81 as permitted sender) client-ip=54.240.2.81; envelope-from=0102018b822da037-ed7c8919-ccc6-40fe-95eb-769dfc09f932-000000@gnw1.roche.com; helo=a2-81.smtp-out.eu-west-1.amazonses.com;
+Received: from mailstream-west.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LODBP054
+        for bi_vox@pfizer.com;
+        Mon, 30 Oct 2023 20:02:00 +0000 (GMT)
+Received: from mx0b-00013f02.pphosted.com (mx0b-00013f02.pphosted.com [208.86.201.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-west.mxrecord.io (Postfix) with ESMTPS id 4SK40x2fgNz1vnfC
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 20:01:53 +0000 (UTC)
+Received: from pps.filterd (m0240275.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 39UEQj23012133
+	for <bi_vox@pfizer.com>; Mon, 30 Oct 2023 16:01:52 -0400
+Received: from a2-81.smtp-out.eu-west-1.amazonses.com (a2-81.smtp-out.eu-west-1.amazonses.com [54.240.2.81])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3u26cd3smv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=NOT)
+	for <BI_VOX@pfizer.com>; Mon, 30 Oct 2023 16:01:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=kcxgafkbbhlmwpxmylqf3p2vvmopglvr; d=roche.com; t=1698696110;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=mseilqNR6qGmoAm9+bL3BXvKWpH5yF4v8RJX2IuvP1Y=;
+	b=WQ2QJt8Av6NgFm6uJ9vQ178hNmVmvCxsO+i511TyI+p+NUa3ZlaYVT8cCcKQsmeB
+	lirEXBJ2MjrQhXb0grN+BhFWT/w9oN3VTrTrn8qoyI2LYXPAx20mw+PeEEXQ/TYqWJL
+	zmk+uLbl0cEzrHa57AEhsacu/CXTLwlUM0PTAR9A=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1698696110;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=mseilqNR6qGmoAm9+bL3BXvKWpH5yF4v8RJX2IuvP1Y=;
+	b=Lp8i///NG8VxRCaf8Ab4Sou7TzPH1395LY64li/sk6DeTa5r5CV6XW5UUsryNM74
+	ewcYAPLy29q0i3BqOJOFoMFt8dtjW0tFpqqTsYoSFmYONbTrh6KNWOMTvGafqpsWFV+
+	p3JlFLw3j798cWulgQDNG3zv32JrzYgiiiAasjyQ=
+X-Sender: "=?UTF-8?Q?Roche=20News?=" <global.news@roche.com>
+X-Receiver: BI_VOX@pfizer.com
+X-FireEye: Clean
+From: =?UTF-8?Q?Roche=20News?= <global.news@roche.com>
+To: BI_VOX@pfizer.com
+Reply-To: media.relations@roche.com
+Date: Mon, 30 Oct 2023 20:01:50 +0000
+Message-ID: <0102018b822da037-ed7c8919-ccc6-40fe-95eb-769dfc09f932-000000@eu-west-1.amazonses.com>
+Feedback-ID: 1.eu-west-1.lzb4fhJZei7Cr1QiW4H/IVCBlOzetPgeQ5iybk43ioI=:AmazonSES
+X-SES-Outgoing: 2023.10.30-54.240.2.81
+X-CLX-Shades: MLX
+X-Proofpoint-GUID: zc_irWmAXpcRLH9OgS5wCi-cgmJV89CT
+X-Proofpoint-ORIG-GUID: zc_irWmAXpcRLH9OgS5wCi-cgmJV89CT
+X-CLX-Response: 1TFkXGBwbEQpMehcZHRsRCllEF2JLZkd5SHNQZlptEQpYWBdiH0ljeWltE2c BTREKeE4XbFAFQgV7b0Ndf0URCnhLF2IfSWN5aW0TZwFNEQp5TBdsTW1ObHNhUxpvchEKQ0gXBx gdGhEKQ1kXBxsTGBEKQ0kXGgQaGhoRCllNF2dmchEKWUkXGnEaEBp3BhgeG3EeGxobEBsfdwYYG
+ gYaEQpZXhdsbHkRCklGF1pMQ1BPWHVCRVleT04RCklHF3hPTREKQ04XUEl1Q1h9R2tyWkl4ZmIT ZU15H11pQwdJTUdgfBITaX4RClhcFx8EGgQZGRIFGxoEGxsaBBsZHgQZGRAbHhofGhEKXlkXSU5 IaGYRCk1cFx4TGREKTFoXaXttXU1NEQpFWRdoa2sRCkxfF3oFBQUFBQUFBQUdEQpMRhdva2tja2
+ sRCkJPF2VHb3lzZExQS39kEQpDWhcfHgQYHhoEGAQSGxEKQl4XGxEKQlwXGxEKXk4XGxEKQksXb FAFQgV7b0Ndf0URCkJJF2xQBUIFe29DXX9FEQpCRRdvYl9sc0FBfnsbXxEKQk4XbFAFQgV7b0Nd f0URCkJMF2lSHGZ9H154YFJaEQpCbBdsQFtvYXhzQ0ATfhEKQkAXellQelwBem1ZG1IRCkJYF2t
+ hbG5bXgV6RAUcEQpaWBceEQp5QxdgGnJ9eUdwAUcYSxEKWUsXGxsfGxIRClpLFxsbHxsSEQpwZx d6fmV7XUlDbm5ncxAcGhEKcGgXax5SGHtEHXJtf2YQHBoRCnBoF2FJQklDWEtAaRtvEBwaEQpwa BdgAWR5GBJjUx5lSRAcGhEKcGgXY1JPX0BSXWRNWVgQHBoRCnBoF2dQGWx/Rl5/XkAbEBwaEQpw
+ aBdnBUwaZxNSUFtwcBAcGhEKcGgXY2kBGkJoWBxGUGsQHBoRCnBoF2BwRR9ub0hAaW4cEBwaEQp wfRd6bVtLRU9hcHIeRxAdGhEKcH0XbGBdAR9ORXJSQhgQGhEKcH0XY2FvXRhAHGhLTUgQGhEKcH 8Xa0VceVJ6bWFMGR8QGxoeEQpwXxdtRUhNQl8fWXBGExASHxEKcH8XYmNCeHBpa1lEXB4QGBoaE
+ QpwXxdmZUZuZW1kY25aSBAbGBwRCnBsF2NkRGBCXBNbRB1fEB0aEQptfhcaEQpYTRdLESA=
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-PFERule: PODI-Spoofsafe
+x-pfe-proofpoint-bulk: safe
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:amazonses.com ~all
+x-pfepod-dmarc-rule: pass
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: allow
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-30_13,2023-10-27_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=low_aspam_notspam policy=low_aspam score=0 malwarescore=0
+ suspectscore=0 adultscore=0 priorityscore=371 spamscore=0 bulkscore=0
+ clxscore=261 mlxlogscore=999 impostorscore=0 lowpriorityscore=94
+ mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2310240000 definitions=main-2310300158 domainage_hfrom=11518
+ domainage_replyto=11518
+X-Area1Security-Origin: EXTERNAL 
+X-Area1Security-Processed: 26c735e27f5790cc56ca0a339c23c1b1;2;NONE;2023-10-30T20:02:00;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: [EXTERNAL] [Ad hoc announcement pursuant to Art. 53 LR] Roche announces
+ EMBARK trial in Duchenne muscular dystrophy (DMD) did not reach primary
+ endpoint, but shows positive efficacy outcomes on all timed functional key
+ endpoints             
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-30_13,2023-10-27_01,2023-05-22_02
+Return-Path:
+ 0102018b822da037-ed7c8919-ccc6-40fe-95eb-769dfc09f932-000000@gnw1.roche.com
+X-OrganizationHeadersPreserved: somamrexdg06.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 30 Oct 2023 20:02:03.9616
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 2e859dda-8d49-4b52-ad45-08dbd9831635
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: somamrexdf04.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: CY4PEPF0000EE38.namprd03.prod.outlook.com
+X-CrossPremisesHeadersFiltered: CY4PEPF0000EE38.namprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ CY4PEPF0000EE38:EE_|CO6PR01MB7452:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: Pfizer.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id: 2e859dda-8d49-4b52-ad45-08dbd9831635
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.96.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:ewr-us-a-148-168-96-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 20:02:03.8523
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e859dda-8d49-4b52-ad45-08dbd9831635
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.96.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: somamrexdf04.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR01MB7452
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.6904375
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6907.032
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	D51vWC9H8hjD03ZjqQPY3Wbb9HaulY86gJ79MtYXjdvbE4oO6iYfuWKsU56h5kPMnOxFtl7Hvouf4YfTTIemwhrVHnvr5mBYv4RD2SkFldOHhf5BauXV9qbvVFHfNAOcMipcwgPxroMsGcUPejdm6dq4Tycbk6hv7OD7TStZRUId9TuWt60ZRZ6Zx1UUDM3ESLdQyoKeqlihQysJNs44bL1CW6CD3P9+2LPJElYsjkKarTboUXOL0QGVwXPf+wIudNtnJjWP44DTRKoDZCCAF9mVvNikVwnL9nlVc+YYHb5P3D3IhjLf/WazOqODq5BWeauruy2t/JSzmFKyHJvVThv7WyrQW/NpsubBxrkuCKFsMeKIaDRulGkhbXaxNivxtooSL33kwlYm09D2EY8KSMeSKd5s/R9wOVIMqatRyt+ZNIho+sJ4kP/BQ91tzJjB2c5VjAN7VnEsPOzpDjAQvhWIUesDTXzsY924sc7dLWbzU7vocD81t1DkouByn4cGTEQEAuZdtQ99Z2E3cNuTWMP+qC8vGRLJ1tMTSG5GvvZzHZhoukcUmg0ir+XXKKxh1AsEtBqi295GnnLrSKGdx9a3eJg4w3y1ogkbvgrN9Pux6cYDUJasmjTI7RDE+h+pzuiPnLSQUUvQY29Tw9yc1Fm9gGqBhoqRdwh22SGLSXIoN17V2M3TwvpMkV4O+diSeFiwv6HS+teTGTXL9pn5ZKS/27jFafscSuyZIMFE4Uaa2yfK1ZJaeN2btf6L0slaXTuAlH7ljFwXtAG1o8E2CQ==
+MIME-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><t=
+itle></title></head><body style=3D"font-family:Arial;font-size: 14px;"><spa=
+n style=3D"padding: 0px;"></span>
+<table style=3D"width: 100%;">
+<tbody>
+<tr>
+<td><em><span style=3D"font-size: 21.5pt; line-height: 107%; font-family: '=
+Cambria',serif; color: #7f7f7f;">Media</span> <span style=3D"font-size: 21.=
+5pt; line-height: 107%; font-family: 'Cambria',serif; color: #7f7f7f;">&amp=
+; Investor Release&nbsp;&nbsp;</span></em></td>
+<td style=3D"text-align: right;"><span style=3D"font-size: 24pt;"><img src=
+=3D"https://ml-eu.globenewswire.com/media/696b7c85-2d23-4f5e-a77b-8c6b2fa45=
+d47/hires/?v=3D11232021124200" alt=3D"" width=3D"65" height=3D"35"></span><=
+/td>
+</tr>
+</tbody>
+</table>
+<div>
+<div><span style=3D"font-size: 14pt;"><strong>[Ad hoc announcement pursuant=
+ to Art. 53 LR] Roche announces EMBARK trial in Duchenne muscular dystrophy=
+ (DMD) did not reach primary endpoint, but shows positive efficacy outcomes=
+ on all timed functional key endpoints</strong></span></div>
+<div>&nbsp;</div>
+<div><ul type=3D"disc"><li style=3D"font-size:11pt; font-family:'Arial'; ma=
+rgin-bottom:10pt;"><span style=3D"font-size:11pt; font-family:'Arial';"><st=
+rong>Elevidys-treated boys aged 4-7 years with Duchenne showed an increase =
+on the North Star Ambulatory Assessment (NSAA), a measure of motor function=
+, compared to placebo at 52 weeks but the primary endpoint was not met</str=
+ong></span></li><li style=3D"font-size:11pt; font-family:'Arial'; margin-bo=
+ttom:10pt;"><span style=3D"font-size:11pt; font-family:'Arial';"><strong>Fo=
+r all key pre-specified secondary functional endpoints, time to rise and 10=
+-metre walk test across age groups, clinically meaningful and statistically=
+ significant treatment benefits were observed</strong></span></li><li style=
+=3D"font-size:11pt; font-family:'Arial'; margin-bottom:10pt;"><span style=
+=3D"font-size:11pt; font-family:'Arial';"><strong>No new safety signals obs=
+erved, reinforcing the favourable and manageable safety profile observed wi=
+th Elevidys to date</strong></span></li><li style=3D"font-size:11pt; font-f=
+amily:'Arial'; margin-bottom:10pt;"><span style=3D"font-size:11pt; font-fam=
+ily:'Arial';"><strong>Further evaluation of data is ongoing and Roche will =
+discuss the path forward with health authorities</strong></span></li></ul> =
+   <p style=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-siz=
+e:11pt; font-family:'Arial';">Basel, 30 October 2023 - Roche (SIX: RO, ROG;=
+ OTCQX: RHHBY) announced today topline results from the global, randomised,=
+ double-blind Phase 3 EMBARK study of Elevidys=E2=84=A2 (delandistrogene mo=
+xeparvovec) in ambulatory boys (those who can walk) with Duchenne muscular =
+dystrophy aged 4-7 years. In the study, Elevidys-treated patients improved =
+2.6 points on their NSAA total score 52 weeks after treatment, compared to =
+1.9 points in placebo-treated patients (0.65; n=3D125; P=3D0.24).</span></p=
+>    <p style=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-s=
+ize:11pt; font-family:'Arial';">In all pre-specified, timed functional key =
+secondary endpoints, time to rise from floor and 10 metre walk test, clinic=
+ally meaningful and statistically significant improvements were observed. B=
+oth endpoints are prognostic factors for disease progression and loss of ab=
+ility to walk. Additionally, a clinically meaningful and statistically sign=
+ificant improvement was also observed for the pre-specified secondary endpo=
+int stride velocity 95th centile. This novel digital endpoint, qualified by=
+ the European Medicines Agency (EMA), measures speed of walking via a weara=
+ble device (Syde=C2=AE). The time to ascend 4-steps secondary endpoint also=
+ demonstrated consistent treatment benefit in favour of Elevidys. </span></=
+p>    <p style=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-=
+size:11pt; font-family:'Arial';">All data are being further analysed and wi=
+ll be discussed with health authorities to determine the path forward. Deta=
+iled results from the EMBARK study will be shared at an upcoming scientific=
+ congress and a medical journal publication will be pursued.</span></p>    =
+<p style=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-size:1=
+1pt; font-family:'Arial';">=E2=80=9CHigh unmet need remains in Duchenne and=
+ we are encouraged by the consistent and meaningful results seen in all key=
+ secondary functional endpoints for Elevidys, an innovative gene therapy,=
+=E2=80=9D said Levi Garraway, M.D., Ph.D., Chief Medical Officer and Head o=
+f Global Product Development, Roche. =E2=80=9CWe will work to further analy=
+se the EMBARK results and consult with health authorities as quickly as pos=
+sible. We sincerely thank all the boys, their families and the wider Duchen=
+ne community involved in this important research effort.=E2=80=9D</span></p=
+>    <p style=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-s=
+ize:11pt; font-family:'Arial';">All key pre-specified functional secondary =
+endpoints demonstrated robust evidence for a clinically meaningful treatmen=
+t benefit that was consistent across age groups in Elevidys-treated patient=
+s compared to placebo at week 52. These include:</span></p>    <p style=3D"=
+margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-size:11pt; font-fa=
+mily:'Arial';">Functional endpoints:</span></p>  <table style=3D"border-col=
+lapse: collapse; width:315pt; border-collapse:collapse ;"><tr><td style=3D"=
+border:0.8pt solid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p=
+ style=3D"padding-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom=
+:0pt"><span style=3D"font-size:11pt; font-family:'Arial';"><strong>Time to =
+rise (TTR)</strong></span></p>     </td><td style=3D"border:0.8pt solid rgb=
+(0,0,0); width:252px;;vertical-align: top ; ">     <p style=3D"padding-left=
+:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span style=3D"f=
+ont-size:11pt; font-family:'Arial';"><strong>Change vs Placebo LSM Differen=
+ce (seconds)</strong></span></p>     </td></tr><tr><td style=3D"border:0.8p=
+t solid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p style=3D"p=
+adding-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span=
+ style=3D"font-size:11pt; font-family:'Arial';">Overall (n=3D125)</span></p=
+>     </td><td style=3D"border:0.8pt solid rgb(0,0,0); width:252px;;vertica=
+l-align: top ; ">     <p style=3D"padding-left:0pt; line-height:12pt; margi=
+n-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-family:'A=
+rial';">-0.64 (p=3D0.0025)</span></p>     </td></tr><tr><td style=3D"border=
+:0.8pt solid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p style=
+=3D"padding-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt">=
+<span style=3D"font-size:11pt; font-family:'Arial';">Ages 4-5 (n=3D59)</spa=
+n></p>     </td><td style=3D"border:0.8pt solid rgb(0,0,0); width:252px;;ve=
+rtical-align: top ; ">     <p style=3D"padding-left:0pt; line-height:12pt; =
+margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-fami=
+ly:'Arial';">-0.50</span></p>     </td></tr><tr><td style=3D"border:0.8pt s=
+olid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p style=3D"padd=
+ing-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span st=
+yle=3D"font-size:11pt; font-family:'Arial';">Ages 6-7 (n=3D66)</span></p>  =
+   </td><td style=3D"border:0.8pt solid rgb(0,0,0); width:252px;;vertical-a=
+lign: top ; ">     <p style=3D"padding-left:0pt; line-height:12pt; margin-t=
+op:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-family:'Aria=
+l';">-0.78</span></p>     </td></tr></table>  <p style=3D"line-height:12pt;=
+ margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>  <table style=3D"border-col=
+lapse: collapse; width:315pt; border-collapse:collapse ;"><tr><td style=3D"=
+border:0.8pt solid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p=
+ style=3D"padding-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom=
+:0pt"><span style=3D"font-size:11pt; font-family:'Arial';"><strong>10-metre=
+ walk test</strong></span></p>     </td><td style=3D"border:0.8pt solid rgb=
+(0,0,0); width:252px;;vertical-align: top ; ">     <p style=3D"padding-left=
+:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span style=3D"f=
+ont-size:11pt; font-family:'Arial';"><strong>Change vs Placebo LSM Differen=
+ce (seconds)</strong></span></p>     </td></tr><tr><td style=3D"border:0.8p=
+t solid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p style=3D"p=
+adding-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span=
+ style=3D"font-size:11pt; font-family:'Arial';">Overall (n=3D125)</span></p=
+>     </td><td style=3D"border:0.8pt solid rgb(0,0,0); width:252px;;vertica=
+l-align: top ; ">     <p style=3D"padding-left:0pt; line-height:12pt; margi=
+n-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-family:'A=
+rial';">-0.42 (p=3D0.0048)</span></p>     </td></tr><tr><td style=3D"border=
+:0.8pt solid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p style=
+=3D"padding-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt">=
+<span style=3D"font-size:11pt; font-family:'Arial';">Ages 4-5 (n=3D59)</spa=
+n></p>     </td><td style=3D"border:0.8pt solid rgb(0,0,0); width:252px;;ve=
+rtical-align: top ; ">     <p style=3D"padding-left:0pt; line-height:12pt; =
+margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-fami=
+ly:'Arial';">-0.33 </span></p>     </td></tr><tr><td style=3D"border:0.8pt =
+solid rgb(0,0,0); width:168px;;vertical-align: top ; ">     <p style=3D"pad=
+ding-left:0pt; line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span s=
+tyle=3D"font-size:11pt; font-family:'Arial';">Ages 6-7 (n=3D66)</span></p> =
+    </td><td style=3D"border:0.8pt solid rgb(0,0,0); width:252px;;vertical-=
+align: top ; ">     <p style=3D"padding-left:0pt; line-height:12pt; margin-=
+top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-family:'Ari=
+al';">-0.52 </span></p>     </td></tr></table>  <p style=3D"line-height:12p=
+t; margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-size:9pt; font-=
+family:'Arial';"><em>LSM =3D least squares mean</em></span></p>    <p style=
+=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-size:11pt; fon=
+t-family:'Arial';">As part of a collaboration agreement Roche is working wi=
+th Sarepta Therapeutics to transform the future for the Duchenne community,=
+ enabling those living with the disease to maintain and protect their muscl=
+e function, keeping them stronger for longer. Sarepta is responsible for ma=
+naging regulatory approval and the commercialisation of Elevidys in the US.=
+ Roche is responsible for regulatory approvals and bringing Elevidys to pat=
+ients across the rest of the world. Sarepta is responsible for the manufact=
+uring of Elevidys and together, the companies are working on a comprehensiv=
+e joint clinical development plan to maximise the chances of broad approval=
+ and access.</span></p>    <p style=3D"line-height:12pt; margin-top:0pt; ma=
+rgin-bottom:10pt;"><span style=3D"font-size:11pt; font-family:'Arial';"><st=
+rong>Elevidys clinical development programme </strong></span></p>    <ul ty=
+pe=3D"disc"><li style=3D"font-size:11pt; font-family:'Arial';"><span style=
+=3D"font-size:11pt; font-family:'Arial';">Study 101 evaluating the safety o=
+f Elevidys in four ambulatory participants aged between 4-&lt;8 years old w=
+ith Duchenne. Four-year data show a durable response and consistent safety =
+profile.</span></li><li style=3D"font-size:11pt; font-family:'Arial';"><spa=
+n style=3D"font-size:11pt; font-family:'Arial';">Study 102, a Phase 2 clini=
+cal trial evaluating the safety and efficacy of Elevidys in patients with D=
+uchenne aged 4-&lt;8 years.</span></li><li style=3D"font-size:11pt; font-fa=
+mily:'Arial';"><span style=3D"font-size:11pt; font-family:'Arial';">Study 1=
+03 (ENDEAVOR), a two-part, open-label, Phase 1b study assessing the Elevidy=
+s-dystrophin expression and safety of Elevidys in five cohorts of boys with=
+ Duchenne representing different stages of disease progression. This study =
+is ongoing.</span></li><li style=3D"font-size:11pt; font-family:'Arial';"><=
+span style=3D"font-size:11pt; font-family:'Arial';">Study 301 (EMBARK), a P=
+hase 3 global, randomised, double-blinded and placebo-controlled study of E=
+levidys in ambulatory Duchenne patients aged 4-&lt;8 years old. </span></li=
+><li style=3D"font-size:11pt; font-family:'Arial';"><span style=3D"font-siz=
+e:11pt; font-family:'Arial';">The ENVOL trial (Study 302) a Phase 2 study i=
+n children with Duchenne. The study aims to enrol 21 participants who are u=
+nder 4 years of age, including newborns. Not yet started. </span></li><li s=
+tyle=3D"font-size:11pt; font-family:'Arial';"><span style=3D"font-size:11pt=
+; font-family:'Arial';">The ENVISION trial (Study 303), a Phase 3 study in =
+older ambulatory/non-ambulatory patients which is now recruiting.</span></l=
+i><li style=3D"font-size:11pt; font-family:'Arial';"><span style=3D"font-si=
+ze:11pt; font-family:'Arial';">The EXPEDITION long-term (5 year) follow up =
+study (Study 305) of participants who have received Elevidys in a previous =
+clinical study, which is not yet recruiting.</span><br></li></ul>    <p sty=
+le=3D"line-height:12pt; margin-top:0pt; margin-bottom:10pt;"><span style=3D=
+"color:rgb(11, 65, 205); font-size:11pt; font-family:'Arial';"><strong>Abou=
+t EMBARK</strong></span><br><span style=3D"font-size:11pt; font-family:'Ari=
+al';">EMBARK is a multinational, Phase 3, randomised, double-blind, two-par=
+t crossover, placebo-controlled study assessing the safety and efficacy of =
+Elevidys in ambulatory boys with a confirmed mutation in the </span><span s=
+tyle=3D"font-size:11pt; font-family:'Arial';"><em>DMD gene</em></span><span=
+ style=3D"font-size:11pt; font-family:'Arial';">, aged between 4 and 7 year=
+s. Eligible participants received a single dose of Elevidys during either P=
+art 1 or Part 2 of the study. The study is ongoing.</span></p>    <p style=
+=3D"line-height:12pt; margin-top:0pt; margin-bottom:10pt;"><span style=3D"f=
+ont-size:11pt; font-family:'Arial';">Participants (n=3D125) received 1.33x1=
+0</span><span style=3D"font-size:11pt; font-family:'Arial';"><sup>14</sup><=
+/span><span style=3D"font-size:11pt; font-family:'Arial';"> vg/kg of deland=
+istrogene moxeparvovec or placebo. In Part 1, participants were randomised =
+according to age (4-5 or 6-7) or NSAA total score at screening (=E2=89=A422=
+ or &gt;22) to receive either Elevidys or placebo, with a follow-up period =
+for 52 weeks. In Part 2, participants crossed over - meaning, those who wer=
+e previously treated with placebo in Part 1 received Elevidys and participa=
+nts who were previously treated with placebo received Elevidys, with a foll=
+ow-up period for 52 weeks.</span></p>    <p style=3D"line-height:12pt; marg=
+in-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:11pt; font-family:=
+'Arial';">The primary endpoint of the trial was change from baseline in NSA=
+A total score at week 52. Secondary endpoints include:</span></p>    <ul ty=
+pe=3D"disc"><li style=3D"font-size:11pt; font-family:'Arial';"><span style=
+=3D"font-size:11pt; font-family:'Arial';">The quantity of delandistrogene m=
+oxeparvovec micro-dystrophin expression at Week 12 as measured by western b=
+lot of biopsied muscle tissue (Part 1)</span></li><li style=3D"font-size:11=
+pt; font-family:'Arial';"><span style=3D"font-size:11pt; font-family:'Arial=
+';">Change from baseline to Week 52 in Time to Rise from Floor</span></li><=
+li style=3D"font-size:11pt; font-family:'Arial';"><span style=3D"font-size:=
+11pt; font-family:'Arial';">Change from baseline to Week 52 in 10-metre Wal=
+k/Run (10MWR)</span></li><li style=3D"font-size:11pt; font-family:'Arial';"=
+><span style=3D"font-size:11pt; font-family:'Arial';">Change from baseline =
+to Week 52 in stride velocity 95th centile (as measured by Syde=C2=AE, a we=
+arable device)</span></li><li style=3D"font-size:11pt; font-family:'Arial';=
+"><span style=3D"font-size:11pt; font-family:'Arial';">Change from baseline=
+ to Week 52 in 100-metre Walk/Run</span></li><li style=3D"font-size:11pt; f=
+ont-family:'Arial';"><span style=3D"font-size:11pt; font-family:'Arial';">C=
+hange from baseline to Week 52 in time to ascend 4 steps</span></li></ul>  =
+  <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;"><span s=
+tyle=3D"font-size:11pt; font-family:'Arial';">Data not yet available for th=
+e following endpoints: </span></p>    <ul type=3D"disc"><li style=3D"font-s=
+ize:11pt; font-family:'Arial';"><span style=3D"font-size:11pt; font-family:=
+'Arial';">Change from baseline to Week 52 in Patient-Reported Outcomes Meas=
+urement Information System=C2=AE (PROMIS=C2=AE) mobility score </span></li>=
+<li style=3D"font-size:11pt; font-family:'Arial';"><span style=3D"font-size=
+:11pt; font-family:'Arial';">Change from baseline to Week 52 in PROMIS=C2=
+=AE upper extremity score</span></li><li style=3D"font-size:11pt; font-fami=
+ly:'Arial';"><span style=3D"font-size:11pt; font-family:'Arial';">Number of=
+ skills gained or improved at Week 52 as measured by the NSAA</span><br></l=
+i></ul>    <p style=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"=
+color:rgb(11, 65, 205); font-size:11pt; font-family:'Arial';"><strong>About=
+ ELEVIDYS=E2=84=A2</strong></span><br><span style=3D"font-size:11pt; font-f=
+amily:'Arial';">Elevidys=E2=84=A2 (delandistrogene moxeparvovec, also known=
+ as SRP-9001) is the first approved disease-modifying therapy for Duchenne =
+and is designed to address the underlying cause of Duchenne through targete=
+d skeletal, respiratory and cardiac muscle expression of shortened dystroph=
+in produced by Elevidys. Elevidys is a one-time treatment administered thro=
+ugh a single (one-time) intravenous dose. Elevidys is contraindicated in pa=
+tients with any deletion in exons 8 and/or 9 in the </span><span style=3D"f=
+ont-size:11pt; font-family:'Arial';"><em>DMD gene</em></span><span style=3D=
+"font-size:11pt; font-family:'Arial';">.</span></p>    <p style=3D"margin-t=
+op:0pt; margin-bottom:10pt;"><span style=3D"font-size:11pt; font-family:'Ar=
+ial';">Elevidys received accelerated approval in the US in June 2023, in th=
+e United Arab Emirates in August 2023 and in Qatar in September 2023 for th=
+e treatment of ambulant children aged 4 through 5 years with Duchenne, who =
+have a confirmed mutation in the </span><span style=3D"font-size:11pt; font=
+-family:'Arial';"><em>DMD</em></span><span style=3D"font-size:11pt; font-fa=
+mily:'Arial';"> gene.</span></p>    <p style=3D"margin-top:0pt; margin-bott=
+om:10pt;"><span style=3D"color:rgb(11, 65, 205); font-size:11pt; font-famil=
+y:'Arial';"><strong>About Duchenne muscular dystrophy</strong></span><br><s=
+pan style=3D"font-size:11pt; font-family:'Arial';">Duchenne is a rare, gene=
+tic, muscle-wasting disease that progresses rapidly from early childhood. A=
+pproximately 1 in 3,500 - 5,000 boys worldwide are born with Duchenne, whil=
+e Duchenne in girls is very rare. Everyone who has Duchenne will lose the a=
+bility to walk, upper limb, lung and cardiac function and mean life expecta=
+ncy is 28 years. A diagnosis of DMD will require full-time caregiving which=
+ is most often provided by parents, the majority of whom will find it diffi=
+cult to carry out usual work or household activities and suffer from depres=
+sion and physical pain.</span></p>    <p style=3D"margin-top:0pt; margin-bo=
+ttom:10pt;"><span style=3D"font-size:11pt; font-family:'Arial';">Duchenne i=
+s caused by mutations of the </span><span style=3D"font-size:11pt; font-fam=
+ily:'Arial';"><em>DMD gene</em></span><span style=3D"font-size:11pt; font-f=
+amily:'Arial';">, which affects the production of the muscle protein, dystr=
+ophin. Dystrophin is a critical component of a protein complex that strengt=
+hens muscle fibers and protects them from injury during muscle contraction.=
+ Due to a genetic mutation in the </span><span style=3D"font-size:11pt; fon=
+t-family:'Arial';"><em>DMD gene</em></span><span style=3D"font-size:11pt; f=
+ont-family:'Arial';">, people with Duchenne do not make functional dystroph=
+in; their muscle cells are more sensitive to injury and muscle tissue is pr=
+ogressively replaced with scar tissue and fat.</span></p>    <p style=3D"ma=
+rgin-top:0pt; margin-bottom:10pt;"><span style=3D"color:rgb(10, 65, 205); f=
+ont-size:11pt; font-family:'Arial';"><strong>About Roche in Neuroscience</s=
+trong></span><br><span style=3D"font-size:11pt; font-family:'Arial';">Neuro=
+science is a major focus of research and development at Roche. Our goal is =
+to pursue groundbreaking science to develop new treatments that help improv=
+e the lives of people with chronic and potentially devastating diseases.</s=
+pan></p>    <p style=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D=
+"font-size:11pt; font-family:'Arial';">Roche is investigating more than a d=
+ozen medicines for neurological disorders, including neuromuscular diseases=
+: Duchenne muscular dystrophy, facioscapulohumeral muscular dystrophy, myas=
+thenia gravis and spinal muscular atrophy; neuro immune diseases: multiple =
+sclerosis and neuromyelitis optica spectrum disorder; and neurodegenerative=
+ diseases: Alzheimer=E2=80=99s disease, Huntington=E2=80=99s disease and Pa=
+rkinson=E2=80=99s disease. Together with our partners, we are committed to =
+pushing the boundaries of scientific understanding to solve some of the mos=
+t difficult challenges in neuroscience today.</span></p>    <p style=3D"lin=
+e-height:12pt; margin-top:0pt; margin-bottom:10pt;"><span style=3D"color:rg=
+b(11, 65, 205); font-size:11pt; font-family:'Arial';"><strong>About Roche</=
+strong></span> <br><span style=3D"font-size:11pt; font-family:'Arial';">Fou=
+nded in 1896 in Basel, Switzerland, as one of the first industrial manufact=
+urers of branded medicines, Roche has grown into the world=E2=80=99s larges=
+t biotechnology company and the global leader in in-vitro diagnostics. The =
+company pursues scientific excellence to discover and develop medicines and=
+ diagnostics for improving and saving the lives of people around the world.=
+ We are a pioneer in personalised healthcare and want to further transform =
+how healthcare is delivered to have an even greater impact. To provide the =
+best care for each person we partner with many stakeholders and combine our=
+ strengths in Diagnostics and Pharma with data insights from the clinical p=
+ractice.</span></p>    <p style=3D"margin-top:0pt; margin-bottom:10pt;"><sp=
+an style=3D"font-size:11pt; font-family:'Arial';">In recognising our endeav=
+our to pursue a long-term perspective in all we do, Roche has been named on=
+e of the most sustainable companies in the pharmaceuticals industry by the =
+Dow Jones Sustainability Indices for the thirteenth consecutive year. This =
+distinction also reflects our efforts to improve access to healthcare toget=
+her with local partners in every country we work. </span></p>    <p style=
+=3D"margin-top:0pt; margin-bottom:10pt;"><span style=3D"font-size:11pt; fon=
+t-family:'Arial';">Genentech, in the United States, is a wholly owned membe=
+r of the Roche Group. Roche is the majority shareholder in Chugai Pharmaceu=
+tical, Japan. </span></p>    <p style=3D"margin-top:0pt; margin-bottom:10pt=
+;"><span style=3D"font-size:11pt; font-family:'Arial';">For more informatio=
+n, please visit </span><a href=3D"https://urldefense.com/v3/__https://conne=
+ct-eu.notified.com/Tracker?data=3Dl6-wOlItQDTzrlkn2dQ9sAS55ZRG2gfeRUE6QTY4B=
+Ua3AwqHsptIPLt36IOaF4rYvVXsl7adRf9UyBm1N97vWQ=3D=3D000285116992__;!!H9nueQs=
+Q!4fDBZg9x4I_u6BRecepQ3h2CiHYydHDyv_-rb-n5CGRb9lwvTT0ECxydG7diO2NXWJgfN1D5F=
+nLeYaQaozVI$" rel=3D"nofollow" style=3D"text-decoration:none;" target=3D"_b=
+lank"><span style=3D"color:rgb(17, 85, 204); font-size:11pt; font-family:'A=
+rial';"><u>www.roche.com</u></span></a><span style=3D"font-size:11pt; font-=
+family:'Arial';">.</span></p>    <p style=3D"margin-top:0pt; margin-bottom:=
+10pt;"><span style=3D"font-size:9pt; font-family:'Arial';">All trademarks u=
+sed or mentioned in this release are protected by law.</span><br><br><br><s=
+pan style=3D"color:rgb(11, 65, 205); font-size:11pt; font-family:'Arial';">=
+<strong>Roche Global Media Relations</strong></span><br><span style=3D"font=
+-size:11pt; font-family:'Arial';">Phone: +41 61 688 8888 / e-mail: </span><=
+a href=3D"https://urldefense.com/v3/__https://connect-eu.notified.com/Track=
+er?data=3Dj4QHOoCRMh3TF-RdWd_tczK53N7klPmm4Xb74eBqaBj9PUoFVbxLqHoocujFLbGr0=
+StmfFR6TnR4-ryx4YiOo4SlXVDPGr24VOEFM08dUQ6YgVegQv6vwkc8EVE_Eaga000285116992=
+__;!!H9nueQsQ!4fDBZg9x4I_u6BRecepQ3h2CiHYydHDyv_-rb-n5CGRb9lwvTT0ECxydG7diO=
+2NXWJgfN1D5FnLeYXb9b-Pp$" rel=3D"nofollow" style=3D"text-decoration:none;" =
+target=3D"_blank"><span style=3D"color:rgb(11, 65, 205); font-size:11pt; fo=
+nt-family:'Arial';"><u>media.relations@roche.com</u></span></a></p>  <table=
+ style=3D"border-collapse: collapse; width:450.8pt; border-collapse:collaps=
+e ;"><tr><td style=3D"width:300.54px;;vertical-align: top ; ">     <p style=
+=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"background-color:rgb(=
+255, 255, 255); color:rgb(32, 33, 36); font-size:11pt; font-family:'Arial';=
+"><strong>H</strong></span><span style=3D"font-size:11pt; font-family:'Aria=
+l';"><strong>ans Trees, PhD</strong></span><br><span style=3D"font-size:11p=
+t; font-family:'Arial';">Phone: +41 79 407 72 58</span><br></p>     </td><t=
+d style=3D"width:300.54px;;vertical-align: top ; ">     <p style=3D"margin-=
+top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-family:'Ari=
+al';"><strong>Nathalie Altermatt</strong></span><br><span style=3D"font-siz=
+e:11pt; font-family:'Arial';">Phone: +41 79 771 05 25<br><br></span></p>   =
+  </td></tr><tr><td style=3D"width:300.54px;;vertical-align: top ; ">     <=
+p style=3D"line-height:12.6pt; margin-top:0pt; margin-bottom:0pt"><span sty=
+le=3D"font-size:11pt; font-family:'Arial';"><strong>Simon Goldsborough</str=
+ong></span></p>          <p style=3D"margin-top:0pt; margin-bottom:0pt"><sp=
+an style=3D"font-size:11pt; font-family:'Arial';">Phone: +44 797 32 72 915<=
+/span></p>     </td><td style=3D"width:300.54px;;vertical-align: top ; ">  =
+   <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:=
+11pt; font-family:'Arial';"><strong>Karsten Kleine</strong></span><br><span=
+ style=3D"font-size:11pt; font-family:'Arial';">Phone: +41 79 461 86 83</sp=
+an></p>          <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p> =
+    </td></tr><tr><td style=3D"width:300.54px;;vertical-align: top ; ">    =
+ <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11=
+pt; font-family:'Arial';"><strong>Nina M=C3=A4hlitz</strong></span><br><spa=
+n style=3D"font-size:11pt; font-family:'Arial';">Phone: +41 79 327 54 74</s=
+pan></p>     </td><td style=3D"width:300.54px;;vertical-align: top ; ">    =
+ <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11=
+pt; font-family:'Arial';"><strong>Kirti Pandey</strong></span><br><span sty=
+le=3D"font-size:11pt; font-family:'Arial';">Phone: +49 172 6367262</span></=
+p>          <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>     <=
+/td></tr><tr><td style=3D"width:300.54px;;vertical-align: top ; ">     <p s=
+tyle=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; f=
+ont-family:'Arial';"><strong>Rebekka Schnell</strong></span><br><span style=
+=3D"font-size:11pt; font-family:'Arial';">Phone: +41 79 205 27 03</span></p=
+>     </td><td style=3D"width:300.54px;;vertical-align: top ; ">     <p sty=
+le=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; fon=
+t-family:'Arial';"><strong>Sileia Urech</strong></span></p>          <p sty=
+le=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; fon=
+t-family:'Arial';">Phone: +41 79 935 81 48</span></p>     </td></tr></table=
+>  <p>&nbsp;</p>    <p style=3D"line-height:12pt; margin-top:0pt; margin-bo=
+ttom:10pt;"><span style=3D"color:rgb(11, 65, 205); font-size:11pt; font-fam=
+ily:'Arial';"><strong>Roche Investor Relations</strong></span></p>  <table =
+style=3D"border-collapse: collapse; width:451.3pt; border-collapse:collapse=
+ ;"><tr><td style=3D"width:300.87px;;vertical-align: top ; ">     <p style=
+=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span style=3D"fon=
+t-size:11pt; font-family:'Arial';"><strong>Dr. Bruno Eschli</strong></span>=
+<br><span style=3D"font-size:11pt; font-family:'Arial';">Phone: +41 61 68-7=
+5284</span><br><span style=3D"font-size:11pt; font-family:'Arial';">e-mail:=
+ </span><a href=3D"mailto:bruno.eschli@roche.com" rel=3D"nofollow" style=3D=
+"text-decoration:none;" target=3D"_blank"><span style=3D"color:rgb(0, 0, 25=
+5); font-size:11pt; font-family:'Arial';"><u>bruno.eschli@roche.com</u></sp=
+an></a><br></p>     </td><td style=3D"width:300.87px;;vertical-align: top ;=
+ ">     <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt"><s=
+pan style=3D"font-size:11pt; font-family:'Arial';"><strong>Dr. Sabine Borng=
+r=C3=A4ber</strong></span><br><span style=3D"font-size:11pt; font-family:'A=
+rial';">Phone: +41 61 68-88027 </span><br><span style=3D"font-size:11pt; fo=
+nt-family:'Arial';">e-mail: </span><span style=3D"color:rgb(17, 85, 204); f=
+ont-size:11pt; font-family:'Arial';"><u><span style=3D"color:rgb(17, 85, 20=
+4); font-size:11pt; font-family:'Arial';"><a href=3D"mailto:sabine.borngrae=
+ber@roche.com" rel=3D"nofollow" style=3D"color:rgb(17, 85, 204);" target=3D=
+"_blank">sabine.borngraeber@roche.com</a></span><a href=3D"mailto:sabine.bo=
+rngraeber@roche.com" rel=3D"nofollow" style=3D"color:rgb(17, 85, 204);" tar=
+get=3D"_blank"><br><br></a></u></span></p>     </td></tr><tr><td style=3D"w=
+idth:300.87px;;vertical-align: top ; ">     <p style=3D"line-height:12pt; m=
+argin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-famil=
+y:'Arial';"><strong>Dr. Birgit Masjost</strong></span><br><span style=3D"fo=
+nt-size:11pt; font-family:'Arial';">Phone: +41 61 68-84814</span><br><span =
+style=3D"font-size:11pt; font-family:'Arial';">e-mail: </span><a href=3D"ma=
+ilto:birgit.masjost@roche.com" rel=3D"nofollow" style=3D"text-decoration:no=
+ne;" target=3D"_blank"><span style=3D"color:rgb(17, 85, 204); font-size:11p=
+t; font-family:'Arial';"><u>birgit.masjost@roche.com</u></span></a></p>    =
+ </td><td style=3D"width:300.87px;;vertical-align: top ; ">     <p style=3D=
+"line-height:12pt; margin-top:0pt; margin-bottom:0pt"><span style=3D"font-s=
+ize:11pt; font-family:'Arial';"><strong>Dr. Gerard Tobin</strong></span> <b=
+r><span style=3D"font-size:11pt; font-family:'Arial';">Phone: +41 61 68-729=
+42 </span><br><span style=3D"font-size:11pt; font-family:'Arial';">e-mail: =
+</span><a href=3D"mailto:gerard.tobin@roche.com" rel=3D"nofollow" style=3D"=
+text-decoration:none;" target=3D"_blank"><span style=3D"color:rgb(17, 85, 2=
+04); font-size:11pt; font-family:'Arial';"><u>gerard.tobin@roche.com</u></s=
+pan></a></p>     </td></tr></table>  <p>&nbsp;<br></p>    <p style=3D"line-=
+height:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"color:rgb(1=
+1, 65, 205); font-size:11pt; font-family:'Arial';"><strong>Investor Relatio=
+ns North America<br></strong></span><br></p>  <table style=3D"border-collap=
+se: collapse; width:451.3pt; border-collapse:collapse ;"><tr><td style=3D"w=
+idth:300.87px;;vertical-align: top ; ">     <p style=3D"line-height:12pt; m=
+argin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:11pt; font-famil=
+y:'Arial';"><strong>Loren Kalm</strong></span> <br><span style=3D"font-size=
+:11pt; font-family:'Arial';">Phone: +1 650 225 3217 </span><br><span style=
+=3D"font-size:11pt; font-family:'Arial';">e-mail: </span><a href=3D"mailto:=
+kalm.loren@gene.com" rel=3D"nofollow" style=3D"text-decoration:none;" targe=
+t=3D"_blank"><span style=3D"color:rgb(17, 85, 204); font-size:11pt; font-fa=
+mily:'Arial';"><u>kalm.loren@gene.com</u></span></a><br></p>     </td><td s=
+tyle=3D"width:300.87px;;vertical-align: top ; ">     <p style=3D"line-heigh=
+t:12pt; margin-top:0pt; margin-bottom:0pt">&nbsp;</p>     </td></tr></table=
+>  <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;">&nbsp;=
+</p>    <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;">&=
+nbsp;</p>    <p>&nbsp;</p> <p id=3D"gnw_attachments_section-header">
+    <strong>Attachment</strong>
+</p>
+<ul id=3D"gnw_attachments_section-items">
+            <li>
+        <a target=3D"_blank" href=3D"https://urldefense.com/v3/__https://ml=
+-eu.globenewswire.com/Resource/Download/3f20bddc-f921-4078-9e42-e3d8d67abee=
+a__;!!H9nueQsQ!4fDBZg9x4I_u6BRecepQ3h2CiHYydHDyv_-rb-n5CGRb9lwvTT0ECxydG7di=
+O2NXWJgfN1D5FnLeYYacOqsm$">30102023_MR_ElevidysEMBARK_en</a>
+      </li>
+      </ul>
+</div>
+</div>
+<div>
+<p>&nbsp;</p>
+<p class=3D"MsoNoSpacing"><span style=3D"color: gray; font-size: 10pt;">All=
+ rights reserved =C2=A92022 F. Hoffmann-La Roche Ltd.<br></span><span style=
+=3D"color: gray; font-size: 10pt;">Group Communications, Grenzacherstrasse =
+124, CH-4070 Basel, Switzerland<br></span></p>
+<p class=3D"MsoNoSpacing"><span style=3D"font-size: 10pt; font-family: 'Ari=
+al';"><a href=3D"https://urldefense.com/v3/__https://www.roche.com/media/un=
+subscribe.htm__;!!H9nueQsQ!4fDBZg9x4I_u6BRecepQ3h2CiHYydHDyv_-rb-n5CGRb9lwv=
+TT0ECxydG7diO2NXWJgfN1D5FnLeYaQkG8Wl$" target=3D"_blank">Unsubscribe</a></s=
+pan><span style=3D"color: gray; font-size: 10pt;">&nbsp;| </span><span styl=
+e=3D"color: #023160; font-size: 10pt;"><a href=3D"https://urldefense.com/v3=
+/__https://www.roche.com/privacy_policy.htm__;!!H9nueQsQ!4fDBZg9x4I_u6BRece=
+pQ3h2CiHYydHDyv_-rb-n5CGRb9lwvTT0ECxydG7diO2NXWJgfN1D5FnLeYcY6N4U3$" target=
+=3D"_blank">Privacy Policy</a></span></p>
+<div style=3D"border-top: 1px solid #aba8a8; margin-top: 1em; padding: 1em =
+0; font-size: 11px !important; color: #aba8a8;">&nbsp;</div>
+</div>
+<img src=3D"https://contacts-eu.globenewswire.com/Ros/TrackEmailOpen?recipi=
+entId=3Dbase64v2%3anASW%2fKGkt0VjAaOsNy6zKdZ4JTyJkQ7O66c3bMgBK7E32eTR0goa77=
+c2UDqaf%2bi1" width=3D"1" height=3D"1" style=3D"display:none;"></body></htm=
+l>=
+

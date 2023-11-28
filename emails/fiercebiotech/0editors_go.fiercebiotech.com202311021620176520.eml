@@ -1,0 +1,2415 @@
+﻿Received: from BL3PR01MB6932.prod.exchangelabs.com (2603:10b6:208:357::8) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Thu, 2 Nov 2023 20:16:10
+ +0000
+Received: from CH0P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::30)
+ by BL3PR01MB6932.prod.exchangelabs.com (2603:10b6:208:357::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6954.21; Thu, 2 Nov 2023 20:16:05 +0000
+Received: from DS2PEPF0000343D.namprd02.prod.outlook.com
+ (2603:10b6:610:ef:cafe::75) by CH0P220CA0018.outlook.office365.com
+ (2603:10b6:610:ef::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.21 via Frontend
+ Transport; Thu, 2 Nov 2023 20:16:05 +0000
+Authentication-Results: spf=softfail (sender IP is 148.168.96.5)
+ smtp.mailfrom=go.fiercebiotech.com; dkim=fail (signature did not verify)
+ header.d=go.fiercebiotech.com;dmarc=fail action=quarantine
+ header.from=go.fiercebiotech.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ go.fiercebiotech.com discourages use of 148.168.96.5 as permitted sender)
+Received: from mail.pfizer.com (148.168.96.5) by
+ DS2PEPF0000343D.mail.protection.outlook.com (10.167.18.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6954.19 via Frontend Transport; Thu, 2 Nov 2023 20:16:04 +0000
+Received: from somamrexdf04.amer.pfizer.com (170.116.144.42) by
+ somamrexde04.amer.pfizer.com (170.116.144.39) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Thu, 2 Nov 2023 16:15:53 -0400
+Received: from mopmsgo.pfizer.com (10.34.104.58) by
+ somamrexdf04.amer.pfizer.com (170.116.144.42) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16 via Frontend Transport; Thu, 2 Nov 2023 16:15:53 -0400
+Received: from pps.filterd (somamrppa08.pfizer.com [127.0.0.1])
+	by somamrppa08.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 3A2InY0P003811
+	for <bi_vox@pfizer.com>; Thu, 2 Nov 2023 16:15:53 -0400
+Authentication-Results-Original: pfizer.com;	spf=softfail
+ smtp.mailfrom=editors@go.fiercebiotech.com;	dkim=fail header.s=dkim
+ header.d=go.fiercebiotech.com;	dmarc=fail header.from=go.fiercebiotech.com
+Received: from som-feex-01.pfizer.com (som-feex-01-int.pfizer.com [10.34.104.39])
+	by somamrppa08.pfizer.com (PPS) with ESMTPS id 3u2hrf4k6s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Thu, 02 Nov 2023 16:15:53 -0400
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by som-feex-01.pfizer.com (Postfix) with SMTP id 4SLw9h6Xgcz2CWg
+	for <bi_vox@pfizer.com>; Thu,  2 Nov 2023 20:15:52 +0000 (UTC)
+Received: from mailstream-east.mxrecord.io (mailstream-useast-egress002.mxrecord.io [54.173.50.115])
+	by som-feex-01.pfizer.com (Postfix) with ESMTPS id 4SLw9f5x80z2CXP
+	for <bi_vox@pfizer.com>; Thu,  2 Nov 2023 20:15:50 +0000 (UTC)
+Received: from mailstream038.us-east-1.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-east.mxrecord.io (Postfix) with ESMTP id 4SLw9f4ljlz22kSg
+	for <bi_vox@pfizer.com>; Thu,  2 Nov 2023 20:15:50 +0000 (UTC)
+Received-SPF: pass (mailstream-east.mxrecord.io: go.fiercebiotech.com designates 205.162.46.93 as permitted sender) client-ip=205.162.46.93; envelope-from=editors@go.fiercebiotech.com; helo=mailsrv4693.o-mx.com;
+Received: from mailstream-east.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LOHMM1EJ
+        for bi_vox@pfizer.com;
+        Thu, 02 Nov 2023 20:15:48 +0000 (GMT)
+Received: from mx0a-00013f02.pphosted.com (mx0a-00013f02.pphosted.com [208.84.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-east.mxrecord.io (Postfix) with ESMTPS id 4SLw9c3SWXz22kLt
+	for <bi_vox@pfizer.com>; Thu,  2 Nov 2023 20:15:48 +0000 (UTC)
+Received: from pps.filterd (m0373978.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 3A2GELMs030276
+	for <bi_vox@pfizer.com>; Thu, 2 Nov 2023 16:15:47 -0400
+Received: from mailsrv4693.o-mx.com (mailsrv4693.o-mx.com [205.162.46.93])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3u4f40tqtn-3
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <bi_vox@pfizer.com>; Thu, 02 Nov 2023 16:15:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1698956142; d=go.fiercebiotech.com; s=dkim; h=date:message-id:from:reply-to:to:subject:mime-version:list-unsubscribe; bh=t1UEdV8WK6AjSuQHcfTvctp0fi7pIBceb3y0LQRtHps=; b=KmerDrtlVOrmj4n+fPYXnUm8k9M/BGmbpmIQxOxa6ZjGMtaAWsmIy1NRmorSKF1tT11Ia8T9CRrvgYbEmduoHjeuY8z0fIdyKaSinUM5YXkTfm5HbDNKQoafz4tj7Q/34J/rWGFxKydoJjxKA5Baj1CgdXCI7B1zNcb6++Kr4mI=; 
+Date: Thu, 2 Nov 2023 15:15:42 -0500 (CDT)
+Message-ID: <4Oz1ue^cmQ6eFe6baCm-nxmcme.^Q.1698956112145@OMS27.go.fiercebiotech.com>
+X-FireEye: Clean
+From: Fierce Biotech PM Tracker <editors@go.fiercebiotech.com>
+Reply-To: Fierce Biotech PM Tracker <qx_fiercelifesciences@inbound.bamboocricket.com>
+To: bi_vox@pfizer.com
+Content-Type: multipart/mixed;
+	boundary="_fe16fcb3-1bcd-4b1c-9c49-5085fe8efa40_"
+X-MailSessionID: 4Oz1ue^cmQ6eFe6baCm-nxmcme.^Q.1698956112145
+Referer: https://qtx.omeclk.com/portal/
+List-Unsubscribe: <mailto:autounsub@go.fiercebiotech.com?subject=Complaint&body=mailto-unsub-qlQRAaLViEqG%2FHBkVs1RIK%2B6CXZMdBVRA-unsub-mailto>,<https://qtx.omeclk.com/portal/unsubscribe/?qlQRAaLViEqG%2FHBkVs1RIK%2B6CXZMdBVRA>
+Feedback-ID: 12247:QTXCD231027018:newsletter:OMAIL
+X-Proofpoint-ORIG-GUID: 1Ludel3h5E1YS_bAOXzAXbhPg0nIL6DZ
+X-Proofpoint-GUID: 1Ludel3h5E1YS_bAOXzAXbhPg0nIL6DZ
+X-CLX-Shades: MLX
+X-CLX-Response: 1TFkXGxIaEQpMehcfGB4RCllEF2NfQXxvaUJbZ0t7EQpYWBd6cmtZWWhkfFo dWxEKeE4Xbh1SQntmSEQTHlwRCnhLF3pya1lZaGR8Wh1bEQp4TBdvHH0Sa1JdaGVjGREKeUwXbx x9EmtSXWhlYxkRCkNIFwcbHB8RCkNZFwcYHhwRCkNJFxoEGhoaEQpZTRdnZnIRCllJFx0acRgQG
+ ncGExpxHxgeHh8QHBwbE3cGGBoGGhEKWV4XbGx5EQpJRhdaTENQT1h1QkVZXk9OEQpJRxd4T00R CkNOFxtmX05PRhlCH28bc3l1SGtlclBrckhCek0aRGNmHG5wEQpYXBcfBBoEGRkTBRsaBBsaGgQ bGR4EGR4QGx4aHxoRCl5ZF0lPS01lEQpNXBccGB8RCkxaF2hpUk1dEQpNThdoEQpMRhdva2tja2
+ 8RCkJPF2t7TAFkZRlTfUBFEQpDWhcYGh8EGxwYBB4cBBMZEQpCXhcbEQpCRhdpGmJnTG5Afxp6b hEKQkcXYWlSfFBDclB8WHgRCkJcFxsRCkJLF2tnb1oFR3J9HXhMEQpCSRdjaGlTRUhAS2wYTxEK QkUXYHseRX9zHmceH2kRCkJOF2NoaVNFSEBLbBhPEQpCTBdjf35rEx4ba0UfTBEKQmwXehlfbRJ
+ TUhJBQxMRCkJAF29lTkhdXB4BWGh5EQpCWBdrYWxuW14FekQFHBEKWlgXHhEKeUMXb2dbEnJSS0 ABHxoRCllLFxIcGBsRClpLFxwYHRIRCnBnF21GZEdBRxIBEhJeEBsbEQpwaBdpSEVsfFBPElpJT xAdHxEKcGgXZGkFWBpPZ2lIbUYQEhoRCnBoF21MeX9jS35iX1tiEB0ZEQpwaBdmXHtzcktNQU9o
+ TBASGxEKcGgXYhhlGE5dWGdMSEEQEhoRCnBoF2lzEmNNbgVkQn1mEBIbEQpwaBdlf25tUBgTXE1 uTBASGBEKcGgXbnlCe31/ZU0cWEsQEhsRCnB9F2NcS1lmYl9uGkRhEBITEQpwfRdmXH8FHmNaG3 0ZWhAdGREKcH8XZAVLaxIafHliWGsQHR4RCnBfF24fXRlSQkJNWHxJEBIbEQpwfxdlZV1SE2tGW
+ 0FIYxATGhEKcGwXY0EBe2cfR2RFfV8QGhEKbX4XGhEKWE0XSxEg
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 ip4:204.180.130.0/24 ip4:205.162.40.0/21 ip4:208.28.15.0/24 mx ~all
+x-pfepod-dmarc-rule: pass
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: allow
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-02_10,2023-11-02_03,2023-05-22_02
+X-Proofpoint-PODISpam-Reason: eusafe
+X-Proofpoint-PFERule: PODI-GSafe
+X-Area1Security-Disposition: BULK 4SLw9c3SWXz22kLt-2023-11-02T20:15:48
+X-Area1Security-Origin: EXTERNAL 4SLw9c3SWXz22kLt-2023-11-02T20:15:48
+X-Area1Security-Processed: 0e1f5c37bbd8542b0ff3c397c6554f72;2;BULK;2023-11-02T20:15:50;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: =?UTF-8?Q?[EXTERNAL]_|_11.02.23_|_Novo=E2=80=99s_GLP-1_sprint_still_hobbl?=
+ =?UTF-8?Q?ed_by_production;_Moderna_CEO_sees_out-licensing_on_horizon_if_?=
+ =?UTF-8?Q?sales_falter?=
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-02_10,2023-11-02_03,2023-05-22_02
+Return-Path: editors@go.fiercebiotech.com
+X-OrganizationHeadersPreserved: somamrexde04.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 02 Nov 2023 20:16:04.9653
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 7fc3cbee-04f4-46a1-e89e-08dbdbe08ab9
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: somamrexdf04.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: DS2PEPF0000343D.namprd02.prod.outlook.com
+X-CrossPremisesHeadersFiltered: DS2PEPF0000343D.namprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ DS2PEPF0000343D:EE_|BL3PR01MB6932:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: Pfizer.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id: 7fc3cbee-04f4-46a1-e89e-08dbdbe08ab9
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.96.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:ewr-us-a-148-168-96-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2023 20:16:04.8716
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fc3cbee-04f4-46a1-e89e-08dbdbe08ab9
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.96.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: somamrexdf04.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR01MB6932
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:05.5179448
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6907.032
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	GqQ6ciIqPYmwkVoubq2aHBQofTIH79rguaMvTeAzagohm9h7LAMHA2moUlBcsh1VsgGIl5wHWFgUD7SW66N14ycU4Oqc5qG7XMtfi6Gc/hEN1H23JGcFDDwwDwxC/NbReihsaEIPdgyDRkTHvjiyjl24+GpqV2K+kO6tnTjxu2rj307KJY/qrYlhxtqPIAEEhcnD1nsbod3bZw0lkbawEco9a3rdjVW7pPdWa9SlDRI9G50cvwwwxgjDjt3nA7riAcg+Lyg+UsgPMPgf3mEDr0NBqcYma4SfaCVfZk7sCY/OR+r9sOZklUlQiwscVY98OO0cRtjox+pcxSI4YBSnwpHBMpsxg2hQpC8uwJ7x86Lv9MGrAuagKoveDlghVOn2GcF9PzN1a4JWBw9e5Pd+B9xH75gOqN63UeCGr5Zq73ArGhL7QJRxN2S20qPHQoSzrfsEy6M6cLhXejnBowr0MJhcn6sO+rxxCwd45YDiNqpaOOf9o+8APu+DHTlVKVKKS4noZa7/X0qAQCwfHbsOp6tU7Qct/MyBrbomHnLSlawwA9auxtJjVfNJzGv0UQQGBkGFE+6K3xjnHtdBVkgp7UZ2u+NJbWDxKmjRFN6Ux/LJCZ4hnAzar6yYRffzC6uYCvVUu1C9zYbeUqmRJN+1HWDIhWcPlkbhdypk77u45GJKxtBda4xTdDktZGliPmuYOOOaXvDpK4DhJprI65OIR5f4CCM804SkhSCX3PUkxfJ7LeEAcXFK2vFRN4ffats+hr9qjgN3NWYxbFmwsopbLHRH6HkEftc1DlzRF3K7Fd9whCwzU21ETlrN6sxWrW1K
+MIME-Version: 1.0
+
+--_fe16fcb3-1bcd-4b1c-9c49-5085fe8efa40_
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns=3D"http://www.w3.org/1999/xht=
+ml" style=3D"-webkit-hyphenate-character: &quot;-&quot;;"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><m=
+eta name=3D"viewport" content=3D"width=3Ddevice-width,initial-scale=3D1"><m=
+eta name=3D"x-apple-disable-message-reformatting"><meta name=3D"format-dete=
+ction" content=3D"telephone=3Dno, date=3Dno, address=3Dno, email=3Dno, url=
+=3Dno"><meta name=3D"color-scheme" content=3D"light dark"><meta name=3D"sup=
+ported-color-schemes" content=3D"light dark"><meta name=3D"Generator" conte=
+nt=3D"Drupal 7 (http://drupal.org)"><link rel=3D"shortcut icon" href=3D"htt=
+ps://qtxnewsletter.com/misc/favicon.ico" type=3D"image/vnd.microsoft.icon">=
+<title>Newsletter Tool - Questex</title><link href=3D"https://fonts.googlea=
+pis.com/css2?family=3DInter:wght@400;600;700;800&amp;family=3DLato:ital,wgh=
+t@0,400;0,700;0,900;1,400&amp;family=3DOverpass:ital,wght@0,400;0,500;0,600=
+;0,700;0,800;1,400&amp;family=3DPT+Serif:ital,wght@0,400;0,700;1,400&amp;fa=
+mily=3DRaleway:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=3DRoboto+=
+Condensed:ital,wght@0,400;0,700;1,400&amp;family=3DRoboto:ital,wght@0,400;0=
+,700;0,900;1,400&amp;display=3Dswap" rel=3D"stylesheet"><!--[if (mso)|(mso =
+16)]><style type=3D"text/css">
+a {text-decoration: none;} </style><![endif]--><link type=3D"text/css" rel=
+=3D"stylesheet" href=3D"https://qtxnewsletter.com/sites/default/files/css/c=
+ss_sHgdoLWX6haM4eY9AjSZTIoSuqulT_pDx-z-ZfxIFOE.css" media=3D"all"><link typ=
+e=3D"text/css" rel=3D"stylesheet" href=3D"https://qtxnewsletter.com/sites/d=
+efault/files/css/css_OPM_U92GSqZsYuAw8TbmKYYiR-MebLWa1Yg1ckFnlig.css" media=
+=3D"all"><link type=3D"text/css" rel=3D"stylesheet" href=3D"https://qtxnews=
+letter.com/sites/default/files/css/css_YN7MVolTevAbC68g501NI-R2NwBtbpm6tYq6=
+Sa4gSDI.css" media=3D"all"><link type=3D"text/css" rel=3D"stylesheet" href=
+=3D"https://qtxnewsletter.com/sites/default/files/css/css_3DGtkfPZjo5BUKAqn=
+594eWwxeJWe_1CMBXTCqCk8SKI.css" media=3D"all"><style type=3D"text/css">@med=
+ia only screen and (max-width: 599.98px) { table .column, table .columns { =
+table-layout: fixed !important; float: none !important; width: 100% !import=
+ant; display: table !important; }
+} @media only screen and (max-width: 599.98px) { .advertisement .ad-wrapper=
+ .ad-unit, .content-wrapper { width: 100% !important; }
+} @media only screen and (max-width: 599.98px) { body .email-width { width:=
+ 100% !important; }
+} @media only screen and (max-width: 599.98px) { .w-100 { width: 100% !impo=
+rtant; }
+} @media only screen and (max-width: 599.98px) { .content-wrapper { margin:=
+ 0 !important; padding: 0 27.5px !important; }
+} @media only screen and (max-width: 599.98px) { .title .content-wrapper { =
+padding: 40px 27.5px 20px !important; }
+} @media only screen and (max-width: 599.98px) { .no-top-padding .content-w=
+rapper { padding-top: 0 !important; }
+} @media only screen and (max-width: 599.98px) { .add-bottom-padding .conte=
+nt-wrapper { padding-bottom: 20px !important; }
+} @media (prefers-color-scheme: dark) { body hr { color: #4C4C4C !important=
+; background-color: #4C4C4C !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-body hr { w=
+idth: 320px !important; }
+} @media (prefers-color-scheme: dark) { table.body { background: #000000 !i=
+mportant; }
+} @media (prefers-color-scheme: dark) { table.container { background: #1212=
+12 none repeat scroll 0 0 !important; }
+} @media only screen and (max-width: 599.98px) { table.container { width: 3=
+75px !important; } table.container.content_header { width: 100% !important;=
+ }
+} @media only screen and (max-width: 599.98px) { table.w-100 { width: 100% =
+!important; }
+} @media only screen and (max-width: 599.98px) { table.row { display: block=
+ !important; width: 100% !important; padding: 0 !important; }
+} @media only screen and (max-width: 599.98px) { table.columns td { width: =
+100% !important; }
+} @media only screen and (max-width: 599.98px) { table.column td { width: 1=
+00% !important; }
+} @media only screen and (max-width: 599.98px) { table .column th.six, tabl=
+e .column td.six, table .columns th.six, table .columns td.six { width: 50%=
+ !important; } table .column th.twelve, table .column td.twelve, table .col=
+umns th.twelve, table .columns td.twelve { width: 100% !important; }
+} @media only screen and (max-width: 599.98px) { table[class=3Dbody] .wrapp=
+er { display: block !important; padding-right: 0 !important; } table[class=
+=3Dbody] .wrapper.first .columns { display: table !important; } table[class=
+=3Dbody] .wrapper.first .column { display: table !important; }
+} @media only screen and (max-width: 599.98px) { .section-spacer td { displ=
+ay: table !important; width: 100% !important; }
+} @media only screen and (max-width: 599.98px) { .section-spacer.content-wi=
+dth td { width: 320px !important; }
+} @media only screen and (max-width: 599.98px) { .section-spacer.divider-li=
+ne td { line-height: 0 !important; font-size: 0 !important; }
+} @media (prefers-color-scheme: dark) { .section-spacer.gap td { background=
+: #000000 !important; }
+} @media only screen and (max-width: 599.98px) { .section-spacer { width: 1=
+00% !important; }
+} @media (prefers-color-scheme: dark) { body p, body strong, body a, body u=
+l, body li, body span { color: #FFFFFF !important; }
+} @media only screen and (max-width: 599.98px) { body p, body p *, body str=
+ong, body a, body ul, body li, body span, body h1, body h1 *, body h2, body=
+ h2 *, body h3, body h3 *, body h4, body h4 *, body h5, body h5 *, body h6,=
+ body h6 *, body .media-content-body, body .element-title, body .element-ti=
+tle * { word-break: normal !important; border-collapse: collapse !important=
+; }
+} @media (prefers-color-scheme: dark) { .element-bg.dark, .dark .element-bg=
+ { background: #00354E !important; }
+} @media (prefers-color-scheme: dark) { a, #outlook a { color: #33BDFF !imp=
+ortant; } a:link, #outlook a:link { color: #33BDFF !important; } a:visited,=
+ a:link:visited, #outlook a:visited, #outlook a:link:visited { color: #33BD=
+FF !important; } a:focus, #outlook a:focus { color: #33BDFF !important; } a=
+.active:hover, a.is-active:hover, a.active-trail:hover, a.visited:hover, a:=
+hover, #outlook a.active:hover, #outlook a.is-active:hover, #outlook a.acti=
+ve-trail:hover, #outlook a.visited:hover, #outlook a:hover { color: #33BDFF=
+ !important; } a.is-active, a:active, a.active-trail, #outlook a.is-active,=
+ #outlook a:active, #outlook a.active-trail { color: #33BDFF !important; }
+} @media (prefers-color-scheme: dark) { .component-title, .component-title.=
+small, .component-title.small *, .component-title.large, .component-title.l=
+arge *, .component-title * { color: #E7F3F9 !important; } .component-title =
+a, .component-title.small a, .component-title.large a { color: #E7F3F9 !imp=
+ortant; } .component-title a:link { color: #E7F3F9 !important; } .component=
+-title a:visited { color: #E7F3F9 !important; } .component-title a:focus { =
+color: #E7F3F9 !important; } .component-title a:hover { color: #E7F3F9 !imp=
+ortant; } .component-title a.is-active, .component-title a:active, .compone=
+nt-title a.active-trail { color: #E7F3F9 !important; } .component-title .ps=
+eudo-link { color: #33BDFF !important; }
+} @media only screen and (max-width: 599.98px) { .component-title.large, .c=
+omponent-title.large * { font-size: 36px !important; line-height: 40px !imp=
+ortant; }
+} @media only screen and (max-width: 599.98px) { .component-title.small, .c=
+omponent-title.small * { font-size: 24px !important; line-height: 24px !imp=
+ortant; }
+} @media (prefers-color-scheme: dark) { .element-title { color: #FFFFFF !im=
+portant; } .element-title a { color: #FFFFFF !important; } .element-title a=
+:link { color: #FFFFFF !important; } .element-title a:visited, .element-tit=
+le a:link:visited { color: #FFFFFF !important; } .element-title a:focus { c=
+olor: #FFFFFF !important; } .element-title a.active:hover, .element-title a=
+.is-active:hover, .element-title a.active-trail:hover, .element-title a.vis=
+ited:hover, .element-title a:hover { color: #FFFFFF !important; } .element-=
+title a.is-active, .element-title a:active, .element-title a.active-trail {=
+ color: #FFFFFF !important; }
+} @media (prefers-color-scheme: dark) { h1, h2, h3, h4, h5, h6 { color: #FF=
+FFFF !important; }
+} @media (prefers-color-scheme: dark) { .teaser, .video-podcast .content-wr=
+apper .image-size-520-292.content .media-content-body, .promo .wrapper .rig=
+ht-side, .resources .media-content-component .media-content-body, .podcasts=
+ .media-content-component .media-content-body, .teaser *, .video-podcast .c=
+ontent-wrapper .image-size-520-292.content .media-content-body *, .promo .w=
+rapper .right-side *, .resources .media-content-component .media-content-bo=
+dy *, .podcasts .media-content-component .media-content-body * { color: #FF=
+FFFF !important; } .teaser a, .video-podcast .content-wrapper .image-size-5=
+20-292.content .media-content-body a, .promo .wrapper .right-side a, .resou=
+rces .media-content-component .media-content-body a, .podcasts .media-conte=
+nt-component .media-content-body a, .teaser * a { color: #0C7DB4 !important=
+; } .teaser a:link, .video-podcast .content-wrapper .image-size-520-292.con=
+tent .media-content-body a:link, .promo .wrapper .right-side a:link, .resou=
+rces .media-content-component .media-content-body a:link, .podcasts .media-=
+content-component .media-content-body a:link, .teaser * a:link { color: #0C=
+7DB4 !important; } .teaser a:visited, .video-podcast .content-wrapper .imag=
+e-size-520-292.content .media-content-body a:visited, .promo .wrapper .righ=
+t-side a:visited, .resources .media-content-component .media-content-body a=
+:visited, .podcasts .media-content-component .media-content-body a:visited,=
+ .teaser a:link:visited, .teaser * a:visited, .teaser * a:link:visited { co=
+lor: #0C7DB4 !important; } .teaser a:focus, .video-podcast .content-wrapper=
+ .image-size-520-292.content .media-content-body a:focus, .promo .wrapper .=
+right-side a:focus, .resources .media-content-component .media-content-body=
+ a:focus, .podcasts .media-content-component .media-content-body a:focus, .=
+teaser * a:focus { color: #0C7DB4 !important; } .teaser a.active:hover, .te=
+aser a.is-active:hover, .teaser a.active-trail:hover, .teaser a.visited:hov=
+er, .teaser a:hover, .video-podcast .content-wrapper .image-size-520-292.co=
+ntent .media-content-body a:hover, .promo .wrapper .right-side a:hover, .re=
+sources .media-content-component .media-content-body a:hover, .podcasts .me=
+dia-content-component .media-content-body a:hover, .teaser * a.active:hover=
+, .teaser * a.is-active:hover, .teaser * a.active-trail:hover, .teaser * a.=
+visited:hover, .teaser * a:hover { color: #0C7DB4 !important; } .teaser a.i=
+s-active, .video-podcast .content-wrapper .image-size-520-292.content .medi=
+a-content-body a.is-active, .promo .wrapper .right-side a.is-active, .resou=
+rces .media-content-component .media-content-body a.is-active, .podcasts .m=
+edia-content-component .media-content-body a.is-active, .teaser a:active, .=
+video-podcast .content-wrapper .image-size-520-292.content .media-content-b=
+ody a:active, .promo .wrapper .right-side a:active, .resources .media-conte=
+nt-component .media-content-body a:active, .podcasts .media-content-compone=
+nt .media-content-body a:active, .teaser a.active-trail, .video-podcast .co=
+ntent-wrapper .image-size-520-292.content .media-content-body a.active-trai=
+l, .promo .wrapper .right-side a.active-trail, .resources .media-content-co=
+mponent .media-content-body a.active-trail, .podcasts .media-content-compon=
+ent .media-content-body a.active-trail, .teaser * a.is-active, .teaser * a:=
+active, .teaser * a.active-trail { color: #0C7DB4 !important; }
+} @media (prefers-color-scheme: dark) { .byline, .byline * { color: #BEBEBE=
+ !important; } .byline a, .byline * a { color: #BEBEBE !important; } .bylin=
+e a:link, .byline * a:link { color: #BEBEBE !important; } .byline a:visited=
+, .byline a:link:visited, .byline * a:visited, .byline * a:link:visited { c=
+olor: #BEBEBE !important; } .byline a:focus, .byline * a:focus { color: #BE=
+BEBE !important; } .byline a.active:hover, .byline a.is-active:hover, .byli=
+ne a.active-trail:hover, .byline a.visited:hover, .byline a:hover, .byline =
+* a.active:hover, .byline * a.is-active:hover, .byline * a.active-trail:hov=
+er, .byline * a.visited:hover, .byline * a:hover { color: #BEBEBE !importan=
+t; } .byline a.is-active, .byline a:active, .byline a.active-trail, .byline=
+ * a.is-active, .byline * a:active, .byline * a.active-trail { color: #BEBE=
+BE !important; }
+} @media (prefers-color-scheme: dark) { .label, .label-small, .label-small =
+*, .label * { color: #BEBEBE !important; } .label a, .label-small a, .label=
+ * a { color: #33BDFF !important; } .label a:link, .label-small a:link, .la=
+bel * a:link { color: #33BDFF !important; } .label a:visited, .label-small =
+a:visited, .label a:link:visited, .label * a:visited, .label * a:link:visit=
+ed { color: #33BDFF !important; } .label a:focus, .label-small a:focus, .la=
+bel * a:focus { color: #33BDFF !important; } .label a.active:hover, .label =
+a.is-active:hover, .label a.active-trail:hover, .label a.visited:hover, .la=
+bel a:hover, .label-small a:hover, .label * a.active:hover, .label * a.is-a=
+ctive:hover, .label * a.active-trail:hover, .label * a.visited:hover, .labe=
+l * a:hover { color: #33BDFF !important; } .label a.is-active, .label-small=
+ a.is-active, .label a:active, .label-small a:active, .label a.active-trail=
+, .label-small a.active-trail, .label * a.is-active, .label * a:active, .la=
+bel * a.active-trail { color: #33BDFF !important; }
+} @media (prefers-color-scheme: dark) { .label .sponsored, .label-small .sp=
+onsored, .label * .sponsored { color: #FFFFFF !important; }
+} @media only screen and (max-width: 599.98px) { .advertisement .content-wr=
+apper { padding: 30px 27.5px !important; }
+} @media (prefers-color-scheme: dark) { .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text * { color: #212121 !important; } .advertisement .ad-wrapp=
+er .ad-unit .bottom .ad-text * a { color: #0C7DB4 !important; } .advertisem=
+ent .ad-wrapper .ad-unit .bottom .ad-text * a:link { color: #0C7DB4 !import=
+ant; } .advertisement .ad-wrapper .ad-unit .bottom .ad-text * a:visited, .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text * a:link:visited { color=
+: #0C7DB4 !important; } .advertisement .ad-wrapper .ad-unit .bottom .ad-tex=
+t * a:focus { color: #0C7DB4 !important; } .advertisement .ad-wrapper .ad-u=
+nit .bottom .ad-text * a.active:hover, .advertisement .ad-wrapper .ad-unit =
+.bottom .ad-text * a.is-active:hover, .advertisement .ad-wrapper .ad-unit .=
+bottom .ad-text * a.active-trail:hover, .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text * a.visited:hover, .advertisement .ad-wrapper .ad-unit .b=
+ottom .ad-text * a:hover { color: #0C7DB4 !important; } .advertisement .ad-=
+wrapper .ad-unit .bottom .ad-text * a.is-active, .advertisement .ad-wrapper=
+ .ad-unit .bottom .ad-text * a:active, .advertisement .ad-wrapper .ad-unit =
+.bottom .ad-text * a.active-trail { color: #0C7DB4 !important; }
+} @media (prefers-color-scheme: dark) { .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h1, .advertisement .ad-wrapper .ad-unit .bottom .ad-text =
+h2, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3, .advertisement=
+ .ad-wrapper .ad-unit .bottom .ad-text h4 { color: #212121 !important; } .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a, .advertisement .ad=
+-wrapper .ad-unit .bottom .ad-text h2 a, .advertisement .ad-wrapper .ad-uni=
+t .bottom .ad-text h3 a, .advertisement .ad-wrapper .ad-unit .bottom .ad-te=
+xt h4 a { color: #212121 !important; } .advertisement .ad-wrapper .ad-unit =
+.bottom .ad-text h1 a:link, .advertisement .ad-wrapper .ad-unit .bottom .ad=
+-text h2 a:link, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 a:=
+link, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h4 a:link { colo=
+r: #212121 !important; } .advertisement .ad-wrapper .ad-unit .bottom .ad-te=
+xt h1 a:visited, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a:=
+link:visited, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 a:vis=
+ited, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 a:link:visite=
+d, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 a:visited, .adve=
+rtisement .ad-wrapper .ad-unit .bottom .ad-text h3 a:link:visited, .adverti=
+sement .ad-wrapper .ad-unit .bottom .ad-text h4 a:visited, .advertisement .=
+ad-wrapper .ad-unit .bottom .ad-text h4 a:link:visited { color: #212121 !im=
+portant; } .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a:focus,=
+ .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 a:focus, .advertis=
+ement .ad-wrapper .ad-unit .bottom .ad-text h3 a:focus, .advertisement .ad-=
+wrapper .ad-unit .bottom .ad-text h4 a:focus { color: #212121 !important; }=
+ .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.active:hover, .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.is-active:hover, .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.active-trail:hover,=
+ .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.visited:hover, .=
+advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a:hover, .advertisem=
+ent .ad-wrapper .ad-unit .bottom .ad-text h2 a.active:hover, .advertisement=
+ .ad-wrapper .ad-unit .bottom .ad-text h2 a.is-active:hover, .advertisement=
+ .ad-wrapper .ad-unit .bottom .ad-text h2 a.active-trail:hover, .advertisem=
+ent .ad-wrapper .ad-unit .bottom .ad-text h2 a.visited:hover, .advertisemen=
+t .ad-wrapper .ad-unit .bottom .ad-text h2 a:hover, .advertisement .ad-wrap=
+per .ad-unit .bottom .ad-text h3 a.active:hover, .advertisement .ad-wrapper=
+ .ad-unit .bottom .ad-text h3 a.is-active:hover, .advertisement .ad-wrapper=
+ .ad-unit .bottom .ad-text h3 a.active-trail:hover, .advertisement .ad-wrap=
+per .ad-unit .bottom .ad-text h3 a.visited:hover, .advertisement .ad-wrappe=
+r .ad-unit .bottom .ad-text h3 a:hover, .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h4 a.active:hover, .advertisement .ad-wrapper .ad-unit .b=
+ottom .ad-text h4 a.is-active:hover, .advertisement .ad-wrapper .ad-unit .b=
+ottom .ad-text h4 a.active-trail:hover, .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h4 a.visited:hover, .advertisement .ad-wrapper .ad-unit .=
+bottom .ad-text h4 a:hover { color: #212121 !important; } .advertisement .a=
+d-wrapper .ad-unit .bottom .ad-text h1 a.is-active, .advertisement .ad-wrap=
+per .ad-unit .bottom .ad-text h1 a:active, .advertisement .ad-wrapper .ad-u=
+nit .bottom .ad-text h1 a.active-trail, .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h2 a.is-active, .advertisement .ad-wrapper .ad-unit .bott=
+om .ad-text h2 a:active, .advertisement .ad-wrapper .ad-unit .bottom .ad-te=
+xt h2 a.active-trail, .advertisement .ad-wrapper .ad-unit .bottom .ad-text =
+h3 a.is-active, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 a:a=
+ctive, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 a.active-tra=
+il, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h4 a.is-active, .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text h4 a:active, .advertisem=
+ent .ad-wrapper .ad-unit .bottom .ad-text h4 a.active-trail { color: #21212=
+1 !important; }
+} @media (prefers-color-scheme: dark) { .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h1, .advertisement .ad-wrapper .ad-unit .bottom .ad-text =
+h1 *, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2, .advertiseme=
+nt .ad-wrapper .ad-unit .bottom .ad-text h2 *, .advertisement .ad-wrapper .=
+ad-unit .bottom .ad-text h3, .advertisement .ad-wrapper .ad-unit .bottom .a=
+d-text h3 *, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h4, .adve=
+rtisement .ad-wrapper .ad-unit .bottom .ad-text h4 * { color: #212121 !impo=
+rtant; } .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a, .advert=
+isement .ad-wrapper .ad-unit .bottom .ad-text h1 * a, .advertisement .ad-wr=
+apper .ad-unit .bottom .ad-text h2 a, .advertisement .ad-wrapper .ad-unit .=
+bottom .ad-text h2 * a, .advertisement .ad-wrapper .ad-unit .bottom .ad-tex=
+t h3 a, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 * a, .adver=
+tisement .ad-wrapper .ad-unit .bottom .ad-text h4 a, .advertisement .ad-wra=
+pper .ad-unit .bottom .ad-text h4 * a { color: #212121 !important; } .adver=
+tisement .ad-wrapper .ad-unit .bottom .ad-text h1 a:link, .advertisement .a=
+d-wrapper .ad-unit .bottom .ad-text h1 * a:link, .advertisement .ad-wrapper=
+ .ad-unit .bottom .ad-text h2 a:link, .advertisement .ad-wrapper .ad-unit .=
+bottom .ad-text h2 * a:link, .advertisement .ad-wrapper .ad-unit .bottom .a=
+d-text h3 a:link, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 *=
+ a:link, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h4 a:link, .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text h4 * a:link { color: #21=
+2121 !important; } .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 =
+a:visited, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a:link:v=
+isited, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 * a:visited=
+, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 * a:link:visited,=
+ .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 a:visited, .advert=
+isement .ad-wrapper .ad-unit .bottom .ad-text h2 a:link:visited, .advertise=
+ment .ad-wrapper .ad-unit .bottom .ad-text h2 * a:visited, .advertisement .=
+ad-wrapper .ad-unit .bottom .ad-text h2 * a:link:visited, .advertisement .a=
+d-wrapper .ad-unit .bottom .ad-text h3 a:visited, .advertisement .ad-wrappe=
+r .ad-unit .bottom .ad-text h3 a:link:visited, .advertisement .ad-wrapper .=
+ad-unit .bottom .ad-text h3 * a:visited, .advertisement .ad-wrapper .ad-uni=
+t .bottom .ad-text h3 * a:link:visited, .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h4 a:visited, .advertisement .ad-wrapper .ad-unit .bottom=
+ .ad-text h4 a:link:visited, .advertisement .ad-wrapper .ad-unit .bottom .a=
+d-text h4 * a:visited, .advertisement .ad-wrapper .ad-unit .bottom .ad-text=
+ h4 * a:link:visited { color: #212121 !important; } .advertisement .ad-wrap=
+per .ad-unit .bottom .ad-text h1 a:focus, .advertisement .ad-wrapper .ad-un=
+it .bottom .ad-text h1 * a:focus, .advertisement .ad-wrapper .ad-unit .bott=
+om .ad-text h2 a:focus, .advertisement .ad-wrapper .ad-unit .bottom .ad-tex=
+t h2 * a:focus, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 a:f=
+ocus, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 * a:focus, .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text h4 a:focus, .advertiseme=
+nt .ad-wrapper .ad-unit .bottom .ad-text h4 * a:focus { color: #212121 !imp=
+ortant; } .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.active:=
+hover, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.is-active:=
+hover, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.active-tra=
+il:hover, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a.visited=
+:hover, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 a:hover, .a=
+dvertisement .ad-wrapper .ad-unit .bottom .ad-text h1 * a.active:hover, .ad=
+vertisement .ad-wrapper .ad-unit .bottom .ad-text h1 * a.is-active:hover, .=
+advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 * a.active-trail:hov=
+er, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 * a.visited:hov=
+er, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h1 * a:hover, .adv=
+ertisement .ad-wrapper .ad-unit .bottom .ad-text h2 a.active:hover, .advert=
+isement .ad-wrapper .ad-unit .bottom .ad-text h2 a.is-active:hover, .advert=
+isement .ad-wrapper .ad-unit .bottom .ad-text h2 a.active-trail:hover, .adv=
+ertisement .ad-wrapper .ad-unit .bottom .ad-text h2 a.visited:hover, .adver=
+tisement .ad-wrapper .ad-unit .bottom .ad-text h2 a:hover, .advertisement .=
+ad-wrapper .ad-unit .bottom .ad-text h2 * a.active:hover, .advertisement .a=
+d-wrapper .ad-unit .bottom .ad-text h2 * a.is-active:hover, .advertisement =
+.ad-wrapper .ad-unit .bottom .ad-text h2 * a.active-trail:hover, .advertise=
+ment .ad-wrapper .ad-unit .bottom .ad-text h2 * a.visited:hover, .advertise=
+ment .ad-wrapper .ad-unit .bottom .ad-text h2 * a:hover, .advertisement .ad=
+-wrapper .ad-unit .bottom .ad-text h3 a.active:hover, .advertisement .ad-wr=
+apper .ad-unit .bottom .ad-text h3 a.is-active:hover, .advertisement .ad-wr=
+apper .ad-unit .bottom .ad-text h3 a.active-trail:hover, .advertisement .ad=
+-wrapper .ad-unit .bottom .ad-text h3 a.visited:hover, .advertisement .ad-w=
+rapper .ad-unit .bottom .ad-text h3 a:hover, .advertisement .ad-wrapper .ad=
+-unit .bottom .ad-text h3 * a.active:hover, .advertisement .ad-wrapper .ad-=
+unit .bottom .ad-text h3 * a.is-active:hover, .advertisement .ad-wrapper .a=
+d-unit .bottom .ad-text h3 * a.active-trail:hover, .advertisement .ad-wrapp=
+er .ad-unit .bottom .ad-text h3 * a.visited:hover, .advertisement .ad-wrapp=
+er .ad-unit .bottom .ad-text h3 * a:hover, .advertisement .ad-wrapper .ad-u=
+nit .bottom .ad-text h4 a.active:hover, .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h4 a.is-active:hover, .advertisement .ad-wrapper .ad-unit=
+ .bottom .ad-text h4 a.active-trail:hover, .advertisement .ad-wrapper .ad-u=
+nit .bottom .ad-text h4 a.visited:hover, .advertisement .ad-wrapper .ad-uni=
+t .bottom .ad-text h4 a:hover, .advertisement .ad-wrapper .ad-unit .bottom =
+.ad-text h4 * a.active:hover, .advertisement .ad-wrapper .ad-unit .bottom .=
+ad-text h4 * a.is-active:hover, .advertisement .ad-wrapper .ad-unit .bottom=
+ .ad-text h4 * a.active-trail:hover, .advertisement .ad-wrapper .ad-unit .b=
+ottom .ad-text h4 * a.visited:hover, .advertisement .ad-wrapper .ad-unit .b=
+ottom .ad-text h4 * a:hover { color: #212121 !important; } .advertisement .=
+ad-wrapper .ad-unit .bottom .ad-text h1 a.is-active, .advertisement .ad-wra=
+pper .ad-unit .bottom .ad-text h1 a:active, .advertisement .ad-wrapper .ad-=
+unit .bottom .ad-text h1 a.active-trail, .advertisement .ad-wrapper .ad-uni=
+t .bottom .ad-text h1 * a.is-active, .advertisement .ad-wrapper .ad-unit .b=
+ottom .ad-text h1 * a:active, .advertisement .ad-wrapper .ad-unit .bottom .=
+ad-text h1 * a.active-trail, .advertisement .ad-wrapper .ad-unit .bottom .a=
+d-text h2 a.is-active, .advertisement .ad-wrapper .ad-unit .bottom .ad-text=
+ h2 a:active, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 a.act=
+ive-trail, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 * a.is-a=
+ctive, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 * a:active, =
+.advertisement .ad-wrapper .ad-unit .bottom .ad-text h2 * a.active-trail, .=
+advertisement .ad-wrapper .ad-unit .bottom .ad-text h3 a.is-active, .advert=
+isement .ad-wrapper .ad-unit .bottom .ad-text h3 a:active, .advertisement .=
+ad-wrapper .ad-unit .bottom .ad-text h3 a.active-trail, .advertisement .ad-=
+wrapper .ad-unit .bottom .ad-text h3 * a.is-active, .advertisement .ad-wrap=
+per .ad-unit .bottom .ad-text h3 * a:active, .advertisement .ad-wrapper .ad=
+-unit .bottom .ad-text h3 * a.active-trail, .advertisement .ad-wrapper .ad-=
+unit .bottom .ad-text h4 a.is-active, .advertisement .ad-wrapper .ad-unit .=
+bottom .ad-text h4 a:active, .advertisement .ad-wrapper .ad-unit .bottom .a=
+d-text h4 a.active-trail, .advertisement .ad-wrapper .ad-unit .bottom .ad-t=
+ext h4 * a.is-active, .advertisement .ad-wrapper .ad-unit .bottom .ad-text =
+h4 * a:active, .advertisement .ad-wrapper .ad-unit .bottom .ad-text h4 * a.=
+active-trail { color: #212121 !important; }
+} @media only screen and (max-width: 599.98px) { .advertisement .ad-wrapper=
+ { margin: 0 !important; }
+} @media only screen and (max-width: 599.98px) { .advertisement { width: 10=
+0% !important; }
+} @media only screen and (max-width: 599.98px) { .header .logo img { max-he=
+ight: 42px !important; max-width: 150px !important; }
+} @media only screen and (max-width: 599.98px) { .header.logo-only .logo { =
+padding: 24px 0 !important; width: 375px !important; }
+} @media only screen and (max-width: 599.98px) { .header.logo-and-text .log=
+o img { max-width: 120px !important; }
+} @media only screen and (max-width: 599.98px) { .header.logo-and-text .log=
+o { width: 40% !important; }
+} @media only screen and (max-width: 599.98px) { .header.logo-and-text .tex=
+t .component-title, .header.logo-and-text .text .component-title .pseudo-li=
+nk { max-width: 190px !important; }
+} @media only screen and (max-width: 599.98px) { .header.logo-and-text .tex=
+t { padding: 20px 27.5px 20px 20px !important; width: 60% !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+randing .logo img { width: 140px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+randing .social-icons .icon { display: table !important; width: 40px !impor=
+tant; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+randing .social-icons .space { display: table !important; width: auto !impo=
+rtant; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+randing { padding: 30px 27.5px 20px 27.5px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.m=
+enu.items { padding: 20px 27.5px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.m=
+enu.contacts { padding: 0 27.5px 10px 27.5px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.m=
+enu .group .left-side { display: table !important; width: 100% !important; =
+padding: 0 !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.m=
+enu .group .right-side { display: table !important; width: 100% !important;=
+ } .footer .content-wrapper.menu .group .right-side .menu-category { margin=
+-top: 15px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+order .section-spacer td { width: 375px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+order .section-spacer { width: 375px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+order { padding: 40px 0 20px 0 !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+ottom .group .left-side .logo img { max-width: 100px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper.b=
+ottom { padding-bottom: 20px !important; }
+} @media only screen and (max-width: 599.98px) { .footer .content-wrapper {=
+ padding-left: 27.5px !important; padding-right: 27.5px !important; margin:=
+ 0 !important; }
+} @media only screen and (max-width: 599.98px) { .image-with-text .content-=
+wrapper .left-right-image .wrapper .left-side { width: 90px !important; }
+} @media only screen and (max-width: 599.98px) { .image-with-text .content-=
+wrapper .left-right-image .wrapper .right-side { width: 220px !important; }
+} @media only screen and (max-width: 599.98px) { .image-with-text .content-=
+wrapper { padding: 0 27.5px 30px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+content-wrapper { padding: 0 27.5px 30px !important; }
+} @media only screen and (max-width: 599.98px) { .podcasts .media-content-c=
+omponent .content-wrapper { padding: 0 27.5px 20px !important; }
+} @media only screen and (max-width: 599.98px) { .podcasts .media-content-c=
+omponent .media-content-body { font-size: 14px !important; line-height: 20p=
+x !important; }
+} @media (prefers-color-scheme: dark) { .media-content-component .media-con=
+tent-body { color: #FFFFFF !important; }
+} @media only screen and (max-width: 599.98px) { .podcasts .media-content-c=
+omponent .content { vertical-align: top !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-90-90.media img { width: 70px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-90-90.media { width: 70px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-90-90.content { width: 250px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-150-84.media img { width: 320px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-150-84.media { width: 100% !important; display: table !important=
+; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-150-84.content { width: 100% !important; display: table !importa=
+nt; } .media-content-component .image-size-150-84.content .right-content, .=
+media-content-component .image-size-150-84.content .left-content { margin: =
+0 !important; } .media-content-component .image-size-150-84.content .right-=
+content { padding-top: 15px !important; } .media-content-component .image-s=
+ize-150-84.content .left-content { padding-bottom: 15px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-150-150.media img { width: 125px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-150-150.media { width: 125px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-150-150.content { width: 195px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-200-150.media img { width: 320px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-200-150.media { width: 100% !important; display: table !importan=
+t; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-200-150.content { width: 100% !important; display: table !import=
+ant; } .media-content-component .image-size-200-150.content .right-content,=
+ .media-content-component .image-size-200-150.content .left-content { margi=
+n: 0 !important; } .media-content-component .image-size-200-150.content .ri=
+ght-content { padding-top: 15px !important; } .media-content-component .ima=
+ge-size-200-150.content .left-content { padding-bottom: 15px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-250-188.media img { width: 320px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-250-188.media { width: 100% !important; display: table !importan=
+t; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-250-188.content { width: 100% !important; display: table !import=
+ant; } .media-content-component .image-size-250-188.content .right-content,=
+ .media-content-component .image-size-250-188.content .left-content { margi=
+n: 0 !important; } .media-content-component .image-size-250-188.content .ri=
+ght-content { padding-top: 15px !important; } .media-content-component .ima=
+ge-size-250-188.content .left-content { padding-bottom: 15px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-520-292.media img { width: 320px !important; }
+} @media only screen and (max-width: 599.98px) { .media-content-component .=
+image-size-520-292.media { margin-bottom: 15px !important; }
+} @media only screen and (max-width: 599.98px) { .icon-promo .content-wrapp=
+er { padding: 20px 27.5px 40px !important; }
+} @media only screen and (max-width: 599.98px) { .questex-events.event-prom=
+o .content-wrapper { padding: 10px 27.5px 40px !important; }
+} @media (prefers-color-scheme: dark) { .promo .wrapper .right-side * { col=
+or: #212121 !important; } .promo .wrapper .right-side * a { color: #0C7DB4 =
+!important; } .promo .wrapper .right-side * a:link { color: #0C7DB4 !import=
+ant; } .promo .wrapper .right-side * a:visited, .promo .wrapper .right-side=
+ * a:link:visited { color: #0C7DB4 !important; } .promo .wrapper .right-sid=
+e * a:focus { color: #0C7DB4 !important; } .promo .wrapper .right-side * a.=
+active:hover, .promo .wrapper .right-side * a.is-active:hover, .promo .wrap=
+per .right-side * a.active-trail:hover, .promo .wrapper .right-side * a.vis=
+ited:hover, .promo .wrapper .right-side * a:hover { color: #0C7DB4 !importa=
+nt; } .promo .wrapper .right-side * a.is-active, .promo .wrapper .right-sid=
+e * a:active, .promo .wrapper .right-side * a.active-trail { color: #0C7DB4=
+ !important; }
+} @media only screen and (max-width: 599.98px) { .promo.promo-event .wrappe=
+r .content tr .left-side .element-title { font-size: 20px !important; line-=
+height: 22px !important; }
+} @media only screen and (max-width: 599.98px) { .promo.promo-event .wrappe=
+r .content tr .left-side { width: 90px !important; }
+} @media only screen and (max-width: 599.98px) { .promo.promo-event .wrappe=
+r .content tr .right-side { width: 217px !important; }
+} @media only screen and (max-width: 599.98px) { .promo.promo-icon .wrapper=
+ .left-side { display: table !important; width: 30px !important; }
+} @media only screen and (max-width: 599.98px) { .promo.promo-icon .wrapper=
+ .right-side { width: 260px !important; }
+} @media only screen and (max-width: 599.98px) { .publishers-note .content-=
+wrapper { padding: 30px 27.5px 0 !important; }
+} @media only screen and (max-width: 599.98px) { .questex-events .content-w=
+rapper { padding: 0 27.5px 30px !important; }
+} @media (prefers-color-scheme: dark) { .questex-events .event .wrapper .ev=
+ent-date .date-wrapper .date .element-title, .questex-events .event .wrappe=
+r .event-date .date-wrapper .date .label-small { color: #0C7DB4 !important;=
+ }
+} @media only screen and (max-width: 599.98px) { .questex-events .event .wr=
+apper .event-date .date-wrapper { width: 73px !important; }
+} @media only screen and (max-width: 599.98px) { .questex-events .event .wr=
+apper .event-date { width: 73px !important; }
+} @media (prefers-color-scheme: dark) { .questex-events .event .wrapper.sin=
+gle-event .event-date .date-wrapper .date .element-title { color: #0C7DB4 !=
+important; }
+} @media (prefers-color-scheme: dark) { .questex-events .event .wrapper.sin=
+gle-event .event-details .element-title, .questex-events .event .wrapper.si=
+ngle-event .event-details .teaser, .questex-events .event .wrapper.single-e=
+vent .event-details .video-podcast .content-wrapper .image-size-520-292.con=
+tent .media-content-body, .video-podcast .content-wrapper .image-size-520-2=
+92.content .questex-events .event .wrapper.single-event .event-details .med=
+ia-content-body, .questex-events .event .wrapper.single-event .event-detail=
+s .podcasts .media-content-component .media-content-body, .podcasts .media-=
+content-component .questex-events .event .wrapper.single-event .event-detai=
+ls .media-content-body, .questex-events .event .wrapper.single-event .event=
+-details .resources .media-content-component .media-content-body, .resource=
+s .media-content-component .questex-events .event .wrapper.single-event .ev=
+ent-details .media-content-body, .questex-events .event .promo .wrapper.sin=
+gle-event .event-details .right-side, .promo .questex-events .event .wrappe=
+r.single-event .event-details .right-side { color: #212121 !important; } .q=
+uestex-events .event .wrapper.single-event .event-details .element-title a,=
+ .questex-events .event .wrapper.single-event .event-details .teaser a, .qu=
+estex-events .event .wrapper.single-event .event-details .video-podcast .co=
+ntent-wrapper .image-size-520-292.content .media-content-body a, .video-pod=
+cast .content-wrapper .image-size-520-292.content .questex-events .event .w=
+rapper.single-event .event-details .media-content-body a, .questex-events .=
+event .wrapper.single-event .event-details .podcasts .media-content-compone=
+nt .media-content-body a, .podcasts .media-content-component .questex-event=
+s .event .wrapper.single-event .event-details .media-content-body a, .quest=
+ex-events .event .wrapper.single-event .event-details .resources .media-con=
+tent-component .media-content-body a, .resources .media-content-component .=
+questex-events .event .wrapper.single-event .event-details .media-content-b=
+ody a, .questex-events .event .promo .wrapper.single-event .event-details .=
+right-side a, .promo .questex-events .event .wrapper.single-event .event-de=
+tails .right-side a { color: #212121 !important; } .questex-events .event .=
+wrapper.single-event .event-details .element-title a:link, .questex-events =
+.event .wrapper.single-event .event-details .teaser a:link, .questex-events=
+ .event .wrapper.single-event .event-details .video-podcast .content-wrappe=
+r .image-size-520-292.content .media-content-body a:link, .video-podcast .c=
+ontent-wrapper .image-size-520-292.content .questex-events .event .wrapper.=
+single-event .event-details .media-content-body a:link, .questex-events .ev=
+ent .wrapper.single-event .event-details .podcasts .media-content-component=
+ .media-content-body a:link, .podcasts .media-content-component .questex-ev=
+ents .event .wrapper.single-event .event-details .media-content-body a:link=
+, .questex-events .event .wrapper.single-event .event-details .resources .m=
+edia-content-component .media-content-body a:link, .resources .media-conten=
+t-component .questex-events .event .wrapper.single-event .event-details .me=
+dia-content-body a:link, .questex-events .event .promo .wrapper.single-even=
+t .event-details .right-side a:link, .promo .questex-events .event .wrapper=
+.single-event .event-details .right-side a:link { color: #212121 !important=
+; } .questex-events .event .wrapper.single-event .event-details .element-ti=
+tle a:visited, .questex-events .event .wrapper.single-event .event-details =
+.element-title a:link:visited, .questex-events .event .wrapper.single-event=
+ .event-details .teaser a:visited, .questex-events .event .wrapper.single-e=
+vent .event-details .video-podcast .content-wrapper .image-size-520-292.con=
+tent .media-content-body a:visited, .video-podcast .content-wrapper .image-=
+size-520-292.content .questex-events .event .wrapper.single-event .event-de=
+tails .media-content-body a:visited, .questex-events .event .wrapper.single=
+-event .event-details .podcasts .media-content-component .media-content-bod=
+y a:visited, .podcasts .media-content-component .questex-events .event .wra=
+pper.single-event .event-details .media-content-body a:visited, .questex-ev=
+ents .event .wrapper.single-event .event-details .resources .media-content-=
+component .media-content-body a:visited, .resources .media-content-componen=
+t .questex-events .event .wrapper.single-event .event-details .media-conten=
+t-body a:visited, .questex-events .event .promo .wrapper.single-event .even=
+t-details .right-side a:visited, .promo .questex-events .event .wrapper.sin=
+gle-event .event-details .right-side a:visited, .questex-events .event .wra=
+pper.single-event .event-details .teaser a:link:visited { color: #212121 !i=
+mportant; } .questex-events .event .wrapper.single-event .event-details .el=
+ement-title a:focus, .questex-events .event .wrapper.single-event .event-de=
+tails .teaser a:focus, .questex-events .event .wrapper.single-event .event-=
+details .video-podcast .content-wrapper .image-size-520-292.content .media-=
+content-body a:focus, .video-podcast .content-wrapper .image-size-520-292.c=
+ontent .questex-events .event .wrapper.single-event .event-details .media-c=
+ontent-body a:focus, .questex-events .event .wrapper.single-event .event-de=
+tails .podcasts .media-content-component .media-content-body a:focus, .podc=
+asts .media-content-component .questex-events .event .wrapper.single-event =
+.event-details .media-content-body a:focus, .questex-events .event .wrapper=
+.single-event .event-details .resources .media-content-component .media-con=
+tent-body a:focus, .resources .media-content-component .questex-events .eve=
+nt .wrapper.single-event .event-details .media-content-body a:focus, .quest=
+ex-events .event .promo .wrapper.single-event .event-details .right-side a:=
+focus, .promo .questex-events .event .wrapper.single-event .event-details .=
+right-side a:focus { color: #212121 !important; } .questex-events .event .w=
+rapper.single-event .event-details .element-title a.active:hover, .questex-=
+events .event .wrapper.single-event .event-details .element-title a.is-acti=
+ve:hover, .questex-events .event .wrapper.single-event .event-details .elem=
+ent-title a.active-trail:hover, .questex-events .event .wrapper.single-even=
+t .event-details .element-title a.visited:hover, .questex-events .event .wr=
+apper.single-event .event-details .element-title a:hover, .questex-events .=
+event .wrapper.single-event .event-details .teaser a.active:hover, .questex=
+-events .event .wrapper.single-event .event-details .teaser a.is-active:hov=
+er, .questex-events .event .wrapper.single-event .event-details .teaser a.a=
+ctive-trail:hover, .questex-events .event .wrapper.single-event .event-deta=
+ils .teaser a.visited:hover, .questex-events .event .wrapper.single-event .=
+event-details .teaser a:hover, .questex-events .event .wrapper.single-event=
+ .event-details .video-podcast .content-wrapper .image-size-520-292.content=
+ .media-content-body a:hover, .video-podcast .content-wrapper .image-size-5=
+20-292.content .questex-events .event .wrapper.single-event .event-details =
+.media-content-body a:hover, .questex-events .event .wrapper.single-event .=
+event-details .podcasts .media-content-component .media-content-body a:hove=
+r, .podcasts .media-content-component .questex-events .event .wrapper.singl=
+e-event .event-details .media-content-body a:hover, .questex-events .event =
+.wrapper.single-event .event-details .resources .media-content-component .m=
+edia-content-body a:hover, .resources .media-content-component .questex-eve=
+nts .event .wrapper.single-event .event-details .media-content-body a:hover=
+, .questex-events .event .promo .wrapper.single-event .event-details .right=
+-side a:hover, .promo .questex-events .event .wrapper.single-event .event-d=
+etails .right-side a:hover { color: #212121 !important; } .questex-events .=
+event .wrapper.single-event .event-details .element-title a.is-active, .que=
+stex-events .event .wrapper.single-event .event-details .element-title a:ac=
+tive, .questex-events .event .wrapper.single-event .event-details .element-=
+title a.active-trail, .questex-events .event .wrapper.single-event .event-d=
+etails .teaser a.is-active, .questex-events .event .wrapper.single-event .e=
+vent-details .video-podcast .content-wrapper .image-size-520-292.content .m=
+edia-content-body a.is-active, .video-podcast .content-wrapper .image-size-=
+520-292.content .questex-events .event .wrapper.single-event .event-details=
+ .media-content-body a.is-active, .questex-events .event .wrapper.single-ev=
+ent .event-details .podcasts .media-content-component .media-content-body a=
+.is-active, .podcasts .media-content-component .questex-events .event .wrap=
+per.single-event .event-details .media-content-body a.is-active, .questex-e=
+vents .event .wrapper.single-event .event-details .resources .media-content=
+-component .media-content-body a.is-active, .resources .media-content-compo=
+nent .questex-events .event .wrapper.single-event .event-details .media-con=
+tent-body a.is-active, .questex-events .event .promo .wrapper.single-event =
+.event-details .right-side a.is-active, .promo .questex-events .event .wrap=
+per.single-event .event-details .right-side a.is-active, .questex-events .e=
+vent .wrapper.single-event .event-details .teaser a:active, .questex-events=
+ .event .wrapper.single-event .event-details .video-podcast .content-wrappe=
+r .image-size-520-292.content .media-content-body a:active, .video-podcast =
+.content-wrapper .image-size-520-292.content .questex-events .event .wrappe=
+r.single-event .event-details .media-content-body a:active, .questex-events=
+ .event .wrapper.single-event .event-details .podcasts .media-content-compo=
+nent .media-content-body a:active, .podcasts .media-content-component .ques=
+tex-events .event .wrapper.single-event .event-details .media-content-body =
+a:active, .questex-events .event .wrapper.single-event .event-details .reso=
+urces .media-content-component .media-content-body a:active, .resources .me=
+dia-content-component .questex-events .event .wrapper.single-event .event-d=
+etails .media-content-body a:active, .questex-events .event .promo .wrapper=
+.single-event .event-details .right-side a:active, .promo .questex-events .=
+event .wrapper.single-event .event-details .right-side a:active, .questex-e=
+vents .event .wrapper.single-event .event-details .teaser a.active-trail, .=
+questex-events .event .wrapper.single-event .event-details .video-podcast .=
+content-wrapper .image-size-520-292.content .media-content-body a.active-tr=
+ail, .video-podcast .content-wrapper .image-size-520-292.content .questex-e=
+vents .event .wrapper.single-event .event-details .media-content-body a.act=
+ive-trail, .questex-events .event .wrapper.single-event .event-details .pod=
+casts .media-content-component .media-content-body a.active-trail, .podcast=
+s .media-content-component .questex-events .event .wrapper.single-event .ev=
+ent-details .media-content-body a.active-trail, .questex-events .event .wra=
+pper.single-event .event-details .resources .media-content-component .media=
+-content-body a.active-trail, .resources .media-content-component .questex-=
+events .event .wrapper.single-event .event-details .media-content-body a.ac=
+tive-trail, .questex-events .event .promo .wrapper.single-event .event-deta=
+ils .right-side a.active-trail, .promo .questex-events .event .wrapper.sing=
+le-event .event-details .right-side a.active-trail { color: #212121 !import=
+ant; }
+} @media only screen and (max-width: 599.98px) { .questex-events .event .wr=
+apper.single-event .event-details { width: 207px !important; }
+} @media only screen and (max-width: 599.98px) { .questex-events .event .wr=
+apper.single-event .event-icon { display: none !important; }
+} @media only screen and (max-width: 599.98px) { .video-podcast .content-wr=
+apper .image-size-520-292.media img { width: 375px !important; }
+} @media (prefers-color-scheme: dark) { .video-podcast .content-wrapper .im=
+age-size-520-292.content .media-content-body { color: #FFFFFF !important; }
+} @media only screen and (max-width: 599.98px) { .video-podcast .content-wr=
+apper .image-size-520-292.content { padding: 0 27.5px 30px !important; }
+} @media (prefers-color-scheme: dark) { .video-podcast .content-wrapper .le=
+ft-side .icon-content .icon-wrapper { background: #E7F3F9 !important; }
+} @media only screen and (max-width: 599.98px) { .video-podcast .content-wr=
+apper .left-side { display: table !important; width: 40px !important; }
+} @media only screen and (max-width: 599.98px) { .video-podcast .content-wr=
+apper .right-side { width: 280px !important; }
+} @media only screen and (max-width: 599.98px) { .video-podcast .content-wr=
+apper { padding: 0 !important; }
+}</style></head><body style=3D"padding: 0; text-rendering: optimizeLegibili=
+ty; -webkit-font-smoothing: antialiased; font-family: &quot;Overpass&quot;,=
+ Arial, sans-serif; color: #212121; -webkit-text-size-adjust: 100%; -ms-tex=
+t-size-adjust: 100%;"><span style=3D"display:none !important;visibility:hid=
+den;mso-hide:all;font-size:1px;color:#ffffff;line-height:1px;max-height:0px=
+;max-width:0px;opacity:0;overflow:hidden">Inari nabs LimFlow for $415M</spa=
+n><div class=3D"mktEditable" style=3D"" id=3D"mkto_autogen_id_0" mktoname=
+=3D"Newsletter Template"><div class=3D"panelizer-view-mode node node-full n=
+ode-panelizer node-676268"><table class=3D"body element-bg alt" align=3D"ce=
+nter" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: bo=
+rder-box; height: 100%; width: 100%; text-align: center; background: #F4F4F=
+4;"><tr><td class=3D"center" align=3D"center" style=3D"padding: 0; text-ali=
+gn: center;"><table class=3D"container" style=3D"border-spacing: 0; border-=
+collapse: collapse; box-sizing: border-box; width: 600px; table-layout: fix=
+ed; margin: 0 auto; text-align: inherit; background: #FFFFFF none repeat sc=
+roll 0 0;"><tr><td class=3D"top-section" style=3D"padding: 0;"><div class=
+=3D"panel-pane pane-custom pane-3"><div class=3D"panel-content "><table cla=
+ss=3D"header twelve columns email-width element-bg gradient dark logo-and-t=
+ext" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: bor=
+der-box; vertical-align: middle; margin: 0 auto; width: 100%; background: l=
+inear-gradient(180deg, #00354E 0%, #0C2433 100%); background-color: #0C2433=
+;"><tbody><tr><td class=3D"six sub-columns logo left" style=3D"padding: 20p=
+x 0 20px 40px; width: 50%; vertical-align: middle;"><div class=3D"logo-wrap=
+per" style=3D"width: fit-content;"><a href=3D"https://urldefense.com/v3/__h=
+ttps://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fQ-LjOjdvO*7C*7C8DPz=
+mQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_Dn=
+maD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkMNtK9A5$" target=3D"_blank" style=3D"colo=
+r: #33BDFF; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D=
+"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" line-height:=3D"" 24px;=3D""=
+ margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyp=
+hens:=3D"" none;?=3D""><img alt=3D"Brand Logo" src=3D"https://s3.amazonaws.=
+com/publicdesign.qtxasset.com/Branding+Portal/Life+Sci+%26+Healthcare/Media=
+/Fierce+Biotech/Logo/Fierce+Biotech+Mix+Logo.png" width=3D"125" style=3D"ou=
+tline: none; text-decoration: none; width: auto; max-width: 175px; clear: b=
+oth; display: block; float: none; margin: 0 auto; max-height: 50px; margin-=
+left: 0;"></a></div></td><td class=3D"six sub-columns text" style=3D"paddin=
+g: 20px 40px 20px 0; width: 50%; vertical-align: middle;"><h2 class=3D"comp=
+onent-title small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-=
+serif; color: #FFFFFF; font-weight: 800; font-size: 30px; line-height: 32px=
+; margin: 0; text-transform: uppercase; text-align: right;">PM <span class=
+=3D"pseudo-link" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-se=
+rif; color: #33BDFF; font-weight: 800; font-size: 30px; line-height: 32px; =
+margin: 0; -webkit-hyphens: none; hyphens: none; text-transform: uppercase;=
+ text-align: right;">Tracker</span></h2></td></tr></tbody></table></div></d=
+iv></td></tr><tr><td class=3D"middle-section" style=3D"padding: 0; text-ali=
+gn: left;"><div class=3D"panel-pane pane-qxnews-ads"><div class=3D"panel-co=
+ntent "><div class=3D"advertisement new-design"><table class=3D"w-100" styl=
+e=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-box; =
+width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 40px; wid=
+th: 100%; margin: 0;"><div class=3D"ad-wrapper" style=3D"margin: 0;"><table=
+ class=3D"ad-unit" style=3D"border-collapse: collapse; border-spacing: 0; b=
+ox-sizing: border-box; width: 100%; background-color: transparent;"><tbody>=
+<tr class=3D"top"><td class=3D"sponsor-text" colspan=3D"2" style=3D"padding=
+: 0 0 10px; width: 100%; background-color: transparent;"><p class=3D"label-=
+small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color=
+: #4C4C4C; font-size: 12px; line-height: 16px; margin: 0; -webkit-hyphens: =
+none; hyphens: none; font-weight: 500; text-transform: uppercase; text-alig=
+n: center;">A message from <a href=3D"https://urldefense.com/v3/__https://q=
+tx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fQAajOjdvOc__;JSU!!H9nueQsQ!=
+4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlV=
+xWgPUkGmK142x$" target=3D"_blank" style=3D"color: #0C7DB4; text-decoration:=
+ none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-siz=
+e:=3D"" 12px;=3D"" line-height:=3D"" 16px;=3D"" margin:=3D"" 0=3D"" 0=3D"" =
+10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;=3D"" font-w=
+eight:=3D"" 500;=3D"" text-transform:=3D"" uppercase;?=3D"">Revvity Signals=
+</a></p></td></tr><tr class=3D"bottom"><th class=3D"ad-image" valign=3D"mid=
+dle" align=3D"center" style=3D"width: 100%;"><p style=3D"font-family: &quot=
+;Overpass&quot;, Arial, sans-serif; color: #212121; font-size: 16px; line-h=
+eight: 24px; margin: 0; -webkit-hyphens: none; hyphens: none; text-align: c=
+enter;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/porta=
+l/wts/uc*5EcmQ6eFe6bbr*5EFa9fQAqjOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuA=
+G1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkF91djma$" tar=
+get=3D"_blank" style=3D"color: #0C7DB4; text-decoration: none; font-family:=
+ " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" =
+line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-=
+hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""><img src=3D"https://s3.a=
+mazonaws.com/qtxasset.com/newsletter-tool/s3fs-public/SNB_Fierce_1040x590_V=
+2.png" style=3D"margin: auto; outline: none; text-decoration: none; width: =
+520px; max-width: 100%; clear: both; display: block; float: none;" class=3D=
+"full" width=3D"520"></a></p></th></tr></tbody></table></div></td></tr></ta=
+ble></div></div></div><div class=3D"panel-pane pane-custom pane-1 no-margin=
+-top-title no-top-padding paragraph-intro"><div class=3D"title new-design">=
+<table class=3D"w-100" style=3D"border-spacing: 0; border-collapse: collaps=
+e; box-sizing: border-box; width: 100%;"><tr><td class=3D"content-wrapper" =
+style=3D"padding: 40px 40px 20px; width: 100%; margin: 0; padding-top: 0;">=
+<h2 class=3D"pane-title component-title large" style=3D"font-family: &quot;=
+Overpass&quot;, Arial, sans-serif; color: #00354E; font-weight: 800; font-s=
+ize: 38px; line-height: 42px; margin: 5px 0; text-transform: uppercase;">To=
+day=E2=80=99s Big News</h2><div class=3D"label-small" style=3D"font-family:=
+ &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-weight: 500;=
+ text-transform: uppercase; font-size: 12px; line-height: 16px; margin: 0;"=
+>Nov 2, 2023</div></td></tr></table></div><div class=3D"panel-content "><ta=
+ble class=3D"w-100" style=3D"border-spacing: 0; border-collapse: collapse; =
+box-sizing: border-box; width: 100%;"><tr><td class=3D"content-wrapper" sty=
+le=3D"padding: 0 40px; width: 100%; margin: 0; padding-top: 0;"><div class=
+=3D"media-content-body" style=3D"font-family: &quot;Overpass&quot;, Arial, =
+sans-serif; font-size: 16px; line-height: 22px;"><p style=3D"font-family: &=
+quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-size: 16px; li=
+ne-height: 22px; margin: 0 0 20px; -webkit-hyphens: none; hyphens: none;"><=
+strong style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color=
+: #212121; font-size: 16px; line-height: 22px; margin: 0 0 10px; -webkit-hy=
+phens: none; hyphens: none;">Buoyed by GLP-1 stars,&nbsp;<a data-mce-href=
+=3D"https://qtx.omeclk.com/portal/wts/ue%5EcmQ6eFe6bbr%5EFa9fQA6jOjdvO%7C%7=
+C8DPzmQ3CO8Rd" href=3D"https://urldefense.com/v3/__https://www.fiercepharma=
+.com/pharma/buoyed-glp-1-stars-novos-sales-soar-q3-will-manufacturing-capac=
+ity-prove-long-term-hurdle__;!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8=
+H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkC8q17zS$" target=3D"_blank" s=
+tyle=3D"color: #0C7DB4; text-decoration: none; font-family: " Overpass?,=3D=
+"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" line-height:=3D"=
+" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" no=
+ne;=3D"" hyphens:=3D"" none;?=3D"">Novo's sales soar in Q3</a>. Will manufa=
+cturing prove a long-term hurdle?</strong></p><hr style=3D"color: #ECECEC; =
+background-color: #ECECEC; height: 2px; border: none; margin: 0 0 15px; fon=
+t-family: &quot;Overpass&quot;, Arial, sans-serif; width: 520px; line-heigh=
+t: 22px;"><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif;=
+ color: #212121; font-size: 16px; line-height: 22px; margin: 0 0 20px; -web=
+kit-hyphens: none; hyphens: none;"><strong style=3D"font-family: &quot;Over=
+pass&quot;, Arial, sans-serif; color: #212121; font-size: 16px; line-height=
+: 22px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none;">Bancel sug=
+gests&nbsp;<a data-mce-href=3D"https://qtx.omeclk.com/portal/wts/ue%5EcmQ6e=
+Fe6bbr%5EFa9fQALjOjdvO%7C%7C8DPzmQ3CO8Rd" href=3D"https://urldefense.com/v3=
+/__https://www.fiercebiotech.com/biotech/modernas-bancel-suggests-potential=
+-partnerships-depending-future-sales__;!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db=
+2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkPFUoXAk$" target=3D=
+"_blank" style=3D"color: #0C7DB4; text-decoration: none; font-family: " Ove=
+rpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" line-h=
+eight:=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphen=
+s:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Moderna could be open to out-l=
+icensing</a>&nbsp;if sales struggle</strong></p><hr style=3D"color: #ECECEC=
+; background-color: #ECECEC; height: 2px; border: none; margin: 0 0 15px; f=
+ont-family: &quot;Overpass&quot;, Arial, sans-serif; width: 520px; line-hei=
+ght: 22px;"><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans-seri=
+f; color: #212121; font-size: 16px; line-height: 22px; margin: 0 0 20px; -w=
+ebkit-hyphens: none; hyphens: none;"><strong style=3D"font-family: &quot;Ov=
+erpass&quot;, Arial, sans-serif; color: #212121; font-size: 16px; line-heig=
+ht: 22px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none;">Blood-cl=
+ot buster Inari snatches up&nbsp;<a data-mce-href=3D"https://qtx.omeclk.com=
+/portal/wts/ue%5EcmQ6eFe6bbr%5EFa9fQBajOjdvO%7C%7C8DPzmQ3CO8Rd" href=3D"htt=
+ps://urldefense.com/v3/__https://www.fiercebiotech.com/medtech/blood-clot-b=
+uster-inari-snatches-limb-saving-implant-maker-limflow-415m__;!!H9nueQsQ!4t=
+5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxW=
+gPUkBqmRnFZ$" target=3D"_blank" style=3D"color: #0C7DB4; text-decoration: n=
+one; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=
+=3D"" 16px;=3D"" line-height:=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10=
+px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">limb-sa=
+ving implant maker LimFlow for $415M</a></strong></p><hr style=3D"color: #E=
+CECEC; background-color: #ECECEC; height: 2px; border: none; margin: 0 0 15=
+px; font-family: &quot;Overpass&quot;, Arial, sans-serif; width: 520px; lin=
+e-height: 22px;"><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans=
+-serif; color: #212121; font-size: 16px; line-height: 22px; margin: 0 0 20p=
+x; -webkit-hyphens: none; hyphens: none;"><strong style=3D"font-family: &qu=
+ot;Overpass&quot;, Arial, sans-serif; color: #212121; font-size: 16px; line=
+-height: 22px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none;">Eli=
+ Lilly '<a data-mce-href=3D"https://qtx.omeclk.com/portal/wts/ue%5EcmQ6eFe6=
+bbr%5EFa9fQBqjOjdvO%7C%7C8DPzmQ3CO8Rd" href=3D"https://urldefense.com/v3/__=
+https://www.fiercepharma.com/pharma/eli-lilly-aggressively-planning-manufac=
+turing-expansions-ceo-says-mounjaro-soars__;!!H9nueQsQ!4t5OnOn919SnxOVvpuAG=
+1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkBuu_-ZS$" targ=
+et=3D"_blank" style=3D"color: #0C7DB4; text-decoration: none; font-family: =
+" Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" l=
+ine-height:=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-h=
+yphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">aggressively planning' ma=
+nufacturing expansions</a>, CEO says, as Mounjaro soars</strong></p><hr sty=
+le=3D"color: #ECECEC; background-color: #ECECEC; height: 2px; border: none;=
+ margin: 0 0 15px; font-family: &quot;Overpass&quot;, Arial, sans-serif; wi=
+dth: 520px; line-height: 22px;"><p style=3D"font-family: &quot;Overpass&quo=
+t;, Arial, sans-serif; color: #212121; font-size: 16px; line-height: 22px; =
+margin: 0 0 20px; -webkit-hyphens: none; hyphens: none;"><strong style=3D"f=
+ont-family: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-s=
+ize: 16px; line-height: 22px; margin: 0 0 10px; -webkit-hyphens: none; hyph=
+ens: none;">3D spatial omics profiler Stellaromics&nbsp;<a data-mce-href=3D=
+"https://qtx.omeclk.com/portal/wts/ue%5EcmQ6eFe6bbr%5EFa9fQB6jOjdvO%7C%7C8D=
+PzmQ3CO8Rd" href=3D"https://urldefense.com/v3/__https://www.fiercebiotech.c=
+om/medtech/3d-spatial-omics-profiler-stellaromics-scores-25m-series__;!!H9n=
+ueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8P=
+V4rmlVxWgPUkJKYLpFt$" target=3D"_blank" style=3D"color: #0C7DB4; text-decor=
+ation: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" fo=
+nt-size:=3D"" 16px;=3D"" line-height:=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=
+=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""=
+>scores $25M series A</a></strong></p><hr style=3D"color: #ECECEC; backgrou=
+nd-color: #ECECEC; height: 2px; border: none; margin: 0 0 15px; font-family=
+: &quot;Overpass&quot;, Arial, sans-serif; width: 520px; line-height: 22px;=
+"><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: =
+#212121; font-size: 16px; line-height: 22px; margin: 0 0 20px; -webkit-hyph=
+ens: none; hyphens: none;"><strong style=3D"font-family: &quot;Overpass&quo=
+t;, Arial, sans-serif; color: #212121; font-size: 16px; line-height: 22px; =
+margin: 0 0 10px; -webkit-hyphens: none; hyphens: none;">Lilly's&nbsp;<a da=
+ta-mce-href=3D"https://qtx.omeclk.com/portal/wts/ue%5EcmQ6eFe6bbr%5EFa9fQDq=
+jOjdvO%7C%7C8DPzmQ3CO8Rd" href=3D"https://urldefense.com/v3/__https://www.f=
+iercebiotech.com/biotech/lillys-obesity-portfolio-all-above-mode__;!!H9nueQ=
+sQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4r=
+mlVxWgPUkEiRRFNR$" target=3D"_blank" style=3D"color: #0C7DB4; text-decorati=
+on: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-=
+size:=3D"" 16px;=3D"" line-height:=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D=
+"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">ob=
+esity portfolio in 'all-of-the-above mode'</a></strong></p><hr style=3D"col=
+or: #ECECEC; background-color: #ECECEC; height: 2px; border: none; margin: =
+0 0 15px; font-family: &quot;Overpass&quot;, Arial, sans-serif; width: 520p=
+x; line-height: 22px;"><p style=3D"font-family: &quot;Overpass&quot;, Arial=
+, sans-serif; color: #212121; font-size: 16px; line-height: 22px; margin: 0=
+ 0 20px; -webkit-hyphens: none; hyphens: none;"><strong style=3D"font-famil=
+y: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-size: 16px=
+; line-height: 22px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none=
+;">BioMarin=E2=80=99s longtime CEO Jean-Jacques Bienaim=C3=A9&nbsp;<a data-=
+mce-href=3D"https://qtx.omeclk.com/portal/wts/ue%5EcmQ6eFe6bbr%5EFa9fQD6jOj=
+dvO%7C%7C8DPzmQ3CO8Rd" href=3D"https://urldefense.com/v3/__https://www.fier=
+cepharma.com/pharma/biomarins-longtime-chief-jean-jacques-bienaime-hands-re=
+ins-genentechs-alexander-hardy__;!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED1=
+81W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkBon0oQt$" target=3D"_blan=
+k" style=3D"color: #0C7DB4; text-decoration: none; font-family: " Overpass?=
+,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" line-height:=
+=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"=
+" none;=3D"" hyphens:=3D"" none;?=3D"">hands the reins</a>&nbsp;to Genentec=
+h=E2=80=99s Alexander Hardy</strong></p></div></td></tr></table></div></div=
+><div class=3D"panel-pane pane-qxnews-ads"><div class=3D"panel-content "><d=
+iv class=3D"advertisement new-design"><table class=3D"w-100" style=3D"borde=
+r-spacing: 0; border-collapse: collapse; box-sizing: border-box; width: 100=
+%;"><tr><td class=3D"content-wrapper" style=3D"padding: 40px; width: 100%; =
+margin: 0;"><div class=3D"ad-wrapper" style=3D"margin: 0;"><table class=3D"=
+ad-unit" style=3D"border-collapse: collapse; border-spacing: 0; box-sizing:=
+ border-box; width: 100%; background-color: transparent;"><tbody><tr class=
+=3D"top"><td class=3D"sponsor-text" colspan=3D"2" style=3D"padding: 0 0 10p=
+x; width: 100%; background-color: transparent;"><p class=3D"label-small" st=
+yle=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C=
+; font-size: 12px; line-height: 16px; margin: 0; -webkit-hyphens: none; hyp=
+hens: none; font-weight: 500; text-transform: uppercase; text-align: center=
+;">A message from <a href=3D"https://urldefense.com/v3/__https://qtx.omeclk=
+.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fQDLjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ=
+!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHu=
+q2U8PV4rmlVxWgPUkFt4256q$" target=3D"_blank" style=3D"color: #0C7DB4; text-=
+decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D=
+"" font-size:=3D"" 12px;=3D"" line-height:=3D"" 16px;=3D"" margin:=3D"" 0=
+=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none=
+;=3D"" font-weight:=3D"" 500;=3D"" text-transform:=3D"" uppercase;?=3D"">Fi=
+erce 50</a></p></td></tr><tr class=3D"bottom"><th class=3D"ad-image" valign=
+=3D"middle" align=3D"center" style=3D"width: 100%;"><p style=3D"font-family=
+: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-size: 16px;=
+ line-height: 24px; margin: 0; -webkit-hyphens: none; hyphens: none; text-a=
+lign: center;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.co=
+m/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fQEajOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H=
+9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U=
+8PV4rmlVxWgPUkLTIySuk$" target=3D"_blank" style=3D"color: #0C7DB4; text-dec=
+oration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" =
+font-size:=3D"" 16px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D""=
+ 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D=
+""><img src=3D"https://s3.amazonaws.com/qtxasset.com/newsletter-tool/s3fs-p=
+ublic/NL%20Banner%20RESIZED%20Fierce%2050%20Gala%20Dinner-1040x590%20%283%2=
+9.png" style=3D"margin: auto; outline: none; text-decoration: none; width: =
+520px; max-width: 100%; clear: both; display: block; float: none;" class=3D=
+"full" width=3D"520"></a></p></th></tr></tbody></table></div></td></tr></ta=
+ble></div></div></div><table class=3D"section-spacer gap" style=3D"border-s=
+pacing: 0; border-collapse: collapse; box-sizing: border-box; width: 100%;"=
+><tbody><tr><td style=3D"padding: 0; width: 100%; background-color: #F4F4F4=
+; line-height: 20px; font-size: 20px; height: 20px;">&nbsp;</td></tr></tbod=
+y></table><div class=3D"panel-pane pane-solr-articles"><div class=3D"title =
+new-design"><table class=3D"w-100" style=3D"border-spacing: 0; border-colla=
+pse: collapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"conte=
+nt-wrapper" style=3D"padding: 40px 40px 20px; width: 100%; margin: 0;"><h2 =
+class=3D"pane-title component-title large" style=3D"font-family: &quot;Over=
+pass&quot;, Arial, sans-serif; color: #00354E; font-weight: 800; font-size:=
+ 38px; line-height: 42px; margin: 5px 0; text-transform: uppercase;">Featur=
+ed</h2></td></tr></table></div><div class=3D"panel-content "><div class=3D"=
+solr-article media-content-component last-item"><table class=3D"w-100" styl=
+e=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-box; =
+width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 0 40px 40=
+px; width: 100%; margin: 0;"><table class=3D"container w-100" style=3D"bord=
+er-spacing: 0; border-collapse: collapse; box-sizing: border-box; width: 10=
+0%; table-layout: fixed; margin: 0 auto; text-align: inherit; background: #=
+FFFFFF none repeat scroll 0 0;"><tr><td style=3D"padding: 0;"><table class=
+=3D"row" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing:=
+ border-box; padding: 0; width: 100%; position: relative; display: block;">=
+<tr><td class=3D"image-size-520-292 media" style=3D"padding: 10px 0; vertic=
+al-align: top; text-align: center;"><table class=3D"columns w-100" style=3D=
+"border-spacing: 0; border-collapse: collapse; box-sizing: border-box; widt=
+h: 100%; margin: 0 auto; margin-left: 0;"><tr><td style=3D"padding: 0;"><a =
+href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5E=
+cmQ6eFe6bbr*5EFa9fQEqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919=
+SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkJI01=
+XI9$" style=3D"color: #0C7DB4; text-decoration: none; font-family: " Overpa=
+ss?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" line-heig=
+ht:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=
+=3D"" none;=3D"" hyphens:=3D"" none;=3D"" display:=3D"" inline-block;?=3D""=
+><img width=3D"520" src=3D"https://qtxasset.com/derivatives/quartz/qcloud5/=
+media/image/fiercebiotech/1620113802/GettyImages-670960338.jpg/GettyImages-=
+670960338.jpg/985c8a61a44d3130e6cc558481780075" alt=3D"" style=3D"outline: =
+none; text-decoration: none; width: 520px; max-width: 100%; clear: both; di=
+splay: block; float: none; margin: 0 auto;"></a></td></tr></table></td></tr=
+><tr><td class=3D"image-size-520-292 content" style=3D"padding: 0; vertical=
+-align: top; font-weight: inherit; margin-bottom: 20px;"><table class=3D"co=
+lumns w-100" style=3D"border-spacing: 0; border-collapse: collapse; box-siz=
+ing: border-box; width: 100%; margin: 0 auto; margin-left: 0;"><tr><td styl=
+e=3D"padding: 0;"><div class=3D"right-content" style=3D"margin: 0;"><h2 cla=
+ss=3D"article-title element-title large" style=3D"font-family: &quot;Overpa=
+ss&quot;, Arial, sans-serif; color: #212121; font-weight: 800; font-size: 2=
+0px; line-height: 24px; margin: 0 0 10px;"><a href=3D"https://urldefense.co=
+m/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fQE6jOjdvO*7=
+C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qL=
+ho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkF8650hN$" style=3D"color: #212121=
+; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-se=
+rif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=3D"" line-heigh=
+t:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=
+=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Buoyed by GLP-1 stars, Novo's sa=
+les soar in Q3. Will manufacturing prove a long-term hurdle?</a></h2><p cla=
+ss=3D"article-byline byline small" style=3D"font-family: &quot;Overpass&quo=
+t;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line-height: 16px; =
+margin: 10px 0 10px; -webkit-hyphens: none; hyphens: none;">By Eric Sagonow=
+sky,Fraiser Kansteiner</p><div class=3D"article-body media-content-body" st=
+yle=3D"font-family: &quot;PT Serif&quot;, &quot;Times New Roman&quot;, seri=
+f; font-size: 16px; line-height: 24px; margin: 10px 0 0; -webkit-hyphens: n=
+one; hyphens: none;">Ever since Novo Nordisk won FDA approval for its GLP-1=
+ weight-loss med Wegovy more than 2 years ago, analysts and investors have =
+been keeping a close eye on the blockbuster drug launch. Now, Novo's third-=
+quarter financial results bring the situation into clearer focus.</div></di=
+v></td></tr></table></td></tr></table></td></tr></table></td></tr></table><=
+/div></div></div><table class=3D"section-spacer gap" style=3D"border-spacin=
+g: 0; border-collapse: collapse; box-sizing: border-box; width: 100%;"><tbo=
+dy><tr><td style=3D"padding: 0; width: 100%; background-color: #F4F4F4; lin=
+e-height: 20px; font-size: 20px; height: 20px;">&nbsp;</td></tr></tbody></t=
+able><div class=3D"panel-pane pane-solr-articles"><div class=3D"title new-d=
+esign"><table class=3D"w-100" style=3D"border-spacing: 0; border-collapse: =
+collapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"content-wr=
+apper" style=3D"padding: 40px 40px 20px; width: 100%; margin: 0;"><h2 class=
+=3D"pane-title component-title large" style=3D"font-family: &quot;Overpass&=
+quot;, Arial, sans-serif; color: #00354E; font-weight: 800; font-size: 38px=
+; line-height: 42px; margin: 5px 0; text-transform: uppercase;">Top Stories=
+</h2></td></tr></table></div><div class=3D"panel-content "><div class=3D"so=
+lr-article media-content-component first first-item"><table class=3D"w-100"=
+ style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-=
+box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 0 40=
+px 40px; width: 100%; margin: 0;"><h2 class=3D"article-title element-title =
+large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color=
+: #212121; font-weight: 800; font-size: 20px; line-height: 24px; margin: 0 =
+0 10px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/port=
+al/wts/ue*5EcmQ6eFe6bbr*5EFa9fQELjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQs=
+Q!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rm=
+lVxWgPUkPByUldt$" style=3D"color: #212121; text-decoration: none; font-fami=
+ly: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=
+=3D"" font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" =
+0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" non=
+e;?=3D"">St=C3=A9phane Bancel suggests Moderna could be open to out-licensi=
+ng if sales struggle</a></h2><p class=3D"article-byline byline small" style=
+=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; f=
+ont-size: 12px; line-height: 16px; margin: 10px 0 10px; -webkit-hyphens: no=
+ne; hyphens: none;">By Max Bayer</p><div class=3D"article-body media-conten=
+t-body" style=3D"font-family: &quot;PT Serif&quot;, &quot;Times New Roman&q=
+uot;, serif; font-size: 16px; line-height: 24px; margin: 10px 0 0; -webkit-=
+hyphens: none; hyphens: none;">Moderna CEO St=C3=A9phane Bancel suggested t=
+hat partnerships could be on the horizon depending on future sales figures.=
+ The company has built a largely wholly-owned pipeline thanks to revenue fr=
+om the initial launch of its COVID vaccine.</div></td></tr></table></div><d=
+iv class=3D"solr-article media-content-component"><table class=3D"w-100" st=
+yle=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-box=
+; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 0 40px =
+40px; width: 100%; margin: 0;"><h2 class=3D"article-title element-title lar=
+ge" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #=
+212121; font-weight: 800; font-size: 20px; line-height: 24px; margin: 0 0 1=
+0px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/=
+wts/ue*5EcmQ6eFe6bbr*5EFa9fQFajOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4=
+t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVx=
+WgPUkFdz2EyK$" style=3D"color: #212121; text-decoration: none; font-family:=
+ " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=3D""=
+ font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"=
+" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=
+=3D"">Blood-clot buster Inari snatches up limb-saving implant maker LimFlow=
+ for $415M</a></h2><p class=3D"article-byline byline small" style=3D"font-f=
+amily: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-size: =
+12px; line-height: 16px; margin: 10px 0 10px; -webkit-hyphens: none; hyphen=
+s: none;">By Conor Hale</p><div class=3D"article-body media-content-body" s=
+tyle=3D"font-family: &quot;PT Serif&quot;, &quot;Times New Roman&quot;, ser=
+if; font-size: 16px; line-height: 24px; margin: 10px 0 0; -webkit-hyphens: =
+none; hyphens: none;">Inari Medical has signed on to a $415 million deal to=
+ acquire LimFlow, just weeks after the company received FDA approval for it=
+s minimally invasive approach to re-establish oxygenated blood flow in the =
+legs of people potentially facing amputation.</div></td></tr></table></div>=
+<div class=3D"solr-article media-content-component last-item"><table class=
+=3D"w-100" style=3D"border-spacing: 0; border-collapse: collapse; box-sizin=
+g: border-box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"pad=
+ding: 0 40px 40px; width: 100%; margin: 0;"><h2 class=3D"article-title elem=
+ent-title large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-se=
+rif; color: #212121; font-weight: 800; font-size: 20px; line-height: 24px; =
+margin: 0 0 10px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omecl=
+k.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fQFqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJ=
+Q!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWH=
+uq2U8PV4rmlVxWgPUkCkjVAIR$" style=3D"color: #212121; text-decoration: none;=
+ font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=
+=3D"" 800;=3D"" font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" mar=
+gin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens=
+:=3D"" none;?=3D"">Eli Lilly 'aggressively planning' manufacturing expansio=
+ns, CEO says, as Mounjaro soars </a></h2><p class=3D"article-byline byline =
+small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color=
+: #4C4C4C; font-size: 12px; line-height: 16px; margin: 10px 0 10px; -webkit=
+-hyphens: none; hyphens: none;">By Angus Liu</p><div class=3D"article-body =
+media-content-body" style=3D"font-family: &quot;PT Serif&quot;, &quot;Times=
+ New Roman&quot;, serif; font-size: 16px; line-height: 24px; margin: 10px 0=
+ 0; -webkit-hyphens: none; hyphens: none;">As strong demand continues to pu=
+sh Mounjaro sales to new highs, Eli Lilly CEO David Ricks said the company =
+is &quot;not done with&quot; manufacturing expansions.</div></td></tr></tab=
+le></div></div></div><div class=3D"panel-pane pane-qxnews-ads no-top-paddin=
+g"><div class=3D"panel-content "><div class=3D"advertisement new-design"><t=
+able class=3D"w-100" style=3D"border-spacing: 0; border-collapse: collapse;=
+ box-sizing: border-box; width: 100%;"><tr><td class=3D"content-wrapper" st=
+yle=3D"padding: 40px; width: 100%; margin: 0; padding-top: 0;"><div class=
+=3D"ad-wrapper" style=3D"margin: 0;"><table class=3D"ad-unit" style=3D"bord=
+er-collapse: collapse; border-spacing: 0; box-sizing: border-box; width: 10=
+0%; background-color: transparent;"><tbody><tr class=3D"top"><td class=3D"s=
+ponsor-text" colspan=3D"2" style=3D"padding: 0 0 10px; width: 100%; backgro=
+und-color: transparent;"><p class=3D"label-small" style=3D"font-family: &qu=
+ot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line=
+-height: 16px; margin: 0; -webkit-hyphens: none; hyphens: none; font-weight=
+: 500; text-transform: uppercase; text-align: center;">A message from <a hr=
+ef=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5Ecm=
+Q6eFe6bbr*5EFa9fQF6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919Sn=
+xOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkJdI3G8=
+n$" target=3D"_blank" style=3D"color: #0C7DB4; text-decoration: none; font-=
+family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 12px=
+;=3D"" line-height:=3D"" 16px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -=
+webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;=3D"" font-weight:=3D"" =
+500;=3D"" text-transform:=3D"" uppercase;?=3D"">ThermoFisher Scientific and=
+ Greenfield Global</a></p></td></tr><tr class=3D"bottom"><td class=3D"ad-te=
+xt text-only element-bg alt" valign=3D"middle" align=3D"center" style=3D"pa=
+dding: 30px 20px 10px 20px; background: #F4F4F4; width: 100%; text-align: l=
+eft;"><h2 style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; co=
+lor: #212121; font-weight: 800; font-size: 18px; line-height: 22px; margin:=
+ 0 0 5px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/po=
+rtal/wts/ue*5EcmQ6eFe6bbr*5EFa9fReqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nue=
+QsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4=
+rmlVxWgPUkBqZVUpB$" style=3D"color: #212121; text-decoration: none; font-fa=
+mily: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=
+=3D"" font-size:=3D"" 18px;=3D"" line-height:=3D"" 22px;=3D"" margin:=3D"" =
+0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" non=
+e;?=3D"">Webinar: Alcohol Compliance for Bioprocessing Quality and Safety</=
+a></h2><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; co=
+lor: #212121; font-size: 14px; line-height: 20px; margin: 0 0 5px; -webkit-=
+hyphens: none; hyphens: none;"><span style=3D"color: rgb(68, 68, 68); font-=
+family: Calibri, sans-serif, &quot;Mongolian Baiti&quot;, &quot;Microsoft Y=
+i Baiti&quot;, &quot;Javanese Text&quot;, &quot;Yu Gothic&quot;; font-size:=
+ 14.6667px; white-space-collapse: preserve; line-height: 20px; margin: 0 0 =
+10px; -webkit-hyphens: none; hyphens: none;">Thursday, November 9, 2023 | 1=
+1am ET / 8am PT</span></p><p style=3D"font-family: &quot;Overpass&quot;, Ar=
+ial, sans-serif; color: #212121; font-size: 14px; line-height: 20px; margin=
+: 0 0 5px; -webkit-hyphens: none; hyphens: none;"><span color-m=3D"#000000"=
+ font-m=3D"Calibri" size-m=3D"11pt" style=3D"color: rgb(68, 68, 68); font-f=
+amily: Calibri, sans-serif, &quot;Mongolian Baiti&quot;, &quot;Microsoft Yi=
+ Baiti&quot;, &quot;Javanese Text&quot;, &quot;Yu Gothic&quot;; font-size: =
+14.6667px; white-space-collapse: preserve; line-height: 20px; margin: 0 0 1=
+0px; -webkit-hyphens: none; hyphens: none;">Navigating the U.S. regulatory =
+landscape for the use of high-purity alcohols in biologic development and m=
+anufacturing processes is crucial for maintaining product quality and patie=
+nt safety. However, biomanufacturers often face significant challenges. </s=
+pan><span bold-m=3D"true" color-m=3D"#000000" font-m=3D"Calibri" size-m=3D"=
+11pt" style=3D"color: rgb(68, 68, 68); font-family: Calibri, sans-serif, &q=
+uot;Mongolian Baiti&quot;, &quot;Microsoft Yi Baiti&quot;, &quot;Javanese T=
+ext&quot;, &quot;Yu Gothic&quot;; font-size: 14.6667px; white-space-collaps=
+e: preserve; line-height: 20px; margin: 0 0 10px; -webkit-hyphens: none; hy=
+phens: none;">Join us</span><span color-m=3D"#000000" font-m=3D"Calibri" si=
+ze-m=3D"11pt" style=3D"color: rgb(68, 68, 68); font-family: Calibri, sans-s=
+erif, &quot;Mongolian Baiti&quot;, &quot;Microsoft Yi Baiti&quot;, &quot;Ja=
+vanese Text&quot;, &quot;Yu Gothic&quot;; font-size: 14.6667px; white-space=
+-collapse: preserve; line-height: 20px; margin: 0 0 10px; -webkit-hyphens: =
+none; hyphens: none;"> to gain key guidance from industry experts and learn=
+ important best practices. <strong style=3D"font-family: &quot;Overpass&quo=
+t;, Arial, sans-serif; color: #212121; font-size: 14px; line-height: 20px; =
+margin: 0 0 10px; -webkit-hyphens: none; hyphens: none; font-weight: 700;">=
+<a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue=
+*5EcmQ6eFe6bbr*5EFa9fRe6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn=
+919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkM=
+cp7p_N$" style=3D"color: #0C7DB4; text-decoration: none; font-family: " Ove=
+rpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" line-h=
+eight:=3D"" 20px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphen=
+s:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Register now.</a></strong></sp=
+an></p><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; co=
+lor: #212121; font-size: 14px; line-height: 20px; margin: 0 0 5px; -webkit-=
+hyphens: none; hyphens: none;"><span color-m=3D"#000000" font-m=3D"Calibri"=
+ size-m=3D"11pt" style=3D"color: rgb(68, 68, 68); font-family: Calibri, san=
+s-serif, &quot;Mongolian Baiti&quot;, &quot;Microsoft Yi Baiti&quot;, &quot=
+;Javanese Text&quot;, &quot;Yu Gothic&quot;; font-size: 14.6667px; white-sp=
+ace-collapse: preserve; line-height: 20px; margin: 0 0 10px; -webkit-hyphen=
+s: none; hyphens: none;"><a href=3D"https://urldefense.com/v3/__https://qtx=
+.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fReLjOjdvO*7C*7C8DPzmQ3CO8Rd__=
+;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69B=
+cZwSWHuq2U8PV4rmlVxWgPUkGvL4hw_$" style=3D"color: #0C7DB4; text-decoration:=
+ none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-siz=
+e:=3D"" 14px;=3D"" line-height:=3D"" 20px;=3D"" margin:=3D"" 0=3D"" 0=3D"" =
+10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""><img =
+alt=3D"" src=3D"https://s3.amazonaws.com/publicmarketing.qtxasset.com/Therm=
+o_Greenfield-120w.png" style=3D"outline: none; text-decoration: none; width=
+: auto; max-width: 100%; clear: both; display: block; float: none; color: #=
+212121; font-family: &quot;Overpass&quot;, Arial, sans-serif; font-size: 14=
+px; line-height: 20px;"></a></span></p></td></tr></tbody></table></div></td=
+></tr></table></div></div></div><div class=3D"panel-pane pane-solr-articles=
+"><div class=3D"panel-content "><div class=3D"solr-article media-content-co=
+mponent first first-item"><table class=3D"w-100" style=3D"border-spacing: 0=
+; border-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td =
+class=3D"content-wrapper" style=3D"padding: 0 40px 40px; width: 100%; margi=
+n: 0;"><h2 class=3D"article-title element-title large" style=3D"font-family=
+: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight: 800=
+; font-size: 20px; line-height: 24px; margin: 0 0 10px;"><a href=3D"https:/=
+/urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EF=
+a9fRfajOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db=
+2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkLieUFWo$" style=3D"=
+color: #212121; text-decoration: none; font-family: " Overpass?,=3D"" Arial=
+,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=
+=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -w=
+ebkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">3D spatial omics p=
+rofiler Stellaromics scores $25M series A</a></h2><p class=3D"article-bylin=
+e byline small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-ser=
+if; color: #4C4C4C; font-size: 12px; line-height: 16px; margin: 10px 0 10px=
+; -webkit-hyphens: none; hyphens: none;">By Conor Hale</p><div class=3D"art=
+icle-body media-content-body" style=3D"font-family: &quot;PT Serif&quot;, &=
+quot;Times New Roman&quot;, serif; font-size: 16px; line-height: 24px; marg=
+in: 10px 0 0; -webkit-hyphens: none; hyphens: none;">The startup aims to pr=
+ovide a view into the workings of tissue and chart out cellular maps for a =
+better understanding of organ function and disease.</div></td></tr></table>=
+</div><div class=3D"solr-article media-content-component"><table class=3D"w=
+-100" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: bo=
+rder-box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding:=
+ 0 40px 40px; width: 100%; margin: 0;"><h2 class=3D"article-title element-t=
+itle large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; =
+color: #212121; font-weight: 800; font-size: 20px; line-height: 24px; margi=
+n: 0 0 10px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com=
+/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRfqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9=
+nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8=
+PV4rmlVxWgPUkMbFFTMH$" style=3D"color: #212121; text-decoration: none; font=
+-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 8=
+00;=3D"" font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D=
+"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" =
+none;?=3D"">Lilly's obesity portfolio in 'all-of-the-above mode'</a></h2><p=
+ class=3D"article-byline byline small" style=3D"font-family: &quot;Overpass=
+&quot;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line-height: 16=
+px; margin: 10px 0 10px; -webkit-hyphens: none; hyphens: none;">By Annalee =
+Armstrong</p><div class=3D"article-body media-content-body" style=3D"font-f=
+amily: &quot;PT Serif&quot;, &quot;Times New Roman&quot;, serif; font-size:=
+ 16px; line-height: 24px; margin: 10px 0 0; -webkit-hyphens: none; hyphens:=
+ none;">Eli Lilly is in an =E2=80=9Call of the above mode=E2=80=9D in obesi=
+ty, with the research teams moving as fast as possible to advance an oral c=
+andidate and build a portfolio of complimentary treatments.</div></td></tr>=
+</table></div><div class=3D"solr-article media-content-component"><table cl=
+ass=3D"w-100" style=3D"border-spacing: 0; border-collapse: collapse; box-si=
+zing: border-box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"=
+padding: 0 40px 40px; width: 100%; margin: 0;"><h2 class=3D"article-title e=
+lement-title large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans=
+-serif; color: #212121; font-weight: 800; font-size: 20px; line-height: 24p=
+x; margin: 0 0 10px;"><a href=3D"https://urldefense.com/v3/__https://qtx.om=
+eclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRf6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JS=
+UlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZw=
+SWHuq2U8PV4rmlVxWgPUkNq1tmYx$" style=3D"color: #212121; text-decoration: no=
+ne; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight=
+:=3D"" 800;=3D"" font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" ma=
+rgin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphen=
+s:=3D"" none;?=3D"">BioMarin's longtime CEO Jean-Jacques Bienaim=C3=A9 hand=
+s the reins to Genentech's Alexander Hardy</a></h2><p class=3D"article-byli=
+ne byline small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-se=
+rif; color: #4C4C4C; font-size: 12px; line-height: 16px; margin: 10px 0 10p=
+x; -webkit-hyphens: none; hyphens: none;">By Zoey Becker</p><div class=3D"a=
+rticle-body media-content-body" style=3D"font-family: &quot;PT Serif&quot;,=
+ &quot;Times New Roman&quot;, serif; font-size: 16px; line-height: 24px; ma=
+rgin: 10px 0 0; -webkit-hyphens: none; hyphens: none;">BioMarin lured Genen=
+tech's CEO Alexander Hardy to take over upon Jean-Jacques Bienaim=C3=A9's u=
+pcoming retirement after 18 years at the helm. </div></td></tr></table></di=
+v><div class=3D"solr-article media-content-component"><table class=3D"w-100=
+" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border=
+-box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 0 4=
+0px 40px; width: 100%; margin: 0;"><h2 class=3D"article-title element-title=
+ large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; colo=
+r: #212121; font-weight: 800; font-size: 20px; line-height: 24px; margin: 0=
+ 0 10px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/por=
+tal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRfLjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQ=
+sQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4r=
+mlVxWgPUkLaIcgh9$" style=3D"color: #212121; text-decoration: none; font-fam=
+ily: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=
+=3D"" font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" =
+0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" non=
+e;?=3D"">With first microbiome drug approved, Seres slims R&amp;D efforts a=
+nd workforce</a></h2><p class=3D"article-byline byline small" style=3D"font=
+-family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-size=
+: 12px; line-height: 16px; margin: 10px 0 10px; -webkit-hyphens: none; hyph=
+ens: none;">By Annalee Armstrong</p><div class=3D"article-body media-conten=
+t-body" style=3D"font-family: &quot;PT Serif&quot;, &quot;Times New Roman&q=
+uot;, serif; font-size: 16px; line-height: 24px; margin: 10px 0 0; -webkit-=
+hyphens: none; hyphens: none;">After securing the first-ever approval for a=
+n oral microbiome therapy in April, Seres Therapeutics is facing some tough=
+ choices, resulting in a restructuring that will claim 41% of staff.</div><=
+/td></tr></table></div><div class=3D"solr-article media-content-component">=
+<table class=3D"w-100" style=3D"border-spacing: 0; border-collapse: collaps=
+e; box-sizing: border-box; width: 100%;"><tr><td class=3D"content-wrapper" =
+style=3D"padding: 0 40px 40px; width: 100%; margin: 0;"><h2 class=3D"articl=
+e-title element-title large" style=3D"font-family: &quot;Overpass&quot;, Ar=
+ial, sans-serif; color: #212121; font-weight: 800; font-size: 20px; line-he=
+ight: 24px; margin: 0 0 10px;"><a href=3D"https://urldefense.com/v3/__https=
+://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRgajOjdvO*7C*7C8DPzmQ3C=
+O8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD0=
+6pb69BcZwSWHuq2U8PV4rmlVxWgPUkEDwVdz4$" style=3D"color: #212121; text-decor=
+ation: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" fo=
+nt-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px=
+;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D=
+"" hyphens:=3D"" none;?=3D"">Regeneron touts launch of high-dose Eylea in b=
+attle with Roche's Vabysmo</a></h2><p class=3D"article-byline byline small"=
+ style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4=
+C4C; font-size: 12px; line-height: 16px; margin: 10px 0 10px; -webkit-hyphe=
+ns: none; hyphens: none;">By Kevin Dunleavy</p><div class=3D"article-body m=
+edia-content-body" style=3D"font-family: &quot;PT Serif&quot;, &quot;Times =
+New Roman&quot;, serif; font-size: 16px; line-height: 24px; margin: 10px 0 =
+0; -webkit-hyphens: none; hyphens: none;">After gaining FDA approval for it=
+s high-dose Eylea, Regeneron racked up $43 million in sales in the U.S. ove=
+r the final six weeks of the third quarter for the new formulation. Regener=
+on and partner Bayer are battling Roche's Vabysmo in the treatment of multi=
+ple eye diseases.</div></td></tr></table></div><div class=3D"solr-article m=
+edia-content-component"><table class=3D"w-100" style=3D"border-spacing: 0; =
+border-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td cl=
+ass=3D"content-wrapper" style=3D"padding: 0 40px 40px; width: 100%; margin:=
+ 0;"><h2 class=3D"article-title element-title large" style=3D"font-family: =
+&quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight: 800; =
+font-size: 20px; line-height: 24px; margin: 0 0 10px;"><a href=3D"https://u=
+rldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9=
+fRgqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j=
+-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkKIGu0Uy$" style=3D"co=
+lor: #212121; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=
+=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=3D=
+"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webk=
+it-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Rani and Sangamo jett=
+ison staff, offices and assets to keep businesses afloat next year</a></h2>=
+<p class=3D"article-byline byline small" style=3D"font-family: &quot;Overpa=
+ss&quot;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line-height: =
+16px; margin: 10px 0 10px; -webkit-hyphens: none; hyphens: none;">By James =
+Waldron</p><div class=3D"article-body media-content-body" style=3D"font-fam=
+ily: &quot;PT Serif&quot;, &quot;Times New Roman&quot;, serif; font-size: 1=
+6px; line-height: 24px; margin: 10px 0 0; -webkit-hyphens: none; hyphens: n=
+one;">Rani Therapeutics and Sangamo Therapeutics have become the latest bio=
+techs to significantly shrink their workforces in order to eke out cash for=
+ another year.</div></td></tr></table></div><div class=3D"solr-article medi=
+a-content-component last-item"><table class=3D"w-100" style=3D"border-spaci=
+ng: 0; border-collapse: collapse; box-sizing: border-box; width: 100%;"><tr=
+><td class=3D"content-wrapper" style=3D"padding: 0 40px 40px; width: 100%; =
+margin: 0;"><h2 class=3D"article-title element-title large" style=3D"font-f=
+amily: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight=
+: 800; font-size: 20px; line-height: 24px; margin: 0 0 10px;"><a href=3D"ht=
+tps://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bb=
+r*5EFa9fRg6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG=
+1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkE1ZE0BC$" styl=
+e=3D"color: #212121; text-decoration: none; font-family: " Overpass?,=3D"" =
+Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20=
+px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D""=
+ -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Locanabio seeks=
+ new homes for genetic medicines as it winds down operations</a></h2><p cla=
+ss=3D"article-byline byline small" style=3D"font-family: &quot;Overpass&quo=
+t;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line-height: 16px; =
+margin: 10px 0 10px; -webkit-hyphens: none; hyphens: none;">By Annalee Arms=
+trong</p><div class=3D"article-body media-content-body" style=3D"font-famil=
+y: &quot;PT Serif&quot;, &quot;Times New Roman&quot;, serif; font-size: 16p=
+x; line-height: 24px; margin: 10px 0 0; -webkit-hyphens: none; hyphens: non=
+e;">Locanabio will close up shop by the end of the year as a tough market f=
+or biotechs claims another company that had been working on developing RNA =
+medicines for rare diseases such as Duchenne muscular dystrophy.</div></td>=
+</tr></table></div></div></div><table class=3D"section-spacer gap" style=3D=
+"border-spacing: 0; border-collapse: collapse; box-sizing: border-box; widt=
+h: 100%;"><tbody><tr><td style=3D"padding: 0; width: 100%; background-color=
+: #F4F4F4; line-height: 20px; font-size: 20px; height: 20px;">&nbsp;</td></=
+tr></tbody></table><div class=3D"panel-pane pane-solr-articles podcasts" st=
+yle=3D"margin: 0;"><div class=3D"title new-design"><table class=3D"w-100" s=
+tyle=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-bo=
+x; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 40px 4=
+0px 20px; width: 100%; margin: 0;"><div class=3D"label-small" style=3D"font=
+-family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-weig=
+ht: 500; text-transform: uppercase; font-size: 12px; line-height: 16px; mar=
+gin: 0;">Fierce podcasts</div><h2 class=3D"pane-title component-title large=
+" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #00=
+354E; font-weight: 800; font-size: 38px; line-height: 42px; margin: 5px 0; =
+text-transform: uppercase;">Don=E2=80=99t miss an episode</h2></td></tr></t=
+able></div><div class=3D"panel-content "><div class=3D"solr-article media-c=
+ontent-component last-item"><table class=3D"w-100" style=3D"border-spacing:=
+ 0; border-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><t=
+d class=3D"content-wrapper" style=3D"padding: 0 40px 20px; width: 100%; mar=
+gin: 0;"><table class=3D"container w-100" style=3D"border-spacing: 0; borde=
+r-collapse: collapse; box-sizing: border-box; width: 100%; table-layout: fi=
+xed; margin: 0 auto; text-align: inherit; background: #FFFFFF none repeat s=
+croll 0 0;"><tr><td style=3D"padding: 0;"><table class=3D"row" style=3D"bor=
+der-spacing: 0; border-collapse: collapse; box-sizing: border-box; padding:=
+ 0; width: 100%; position: relative; display: block;"><tr><th class=3D"imag=
+e-size-150-150 media" style=3D"vertical-align: top; padding: 0; width: 150p=
+x;"><table class=3D"columns" style=3D"border-spacing: 0; border-collapse: c=
+ollapse; box-sizing: border-box; margin: 0 auto; margin-left: 0;"><tr><td s=
+tyle=3D"padding: 0;"><a href=3D"https://urldefense.com/v3/__https://qtx.ome=
+clk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fR*7CqjOjdvO*7C*7C8DPzmQ3CO8Rd__;J=
+SUlJSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69Bc=
+ZwSWHuq2U8PV4rmlVxWgPUkHIUGG6w$" style=3D"color: #0C7DB4; text-decoration: =
+none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size=
+:=3D"" 16px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 1=
+0px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""><img w=
+idth=3D"150" src=3D"https://qtxasset.com/derivatives/quartz/qcloud5/media/i=
+mage/The+Top+Line+Hero+Image_0.png/e015f79cec22997f3de5c2746be95948" alt=3D=
+"" style=3D"outline: none; text-decoration: none; width: 150px; max-width: =
+100%; clear: both; display: block; float: none; border-radius: 5px; backgro=
+und-clip: padding-box;"></a></td></tr></table></th><th class=3D"image-size-=
+150-150 content" style=3D"vertical-align: middle; padding: 0; font-weight: =
+inherit; width: 370px;"><table class=3D"columns" style=3D"border-spacing: 0=
+; border-collapse: collapse; box-sizing: border-box; margin: 0 auto; margin=
+-left: 0;"><tr><td style=3D"padding: 0;"><div class=3D"right-content" style=
+=3D"margin: 0 0 0 15px;"><h2 class=3D"article-title text-right element-titl=
+e large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; col=
+or: #212121; font-weight: 800; font-size: 18px; line-height: 22px; margin: =
+0 0 5px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/por=
+tal/wts/ue*5EcmQ6eFe6bbr*5EFa9fR*7C6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJSU!!H9n=
+ueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8P=
+V4rmlVxWgPUkMzZvBK8$" style=3D"color: #212121; text-decoration: none; font-=
+family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 80=
+0;=3D"" font-size:=3D"" 18px;=3D"" line-height:=3D"" 22px;=3D"" margin:=3D"=
+" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" n=
+one;?=3D"">A look at FDA=E2=80=99s Aduhelm approval and regulatory bias</a>=
+</h2><div class=3D"article-body text-right media-content-body" style=3D"fon=
+t-family: &quot;Overpass&quot;, Arial, sans-serif; font-size: 14px; line-he=
+ight: 20px; margin: 10px 0 0; -webkit-hyphens: none; hyphens: none; color: =
+#212121; margin-top: 5px;"><p style=3D"font-family: &quot;Overpass&quot;, A=
+rial, sans-serif; color: #212121; font-size: 14px; line-height: 20px; margi=
+n: 0; -webkit-hyphens: none; hyphens: none;">In this episode of =E2=80=9CTh=
+e Top Line,=E2=80=9D we delve into the FDA's controversial approval of Aduh=
+elm, a drug for Alzheimer's disease, despite an independent advisory commit=
+tee's resounding rejection. The decision has sparked questions about potent=
+ial bias within the regulatory body. &nbsp;</p></div></div></td></tr></tabl=
+e></th></tr></table></td></tr></table></td></tr></table></div></div></div><=
+div class=3D"panel-pane pane-solr-articles podcasts" style=3D"margin: 0;"><=
+div class=3D"panel-content "><div class=3D"solr-article media-content-compo=
+nent first first-item"><table class=3D"w-100" style=3D"border-spacing: 0; b=
+order-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td cla=
+ss=3D"content-wrapper" style=3D"padding: 0 40px 20px; width: 100%; margin: =
+0;"><table class=3D"container w-100" style=3D"border-spacing: 0; border-col=
+lapse: collapse; box-sizing: border-box; width: 100%; table-layout: fixed; =
+margin: 0 auto; text-align: inherit; background: #FFFFFF none repeat scroll=
+ 0 0;"><tr><td style=3D"padding: 0;"><table class=3D"row" style=3D"border-s=
+pacing: 0; border-collapse: collapse; box-sizing: border-box; padding: 0; w=
+idth: 100%; position: relative; display: block;"><tr><th class=3D"image-siz=
+e-90-90 media" style=3D"vertical-align: top; padding: 0; width: 90px;"><tab=
+le class=3D"columns" style=3D"border-spacing: 0; border-collapse: collapse;=
+ box-sizing: border-box; margin: 0 auto; margin-left: 0;"><tr><td style=3D"=
+padding: 0;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/=
+portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fR*7CLjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJSU!!=
+H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2=
+U8PV4rmlVxWgPUkO0K8IbQ$" style=3D"color: #0C7DB4; text-decoration: none; fo=
+nt-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 1=
+6px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"=
+" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""><img width=3D"=
+90" src=3D"https://qtxasset.com/derivatives/quartz/qcloud5/media/image/ttl.=
+png/8cefebfe5b3abfaa3a3372c296321903" alt=3D"" style=3D"outline: none; text=
+-decoration: none; width: 90px; max-width: 100%; clear: both; display: bloc=
+k; float: none; border-radius: 5px; background-clip: padding-box;"></a></td=
+></tr></table></th><th class=3D"image-size-90-90 content" style=3D"vertical=
+-align: middle; padding: 0; font-weight: inherit; width: 430px;"><table cla=
+ss=3D"columns" style=3D"border-spacing: 0; border-collapse: collapse; box-s=
+izing: border-box; margin: 0 auto; margin-left: 0;"><tr><td style=3D"paddin=
+g: 0;"><div class=3D"right-content" style=3D"margin: 0 0 0 15px;"><h2 class=
+=3D"article-title text-right element-title large" style=3D"font-family: &qu=
+ot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight: 800; fon=
+t-size: 16px; line-height: 20px; margin: 0 0 5px;"><a href=3D"https://urlde=
+fense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRja=
+jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED1=
+81W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkEm8u_AE$" style=3D"color:=
+ #212121; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D""=
+ sans-serif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 16px;=3D"" li=
+ne-height:=3D"" 20px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hy=
+phens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Leqembi=E2=80=99s full app=
+roval and the future of Alzheimer=E2=80=99s treatment</a></h2></div></td></=
+tr></table></th></tr></table></td></tr></table></td></tr></table></div><div=
+ class=3D"solr-article media-content-component last-item"><table class=3D"w=
+-100" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: bo=
+rder-box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding:=
+ 0 40px 20px; width: 100%; margin: 0;"><table class=3D"container w-100" sty=
+le=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-box;=
+ width: 100%; table-layout: fixed; margin: 0 auto; text-align: inherit; bac=
+kground: #FFFFFF none repeat scroll 0 0;"><tr><td style=3D"padding: 0;"><ta=
+ble class=3D"row" style=3D"border-spacing: 0; border-collapse: collapse; bo=
+x-sizing: border-box; padding: 0; width: 100%; position: relative; display:=
+ block;"><tr><th class=3D"image-size-90-90 media" style=3D"vertical-align: =
+top; padding: 0; width: 90px;"><table class=3D"columns" style=3D"border-spa=
+cing: 0; border-collapse: collapse; box-sizing: border-box; margin: 0 auto;=
+ margin-left: 0;"><tr><td style=3D"padding: 0;"><a href=3D"https://urldefen=
+se.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRjqjOj=
+dvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W=
+8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkNR4UV4_$" style=3D"color: #0=
+C7DB4; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sa=
+ns-serif;=3D"" font-size:=3D"" 16px;=3D"" line-height:=3D"" 24px;=3D"" marg=
+in:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=
+=3D"" none;?=3D""><img width=3D"90" src=3D"https://qtxasset.com/derivatives=
+/quartz/qcloud5/media/image/Podnosis.png/26b58ca3094eda2243e55989eb1ce17b" =
+alt=3D"" style=3D"outline: none; text-decoration: none; width: 90px; max-wi=
+dth: 100%; clear: both; display: block; float: none; border-radius: 5px; ba=
+ckground-clip: padding-box;"></a></td></tr></table></th><th class=3D"image-=
+size-90-90 content" style=3D"vertical-align: middle; padding: 0; font-weigh=
+t: inherit; width: 430px;"><table class=3D"columns" style=3D"border-spacing=
+: 0; border-collapse: collapse; box-sizing: border-box; margin: 0 auto; mar=
+gin-left: 0;"><tr><td style=3D"padding: 0;"><div class=3D"right-content" st=
+yle=3D"margin: 0 0 0 15px;"><h2 class=3D"article-title text-right element-t=
+itle large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; =
+color: #212121; font-weight: 800; font-size: 16px; line-height: 20px; margi=
+n: 0 0 5px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/=
+portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRj6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9n=
+ueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8P=
+V4rmlVxWgPUkHfBbHuu$" style=3D"color: #212121; text-decoration: none; font-=
+family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 80=
+0;=3D"" font-size:=3D"" 16px;=3D"" line-height:=3D"" 20px;=3D"" margin:=3D"=
+" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" n=
+one;?=3D"">=E2=80=98Podnosis=E2=80=99: Shifting away from the traditional P=
+BM relationship</a></h2></div></td></tr></table></th></tr></table></td></tr=
+></table></td></tr></table></div></div></div><div class=3D"panel-pane pane-=
+qxnews-ads"><div class=3D"panel-content "><div class=3D"advertisement new-d=
+esign"><table class=3D"w-100" style=3D"border-spacing: 0; border-collapse: =
+collapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"content-wr=
+apper" style=3D"padding: 40px; width: 100%; margin: 0;"><div class=3D"ad-wr=
+apper" style=3D"margin: 0;"><table class=3D"ad-unit" style=3D"border-collap=
+se: collapse; border-spacing: 0; box-sizing: border-box; width: 100%; backg=
+round-color: transparent;"><tbody><tr class=3D"top"><td class=3D"sponsor-te=
+xt" colspan=3D"2" style=3D"padding: 0 0 10px; width: 100%; background-color=
+: transparent;"><p class=3D"label-small" style=3D"font-family: &quot;Overpa=
+ss&quot;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line-height: =
+16px; margin: 0; -webkit-hyphens: none; hyphens: none; font-weight: 500; te=
+xt-transform: uppercase; text-align: center;">A message from <a href=3D"htt=
+ps://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr=
+*5EFa9fRjLjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1=
+K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkDUUNA6D$" _blan=
+k=3D"" style=3D"color: #0C7DB4; text-decoration: none; font-family: " Overp=
+ass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 12px;=3D"" line-hei=
+ght:=3D"" 16px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=
+=3D"" none;=3D"" hyphens:=3D"" none;=3D"" font-weight:=3D"" 500;=3D"" text-=
+transform:=3D"" uppercase;?=3D"">Genome Medical</a></p></td></tr><tr class=
+=3D"bottom"><td class=3D"ad-text text-only element-bg alt" valign=3D"middle=
+" align=3D"center" style=3D"padding: 30px 20px 10px 20px; background: #F4F4=
+F4; width: 100%; text-align: left;"><h2 style=3D"font-family: &quot;Overpas=
+s&quot;, Arial, sans-serif; color: #212121; font-weight: 800; font-size: 18=
+px; line-height: 22px; margin: 0 0 5px;"><a href=3D"https://urldefense.com/=
+v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRkajOjdvO*7C*=
+7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho=
+-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkFxVzx7M$" style=3D"color: #212121; =
+text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-seri=
+f;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 18px;=3D"" line-height:=
+=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"=
+" none;=3D"" hyphens:=3D"" none;?=3D"">Webinar: Unlocking Qualified Clinica=
+l Trial Participants with Genetic Services&nbsp;</a></h2><p style=3D"font-f=
+amily: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-size: =
+14px; line-height: 20px; margin: 0 0 5px; -webkit-hyphens: none; hyphens: n=
+one;"><span style=3D"color: rgb(68, 68, 68); font-family: Calibri, sans-ser=
+if, &quot;Mongolian Baiti&quot;, &quot;Microsoft Yi Baiti&quot;, &quot;Java=
+nese Text&quot;, &quot;Yu Gothic&quot;; font-size: 14.6667px; white-space-c=
+ollapse: preserve; line-height: 20px; margin: 0 0 10px; -webkit-hyphens: no=
+ne; hyphens: none;">Thursday, November 16, 2023 | 1pm ET / 10am PT</span></=
+p><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: =
+#212121; font-size: 14px; line-height: 20px; margin: 0 0 5px; -webkit-hyphe=
+ns: none; hyphens: none;"><span color-m=3D"#000000" font-m=3D"Calibri" size=
+-m=3D"11pt" style=3D"color: rgb(68, 68, 68); font-family: Calibri, sans-ser=
+if, &quot;Mongolian Baiti&quot;, &quot;Microsoft Yi Baiti&quot;, &quot;Java=
+nese Text&quot;, &quot;Yu Gothic&quot;; font-size: 14.6667px; white-space-c=
+ollapse: preserve; line-height: 20px; margin: 0 0 10px; -webkit-hyphens: no=
+ne; hyphens: none;">Genomics is transforming drug discovery, but finding an=
+d recruiting the right patients for targeted-therapies remains a challenge.=
+ <a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/u=
+e*5EcmQ6eFe6bbr*5EFa9fRkqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnO=
+n919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUk=
+LZYVTXk$" style=3D"color: #0C7DB4; text-decoration: none; font-family: " Ov=
+erpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" line-=
+height:=3D"" 20px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphe=
+ns:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Join us</a></span><span color=
+-m=3D"#000000" font-m=3D"Calibri" size-m=3D"11pt" style=3D"color: rgb(68, 6=
+8, 68); font-family: Calibri, sans-serif, &quot;Mongolian Baiti&quot;, &quo=
+t;Microsoft Yi Baiti&quot;, &quot;Javanese Text&quot;, &quot;Yu Gothic&quot=
+;; font-size: 14.6667px; white-space-collapse: preserve; line-height: 20px;=
+ margin: 0 0 10px; -webkit-hyphens: none; hyphens: none;"> to discover how =
+incorporating genetic counseling and genetic services can unlock larger, mo=
+re diverse and better qualified patient populations for your clinical trial=
+s. <a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts=
+/ue*5EcmQ6eFe6bbr*5EFa9fRk6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5O=
+nOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgP=
+UkPe7LB-s$" style=3D"color: #0C7DB4; text-decoration: none; font-family: " =
+Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" lin=
+e-height:=3D"" 20px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyp=
+hens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Register now.</a></span></p=
+><p style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #=
+212121; font-size: 14px; line-height: 20px; margin: 0 0 5px; -webkit-hyphen=
+s: none; hyphens: none;"><span color-m=3D"#000000" font-m=3D"Calibri" size-=
+m=3D"11pt" style=3D"color: rgb(68, 68, 68); font-family: Calibri, sans-seri=
+f, &quot;Mongolian Baiti&quot;, &quot;Microsoft Yi Baiti&quot;, &quot;Javan=
+ese Text&quot;, &quot;Yu Gothic&quot;; font-size: 14.6667px; white-space-co=
+llapse: preserve; line-height: 20px; margin: 0 0 10px; -webkit-hyphens: non=
+e; hyphens: none;"><a href=3D"https://urldefense.com/v3/__https://qtx.omecl=
+k.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRmqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJ=
+Q!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWH=
+uq2U8PV4rmlVxWgPUkFVtX2f6$" style=3D"color: #0C7DB4; text-decoration: none;=
+ font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"=
+" 14px;=3D"" line-height:=3D"" 20px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=
+=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""><img alt=
+=3D"" src=3D"https://s3.amazonaws.com/publicmarketing.qtxasset.com/GenomeMe=
+dical_Logo_Color-nobg-120w.png" style=3D"outline: none; text-decoration: no=
+ne; width: auto; max-width: 100%; clear: both; display: block; float: none;=
+ color: #212121; font-family: &quot;Overpass&quot;, Arial, sans-serif; font=
+-size: 14px; line-height: 20px;"></a></span></p></td></tr></tbody></table><=
+/div></td></tr></table></div></div></div><table class=3D"section-spacer gap=
+" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border=
+-box; width: 100%;"><tbody><tr><td style=3D"padding: 0; width: 100%; backgr=
+ound-color: #F4F4F4; line-height: 20px; font-size: 20px; height: 20px;">&nb=
+sp;</td></tr></tbody></table><div class=3D"panel-pane pane-solr-articles re=
+sources"><div class=3D"title new-design"><table class=3D"w-100" style=3D"bo=
+rder-spacing: 0; border-collapse: collapse; box-sizing: border-box; width: =
+100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 40px 40px 20px; =
+width: 100%; margin: 0;"><h2 class=3D"pane-title component-title large" sty=
+le=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #00354E;=
+ font-weight: 800; font-size: 38px; line-height: 42px; margin: 5px 0; text-=
+transform: uppercase;">Resources</h2></td></tr></table></div><div class=3D"=
+panel-content "><div class=3D"solr-article media-content-component first fi=
+rst-item"><table class=3D"w-100" style=3D"border-spacing: 0; border-collaps=
+e: collapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"content=
+-wrapper" style=3D"padding: 0 40px 30px; width: 100%; margin: 0;"><div clas=
+s=3D"label-small resource" style=3D"font-family: &quot;Overpass&quot;, Aria=
+l, sans-serif; color: #4C4C4C; font-weight: 500; text-transform: uppercase;=
+ font-size: 12px; line-height: 16px; margin: 0 0 5px;">eBook</div><h2 class=
+=3D"article-title element-title large" style=3D"font-family: &quot;Overpass=
+&quot;, Arial, sans-serif; color: #212121; font-weight: 800; font-size: 20p=
+x; line-height: 24px; margin: 0 0 10px;"><a href=3D"https://urldefense.com/=
+v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRm6jOjdvO*7C*=
+7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho=
+-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkItOAYOH$" style=3D"color: #212121; =
+text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-seri=
+f;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=3D"" line-height:=
+=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"=
+" none;=3D"" hyphens:=3D"" none;?=3D"">An Introduction to Organ-on-a-Chip T=
+echnology</a></h2><div class=3D"article-body media-content-body" style=3D"f=
+ont-family: &quot;Overpass&quot;, Arial, sans-serif; font-size: 14px; line-=
+height: 20px; margin: 10px 0 0; -webkit-hyphens: none; hyphens: none; color=
+: #212121; margin-top: 5px;">Emulate in vivo biology with next-generation i=
+n vitro technology.</div><p class=3D"article-byline byline small" style=3D"=
+font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-=
+size: 12px; line-height: 16px; margin: 10px 0 10px; -webkit-hyphens: none; =
+hyphens: none;">Sponsored by: Emulate</p></td></tr></table></div><div class=
+=3D"solr-article media-content-component"><table class=3D"w-100" style=3D"b=
+order-spacing: 0; border-collapse: collapse; box-sizing: border-box; width:=
+ 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 0 40px 30px; wi=
+dth: 100%; margin: 0;"><div class=3D"label-small resource" style=3D"font-fa=
+mily: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-weight:=
+ 500; text-transform: uppercase; font-size: 12px; line-height: 16px; margin=
+: 0 0 5px;">Whitepaper</div><h2 class=3D"article-title element-title large"=
+ style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #212=
+121; font-weight: 800; font-size: 20px; line-height: 24px; margin: 0 0 10px=
+;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts=
+/uc*5EcmQ6eFe6bbr*5EFa9fRmLjOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8D=
+b2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkL2yYHxI$" style=3D=
+"color: #212121; text-decoration: none; font-family: " Overpass?,=3D"" Aria=
+l,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=
+=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -w=
+ebkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Understanding the =
+hidden value of quality</a></h2><div class=3D"article-body media-content-bo=
+dy" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; font-siz=
+e: 14px; line-height: 20px; margin: 10px 0 0; -webkit-hyphens: none; hyphen=
+s: none; color: #212121; margin-top: 5px;">Uncover the keys to efficient bi=
+oprocessing, including how outsourcing quality management can reduce risk, =
+save time and money, and expedite biologics development.</div><p class=3D"a=
+rticle-byline byline small" style=3D"font-family: &quot;Overpass&quot;, Ari=
+al, sans-serif; color: #4C4C4C; font-size: 12px; line-height: 16px; margin:=
+ 10px 0 10px; -webkit-hyphens: none; hyphens: none;">Sponsored by: Thermo S=
+cientific=E2=84=A2 Production Chemicals and Services</p></td></tr></table><=
+/div><div class=3D"solr-article media-content-component"><table class=3D"w-=
+100" style=3D"border-spacing: 0; border-collapse: collapse; box-sizing: bor=
+der-box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: =
+0 40px 30px; width: 100%; margin: 0;"><div class=3D"label-small resource" s=
+tyle=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4=
+C; font-weight: 500; text-transform: uppercase; font-size: 12px; line-heigh=
+t: 16px; margin: 0 0 5px;">Whitepaper</div><h2 class=3D"article-title eleme=
+nt-title large" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-ser=
+if; color: #212121; font-weight: 800; font-size: 20px; line-height: 24px; m=
+argin: 0 0 10px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk=
+.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fRnajOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ=
+!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHu=
+q2U8PV4rmlVxWgPUkK_nZs62$" style=3D"color: #212121; text-decoration: none; =
+font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D=
+"" 800;=3D"" font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" margin=
+:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=
+=3D"" none;?=3D"">What Are the Benefits of Generative AI for Pharma?</a></h=
+2><div class=3D"article-body media-content-body" style=3D"font-family: &quo=
+t;Overpass&quot;, Arial, sans-serif; font-size: 14px; line-height: 20px; ma=
+rgin: 10px 0 0; -webkit-hyphens: none; hyphens: none; color: #212121; margi=
+n-top: 5px;">From trial site feasibility and patient populations to data an=
+alysis, generative AI has the potential to revolutionize drug discovery and=
+ clinical trial recruitment at both the therapeutic area and indication lev=
+el. </div><p class=3D"article-byline byline small" style=3D"font-family: &q=
+uot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; lin=
+e-height: 16px; margin: 10px 0 10px; -webkit-hyphens: none; hyphens: none;"=
+>Sponsored by: H1</p></td></tr></table></div><div class=3D"solr-article med=
+ia-content-component"><table class=3D"w-100" style=3D"border-spacing: 0; bo=
+rder-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td clas=
+s=3D"content-wrapper" style=3D"padding: 0 40px 30px; width: 100%; margin: 0=
+;"><div class=3D"label-small resource" style=3D"font-family: &quot;Overpass=
+&quot;, Arial, sans-serif; color: #4C4C4C; font-weight: 500; text-transform=
+: uppercase; font-size: 12px; line-height: 16px; margin: 0 0 5px;">eBook</d=
+iv><h2 class=3D"article-title element-title large" style=3D"font-family: &q=
+uot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight: 800; fo=
+nt-size: 20px; line-height: 24px; margin: 0 0 10px;"><a href=3D"https://url=
+defense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fR=
+nqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-E=
+D181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkFzFrbUG$" style=3D"colo=
+r: #212121; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D=
+"" sans-serif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=3D"" =
+line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-=
+hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Improving yield and repr=
+oducibility with advanced sample prep</a></h2><div class=3D"article-body me=
+dia-content-body" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-s=
+erif; font-size: 14px; line-height: 20px; margin: 10px 0 0; -webkit-hyphens=
+: none; hyphens: none; color: #212121; margin-top: 5px;">Learn how to get b=
+etter results from suboptimal biospecimens for NGS and protein analysis.</d=
+iv><p class=3D"article-byline byline small" style=3D"font-family: &quot;Ove=
+rpass&quot;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line-heigh=
+t: 16px; margin: 10px 0 10px; -webkit-hyphens: none; hyphens: none;">Sponso=
+red by: Covaris</p></td></tr></table></div><div class=3D"solr-article media=
+-content-component"><table class=3D"w-100" style=3D"border-spacing: 0; bord=
+er-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td class=
+=3D"content-wrapper" style=3D"padding: 0 40px 30px; width: 100%; margin: 0;=
+"><div class=3D"label-small resource" style=3D"font-family: &quot;Overpass&=
+quot;, Arial, sans-serif; color: #4C4C4C; font-weight: 500; text-transform:=
+ uppercase; font-size: 12px; line-height: 16px; margin: 0 0 5px;">Whitepape=
+r</div><h2 class=3D"article-title element-title large" style=3D"font-family=
+: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight: 800=
+; font-size: 20px; line-height: 24px; margin: 0 0 10px;"><a href=3D"https:/=
+/urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EF=
+a9fRn6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db=
+2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkGw4vd0W$" style=3D"=
+color: #212121; text-decoration: none; font-family: " Overpass?,=3D"" Arial=
+,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=3D"" font-size:=3D"" 20px;=
+=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -w=
+ebkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Accelerate drug di=
+scovery with high-performance computing powered by the cloud</a></h2><div c=
+lass=3D"article-body media-content-body" style=3D"font-family: &quot;Overpa=
+ss&quot;, Arial, sans-serif; font-size: 14px; line-height: 20px; margin: 10=
+px 0 0; -webkit-hyphens: none; hyphens: none; color: #212121; margin-top: 5=
+px;">Accelerate drug discovery with high-performance computing (HPC) powere=
+d by the cloud</div><p class=3D"article-byline byline small" style=3D"font-=
+family: &quot;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-size:=
+ 12px; line-height: 16px; margin: 10px 0 10px; -webkit-hyphens: none; hyphe=
+ns: none;">Sponsored By: AWS, NVIDIA, and Rescale</p></td></tr></table></di=
+v><div class=3D"solr-article media-content-component last-item"><table clas=
+s=3D"w-100" style=3D"border-spacing: 0; border-collapse: collapse; box-sizi=
+ng: border-box; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"pa=
+dding: 0 40px 30px; width: 100%; margin: 0;"><div class=3D"label-small reso=
+urce" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color:=
+ #4C4C4C; font-weight: 500; text-transform: uppercase; font-size: 12px; lin=
+e-height: 16px; margin: 0 0 5px;">Whitepaper</div><h2 class=3D"article-titl=
+e element-title large" style=3D"font-family: &quot;Overpass&quot;, Arial, s=
+ans-serif; color: #212121; font-weight: 800; font-size: 20px; line-height: =
+24px; margin: 0 0 10px;"><a href=3D"https://urldefense.com/v3/__https://qtx=
+.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRnLjOjdvOc__;JSU!!H9nueQsQ!4t=
+5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxW=
+gPUkHICABOR$" style=3D"color: #212121; text-decoration: none; font-family: =
+" Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-weight:=3D"" 800;=3D"" =
+font-size:=3D"" 20px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D""=
+ 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D=
+"">Understanding the hidden value of quality</a></h2><div class=3D"article-=
+body media-content-body" style=3D"font-family: &quot;Overpass&quot;, Arial,=
+ sans-serif; font-size: 14px; line-height: 20px; margin: 10px 0 0; -webkit-=
+hyphens: none; hyphens: none; color: #212121; margin-top: 5px;">Uncover the=
+ keys to efficient bioprocessing, including how outsourcing quality managem=
+ent can reduce risk, save time and money, and expedite biologics developmen=
+t.</div><p class=3D"article-byline byline small" style=3D"font-family: &quo=
+t;Overpass&quot;, Arial, sans-serif; color: #4C4C4C; font-size: 12px; line-=
+height: 16px; margin: 10px 0 10px; -webkit-hyphens: none; hyphens: none;">S=
+ponsored by: Thermo Scientific=E2=84=A2 Production Chemicals and Services</=
+p></td></tr></table></div></div></div><table class=3D"section-spacer gap" s=
+tyle=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-bo=
+x; width: 100%;"><tbody><tr><td style=3D"padding: 0; width: 100%; backgroun=
+d-color: #F4F4F4; line-height: 20px; font-size: 20px; height: 20px;">&nbsp;=
+</td></tr></tbody></table><div class=3D"panel-pane pane-external-feed"><div=
+ class=3D"title new-design"><table class=3D"w-100" style=3D"border-spacing:=
+ 0; border-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><t=
+d class=3D"content-wrapper" style=3D"padding: 40px 40px 20px; width: 100%; =
+margin: 0;"><h2 class=3D"pane-title component-title large" style=3D"font-fa=
+mily: &quot;Overpass&quot;, Arial, sans-serif; color: #00354E; font-weight:=
+ 800; font-size: 38px; line-height: 42px; margin: 5px 0; text-transform: up=
+percase;">Industry Events</h2></td></tr></table></div><div class=3D"panel-c=
+ontent "><div class=3D"industry-events new-design"><table class=3D"w-100" s=
+tyle=3D"border-spacing: 0; border-collapse: collapse; box-sizing: border-bo=
+x; width: 100%;"><tr><td class=3D"content-wrapper" style=3D"padding: 0 40px=
+; width: 100%; margin: 0;"><div class=3D"new-design"><table class=3D"event =
+columns w-100" style=3D"border-spacing: 0; border-collapse: collapse; box-s=
+izing: border-box; width: 100%; margin: 0 auto;"><tr><td class=3D"wrapper" =
+style=3D"padding: 0 0 30px;"><p class=3D"feed-title element-title medium" s=
+tyle=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #21212=
+1; font-size: 18px; line-height: 22px; margin: 0 0 10px; -webkit-hyphens: n=
+one; hyphens: none; font-weight: 800; margin-bottom: 5px;"><a href=3D"https=
+://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5=
+EFa9fRoajOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-h=
+h_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkJvvvTKP$" style=3D"color: #212121; te=
+xt-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=
+=3D"" font-size:=3D"" 18px;=3D"" line-height:=3D"" 22px;=3D"" margin:=3D"" =
+0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" non=
+e;=3D"" font-weight:=3D"" 800;?=3D"">Drug Development Boot Camp=C2=AE Sprin=
+g 2024 VIRTUAL</a></p><p class=3D"feed-byline teaser small new-design" styl=
+e=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; =
+font-size: 14px; line-height: 20px; margin: 0 0 10px; -webkit-hyphens: none=
+; hyphens: none; margin-bottom: 0;">April =E2=80=8C10-11, =E2=80=8C2024</p>=
+</td></tr></table></div><div class=3D"new-design"><table class=3D"event col=
+umns w-100" style=3D"border-spacing: 0; border-collapse: collapse; box-sizi=
+ng: border-box; width: 100%; margin: 0 auto;"><tr><td class=3D"wrapper" sty=
+le=3D"padding: 0 0 30px;"><p class=3D"feed-title element-title medium" styl=
+e=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; =
+font-size: 18px; line-height: 22px; margin: 0 0 10px; -webkit-hyphens: none=
+; hyphens: none; font-weight: 800; margin-bottom: 5px;"><a href=3D"https://=
+urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa=
+9fRoqjOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_D=
+nmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkOypLwxx$" style=3D"color: #212121; text-=
+decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D=
+"" font-size:=3D"" 18px;=3D"" line-height:=3D"" 22px;=3D"" margin:=3D"" 0=
+=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none=
+;=3D"" font-weight:=3D"" 800;?=3D"">Genesis 2023</a></p><p class=3D"feed-by=
+line teaser small new-design" style=3D"font-family: &quot;Overpass&quot;, A=
+rial, sans-serif; color: #212121; font-size: 14px; line-height: 20px; margi=
+n: 0 0 10px; -webkit-hyphens: none; hyphens: none; margin-bottom: 0;">Decem=
+ber =E2=80=8C7, =E2=80=8C2023</p></td></tr></table></div></td></tr></table>=
+</div></div></div><table class=3D"section-spacer gap" style=3D"border-spaci=
+ng: 0; border-collapse: collapse; box-sizing: border-box; width: 100%;"><tb=
+ody><tr><td style=3D"padding: 0; width: 100%; background-color: #F4F4F4; li=
+ne-height: 20px; font-size: 20px; height: 20px;">&nbsp;</td></tr></tbody></=
+table><div class=3D"panel-pane pane-questex-events"><div class=3D"title new=
+-design"><table class=3D"w-100" style=3D"border-spacing: 0; border-collapse=
+: collapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"content-=
+wrapper" style=3D"padding: 40px 40px 20px; width: 100%; margin: 0;"><h2 cla=
+ss=3D"pane-title component-title large" style=3D"font-family: &quot;Overpas=
+s&quot;, Arial, sans-serif; color: #00354E; font-weight: 800; font-size: 38=
+px; line-height: 42px; margin: 5px 0; text-transform: uppercase;">Upcoming =
+Fierce Events</h2></td></tr></table></div><div class=3D"panel-content "><di=
+v class=3D"questex-events"><table class=3D"w-100" style=3D"border-spacing: =
+0; border-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td=
+ class=3D"content-wrapper" style=3D"padding: 0 40px 30px; width: 100%; marg=
+in: 0;"><table class=3D"event columns w-100" style=3D"border-spacing: 0; bo=
+rder-collapse: collapse; box-sizing: border-box; width: 100%; margin: 0 aut=
+o;"><tbody><tr><td class=3D"wrapper multi-event" style=3D"padding: 0 0 30px=
+;"><table class=3D"w-100" style=3D"border-spacing: 0; border-collapse: coll=
+apse; box-sizing: border-box; width: 100%;"><tr><td class=3D"sub-columns ev=
+ent-date" style=3D"padding: 0; width: 73px; vertical-align: top;"><table cl=
+ass=3D"date-wrapper w-100" style=3D"border-spacing: 0; border-collapse: col=
+lapse; box-sizing: border-box; width: 73px;"><tbody><tr><td class=3D"date" =
+style=3D"padding: 13.5px 9px; background: #E7F3F9; border-radius: 3px;"><di=
+v><div class=3D"element-title small" style=3D"font-family: &quot;Overpass&q=
+uot;, Arial, sans-serif; color: #0C7DB4; font-weight: 800; font-size: 16px;=
+ line-height: 20px; text-align: center;">14-15</div><div class=3D"label-sma=
+ll" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #=
+0C7DB4; font-weight: 500; text-transform: uppercase; font-size: 12px; line-=
+height: 16px; text-align: center;">Nov</div></div></td></tr></tbody></table=
+></td><td class=3D"sub-columns event-details" style=3D"padding: 0 15px; ver=
+tical-align: top;"><div class=3D"element-title medium" style=3D"font-family=
+: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight: 800=
+; font-size: 18px; line-height: 22px; margin-bottom: 2px;"><a href=3D"https=
+://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5=
+EFa9fRo6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8=
+Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkPRozVCS$" style=
+=3D"color: #212121; text-decoration: none; font-family: " Overpass?,=3D"" A=
+rial,=3D"" sans-serif;=3D"" font-size:=3D"" 18px;=3D"" line-height:=3D"" 22=
+px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=
+=3D"" hyphens:=3D"" none;=3D"" font-weight:=3D"" 800;?=3D"">Diversity, Equi=
+ty &amp; Inclusion Forum</a></div><div class=3D"teaser small" style=3D"colo=
+r: #212121; font-family: &quot;Overpass&quot;, Arial, sans-serif; font-size=
+: 14px; line-height: 20px;">Free Virtual Event </div></td></tr></table></td=
+></tr></tbody></table><table class=3D"event columns w-100" style=3D"border-=
+spacing: 0; border-collapse: collapse; box-sizing: border-box; width: 100%;=
+ margin: 0 auto;"><tbody><tr><td class=3D"wrapper multi-event" style=3D"pad=
+ding: 0 0 30px;"><table class=3D"w-100" style=3D"border-spacing: 0; border-=
+collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"=
+sub-columns event-date" style=3D"padding: 0; width: 73px; vertical-align: t=
+op;"><table class=3D"date-wrapper w-100" style=3D"border-spacing: 0; border=
+-collapse: collapse; box-sizing: border-box; width: 73px;"><tbody><tr><td c=
+lass=3D"date" style=3D"padding: 13.5px 9px; background: #E7F3F9; border-rad=
+ius: 3px;"><div><div class=3D"element-title small" style=3D"font-family: &q=
+uot;Overpass&quot;, Arial, sans-serif; color: #0C7DB4; font-weight: 800; fo=
+nt-size: 16px; line-height: 20px; text-align: center;">14-16</div><div clas=
+s=3D"label-small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-s=
+erif; color: #0C7DB4; font-weight: 500; text-transform: uppercase; font-siz=
+e: 12px; line-height: 16px; text-align: center;">Nov</div></div></td></tr><=
+/tbody></table></td><td class=3D"sub-columns event-details" style=3D"paddin=
+g: 0 15px; vertical-align: top;"><div class=3D"element-title medium" style=
+=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; f=
+ont-weight: 800; font-size: 18px; line-height: 22px; margin-bottom: 2px;"><=
+a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*=
+5EcmQ6eFe6bbr*5EFa9fRqqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn9=
+19SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkI8=
+f5z2b$" style=3D"color: #212121; text-decoration: none; font-family: " Over=
+pass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 18px;=3D"" line-he=
+ight:=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens=
+:=3D"" none;=3D"" hyphens:=3D"" none;=3D"" font-weight:=3D"" 800;?=3D"">Eur=
+opean Trial Master File Summit</a></div><div class=3D"teaser small" style=
+=3D"color: #212121; font-family: &quot;Overpass&quot;, Arial, sans-serif; f=
+ont-size: 14px; line-height: 20px;">London, UK</div></td></tr></table></td>=
+</tr></tbody></table><table class=3D"event columns w-100" style=3D"border-s=
+pacing: 0; border-collapse: collapse; box-sizing: border-box; width: 100%; =
+margin: 0 auto;"><tbody><tr><td class=3D"wrapper multi-event" style=3D"padd=
+ing: 0 0 30px;"><table class=3D"w-100" style=3D"border-spacing: 0; border-c=
+ollapse: collapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"s=
+ub-columns event-date" style=3D"padding: 0; width: 73px; vertical-align: to=
+p;"><table class=3D"date-wrapper w-100" style=3D"border-spacing: 0; border-=
+collapse: collapse; box-sizing: border-box; width: 73px;"><tbody><tr><td cl=
+ass=3D"date" style=3D"padding: 13.5px 9px; background: #E7F3F9; border-radi=
+us: 3px;"><div><div class=3D"element-title small" style=3D"font-family: &qu=
+ot;Overpass&quot;, Arial, sans-serif; color: #0C7DB4; font-weight: 800; fon=
+t-size: 16px; line-height: 20px; text-align: center;">5</div><div class=3D"=
+label-small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif;=
+ color: #0C7DB4; font-weight: 500; text-transform: uppercase; font-size: 12=
+px; line-height: 16px; text-align: center;">Dec</div></div></td></tr></tbod=
+y></table></td><td class=3D"sub-columns event-details" style=3D"padding: 0 =
+15px; vertical-align: top;"><div class=3D"element-title medium" style=3D"fo=
+nt-family: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-we=
+ight: 800; font-size: 18px; line-height: 22px; margin-bottom: 2px;"><a href=
+=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6=
+eFe6bbr*5EFa9fRq6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxO=
+VvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkJpfDOFt$=
+" style=3D"color: #212121; text-decoration: none; font-family: " Overpass?,=
+=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 18px;=3D"" line-height:=
+=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"=
+" none;=3D"" hyphens:=3D"" none;=3D"" font-weight:=3D"" 800;?=3D"">Fierce 5=
+0 Awards Gala Dinner</a></div><div class=3D"teaser small" style=3D"color: #=
+212121; font-family: &quot;Overpass&quot;, Arial, sans-serif; font-size: 14=
+px; line-height: 20px;">Edison Ballroom, New York City</div></td></tr></tab=
+le></td></tr></tbody></table><table class=3D"event columns w-100" style=3D"=
+border-spacing: 0; border-collapse: collapse; box-sizing: border-box; width=
+: 100%; margin: 0 auto;"><tbody><tr><td class=3D"wrapper multi-event" style=
+=3D"padding: 0 0 30px;"><table class=3D"w-100" style=3D"border-spacing: 0; =
+border-collapse: collapse; box-sizing: border-box; width: 100%;"><tr><td cl=
+ass=3D"sub-columns event-date" style=3D"padding: 0; width: 73px; vertical-a=
+lign: top;"><table class=3D"date-wrapper w-100" style=3D"border-spacing: 0;=
+ border-collapse: collapse; box-sizing: border-box; width: 73px;"><tbody><t=
+r><td class=3D"date" style=3D"padding: 13.5px 9px; background: #E7F3F9; bor=
+der-radius: 3px;"><div><div class=3D"element-title small" style=3D"font-fam=
+ily: &quot;Overpass&quot;, Arial, sans-serif; color: #0C7DB4; font-weight: =
+800; font-size: 16px; line-height: 20px; text-align: center;">9-10</div><di=
+v class=3D"label-small" style=3D"font-family: &quot;Overpass&quot;, Arial, =
+sans-serif; color: #0C7DB4; font-weight: 500; text-transform: uppercase; fo=
+nt-size: 12px; line-height: 16px; text-align: center;">Jan</div></div></td>=
+</tr></tbody></table></td><td class=3D"sub-columns event-details" style=3D"=
+padding: 0 15px; vertical-align: top;"><div class=3D"element-title medium" =
+style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #2121=
+21; font-weight: 800; font-size: 18px; line-height: 22px; margin-bottom: 2p=
+x;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wt=
+s/ue*5EcmQ6eFe6bbr*5EFa9fRqLjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5=
+OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWg=
+PUkN_jOhEj$" style=3D"color: #212121; text-decoration: none; font-family: "=
+ Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 18px;=3D"" li=
+ne-height:=3D"" 22px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hy=
+phens:=3D"" none;=3D"" hyphens:=3D"" none;=3D"" font-weight:=3D"" 800;?=3D"=
+">Fierce JPM Week</a></div><div class=3D"teaser small" style=3D"color: #212=
+121; font-family: &quot;Overpass&quot;, Arial, sans-serif; font-size: 14px;=
+ line-height: 20px;">San Francisco, CA</div></td></tr></table></td></tr></t=
+body></table><table class=3D"event last columns w-100" style=3D"border-spac=
+ing: 0; border-collapse: collapse; box-sizing: border-box; width: 100%; mar=
+gin: 0 auto;"><tbody><tr><td class=3D"wrapper multi-event" style=3D"padding=
+: 0;"><table class=3D"w-100" style=3D"border-spacing: 0; border-collapse: c=
+ollapse; box-sizing: border-box; width: 100%;"><tr><td class=3D"sub-columns=
+ event-date" style=3D"padding: 0; width: 73px; vertical-align: top;"><table=
+ class=3D"date-wrapper w-100" style=3D"border-spacing: 0; border-collapse: =
+collapse; box-sizing: border-box; width: 73px;"><tbody><tr><td class=3D"dat=
+e" style=3D"padding: 13.5px 9px; background: #E7F3F9; border-radius: 3px;">=
+<div><div class=3D"element-title small" style=3D"font-family: &quot;Overpas=
+s&quot;, Arial, sans-serif; color: #0C7DB4; font-weight: 800; font-size: 16=
+px; line-height: 20px; text-align: center;">16-18</div><div class=3D"label-=
+small" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color=
+: #0C7DB4; font-weight: 500; text-transform: uppercase; font-size: 12px; li=
+ne-height: 16px; text-align: center;">Jan</div></div></td></tr></tbody></ta=
+ble></td><td class=3D"sub-columns event-details" style=3D"padding: 0 15px; =
+vertical-align: top;"><div class=3D"element-title medium" style=3D"font-fam=
+ily: &quot;Overpass&quot;, Arial, sans-serif; color: #212121; font-weight: =
+800; font-size: 18px; line-height: 22px; margin-bottom: 2px;"><a href=3D"ht=
+tps://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bb=
+r*5EFa9fRrajOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG=
+1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkOZK8mQK$" styl=
+e=3D"color: #212121; text-decoration: none; font-family: " Overpass?,=3D"" =
+Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 18px;=3D"" line-height:=3D"" 2=
+2px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=
+=3D"" hyphens:=3D"" none;=3D"" font-weight:=3D"" 800;?=3D"">Fierce JPM Week=
+ - Virtual Event</a></div><div class=3D"teaser small" style=3D"color: #2121=
+21; font-family: &quot;Overpass&quot;, Arial, sans-serif; font-size: 14px; =
+line-height: 20px;">Virtual Event</div></td></tr></table></td></tr></tbody>=
+</table><table class=3D"columns w-100" style=3D"border-spacing: 0; border-c=
+ollapse: collapse; box-sizing: border-box; width: 100%; margin: 0 auto;"><t=
+body><tr><td class=3D"view-more-wrapper" style=3D"padding: 0; padding-top: =
+30px;"><p class=3D"read-more view-more" style=3D"font-family: &quot;Overpas=
+s&quot;, Arial, sans-serif; color: #212121; font-size: 16px; line-height: 2=
+4px; margin: 0; -webkit-hyphens: none; hyphens: none;"><a href=3D"https://u=
+rldefense.com/v3/__https://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9=
+fRrqjOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j=
+-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkAqH_BYi$" style=3D"co=
+lor: #0C7DB4; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=
+=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" line-height:=3D"" 22px;=
+=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"=
+" hyphens:=3D"" none;=3D"" font-weight:=3D"" 700;=3D"" text-transform:=3D""=
+ capitalize;?=3D"">View all events</a></p></td></tr></tbody></table></td></=
+tr></table></div></div></div></td></tr><tr><td class=3D"bottom-section" sty=
+le=3D"padding: 0;"><div class=3D"panel-pane pane-custom pane-2"><div class=
+=3D"panel-content "><table class=3D"footer twelve columns email-width eleme=
+nt-bg strong dark" style=3D"border-spacing: 0; border-collapse: collapse; b=
+ox-sizing: border-box; margin: 0 auto; width: 100%; background: #0C2433;"><=
+tbody><tr><td class=3D"content-wrapper branding twelve sub-columns" style=
+=3D"padding: 30px 40px 20px 40px; width: 100%; margin: 0;"><div class=3D"lo=
+go"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wt=
+s/ue*5EcmQ6eFe6bbr*5EFa9fRr6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJQ!!H9nueQsQ!4t5=
+OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWg=
+PUkJejqHWR$" style=3D"color: #33BDFF; text-decoration: none; font-family: "=
+ Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" li=
+ne-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hy=
+phens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""><img alt=3D"Brand Logo" sr=
+c=3D"https://s3.amazonaws.com/publicdesign.qtxasset.com/Branding+Portal/Lif=
+e+Sci+%26+Healthcare/Media/Fierce+Biotech/Logo/Fierce+Biotech+Mix+Logo.png"=
+ width=3D"140" style=3D"outline: none; text-decoration: none; width: 140px;=
+ max-width: 100%; clear: both; display: block; float: none; margin-left: 0;=
+"></a></div><div class=3D"social-icons" style=3D"margin-top: 20px;"><table =
+class=3D"columns social-group w-100" style=3D"border-spacing: 0; border-col=
+lapse: collapse; box-sizing: border-box; width: 100%; margin: 0 auto;"><tbo=
+dy><tr><td class=3D"sub-columns icon" style=3D"padding: 0; width: 20px; flo=
+at: left; display: table; height: 20px; margin-right: 24px;"><a href=3D"htt=
+ps://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr=
+*5EFa9fRrLjOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho=
+-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkPczaYeM$" style=3D"color: #33BDFF; =
+text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-seri=
+f;=3D"" font-size:=3D"" 16px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"=
+" 0;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;=3D"" vertica=
+l-align:=3D"" bottom;=3D"" display:=3D"" table-cell;?=3D""><img alt=3D"Link=
+edin Logo" src=3D"https://s3.amazonaws.com/publicdesign.qtxasset.com/Brandi=
+ng+Portal/Life+Sci+%26+Healthcare/_Brand+Assets/Social+Icons/Newsletter+Foo=
+ter/LinkedIn+Dark+Theme+Blue.png" style=3D"width: 16px; outline: none; text=
+-decoration: none; max-width: 100%; clear: both; display: block; float: non=
+e;" width=3D"16"></a></td><td class=3D"sub-columns icon" style=3D"padding: =
+0; width: 20px; float: left; display: table; height: 20px; margin-right: 24=
+px;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/w=
+ts/uc*5EcmQ6eFe6bbr*5EFa9fRsajOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K=
+8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkM4Xyx0A$" style=
+=3D"color: #33BDFF; text-decoration: none; font-family: " Overpass?,=3D"" A=
+rial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D"" line-height:=3D"" 24=
+px;=3D"" margin:=3D"" 0;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"=
+" none;=3D"" vertical-align:=3D"" bottom;=3D"" display:=3D"" table-cell;?=
+=3D""><img alt=3D"Facebook Logo" src=3D"https://s3.amazonaws.com/publicdesi=
+gn.qtxasset.com/Branding+Portal/Life+Sci+%26+Healthcare/_Brand+Assets/Socia=
+l+Icons/Newsletter+Footer/Facebook+Dark+Theme+Blue.png" style=3D"width: 10p=
+x; outline: none; text-decoration: none; max-width: 100%; clear: both; disp=
+lay: block; float: none;" width=3D"10"></a></td><td class=3D"sub-columns ic=
+on" style=3D"padding: 0; width: 20px; float: left; display: table; height: =
+20px; margin-right: 24px;"><a href=3D"https://urldefense.com/v3/__https://q=
+tx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRsqjOjdvOc__;JSU!!H9nueQsQ!=
+4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlV=
+xWgPUkDKbxvGC$" style=3D"color: #33BDFF; text-decoration: none; font-family=
+: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16px;=3D""=
+ line-height:=3D"" 24px;=3D"" margin:=3D"" 0;=3D"" -webkit-hyphens:=3D"" no=
+ne;=3D"" hyphens:=3D"" none;=3D"" vertical-align:=3D"" bottom;=3D"" display=
+:=3D"" table-cell;?=3D""><img alt=3D"Twitter Logo" src=3D"https://s3.amazon=
+aws.com/publicdesign.qtxasset.com/Branding+Portal/Life+Sci+%26+Healthcare/_=
+Brand+Assets/Social+Icons/Newsletter+Footer/Twitter+Dark+Theme+Blue.png" st=
+yle=3D"width: 18px; outline: none; text-decoration: none; max-width: 100%; =
+clear: both; display: block; float: none;" width=3D"18"></a></td><td class=
+=3D"sub-columns icon" style=3D"padding: 0; width: 20px; float: left; displa=
+y: table; height: 20px; margin-right: 24px;"><a href=3D"https://urldefense.=
+com/v3/__https://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRs6jOjdvO=
+c__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69B=
+cZwSWHuq2U8PV4rmlVxWgPUkF2Q_0VN$" style=3D"color: #33BDFF; text-decoration:=
+ none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-siz=
+e:=3D"" 16px;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0;=3D"" -webki=
+t-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;=3D"" vertical-align:=3D"" bo=
+ttom;=3D"" display:=3D"" table-cell;?=3D""><img alt=3D"Youtube Logo" src=3D=
+"https://s3.amazonaws.com/publicdesign.qtxasset.com/Branding+Portal/Life+Sc=
+i+%26+Healthcare/_Brand+Assets/Social+Icons/Newsletter+Footer/Youtube+Dark+=
+Theme+Blue.png" style=3D"width: 21px; outline: none; text-decoration: none;=
+ max-width: 100%; clear: both; display: block; float: none;" width=3D"21"><=
+/a></td><td class=3D"sub-columns space" style=3D"padding: 0;">&nbsp;</td></=
+tr></tbody></table></div></td></tr><tr><td class=3D"content-wrapper menu it=
+ems" style=3D"padding: 20px 40px 20px 40px; width: 100%; margin: 0;"><table=
+ class=3D"columns group" style=3D"border-spacing: 0; border-collapse: colla=
+pse; box-sizing: border-box; margin: 0; width: 100%;"><tbody><tr><th class=
+=3D"six sub-columns left-side" style=3D"width: 50%; padding-right: 10px;"><=
+p class=3D"menu-category" style=3D"font-family: &quot;Overpass&quot;, Arial=
+, sans-serif; color: #FFFFFF; font-size: 16px; line-height: 24px; margin: 0=
+ 0 10px; -webkit-hyphens: none; hyphens: none; text-transform: uppercase; f=
+ont-weight: 700; text-align: left;">Connect</p><p class=3D"menu-item" style=
+=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #FFFFFF; f=
+ont-size: 14px; line-height: 18px; margin: 0 0 10px; -webkit-hyphens: none;=
+ hyphens: none; text-align: left;"><a href=3D"https://urldefense.com/v3/__h=
+ttps://qtx.omeclk.com/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fR*5EqjOjdvO*7C*7C8D=
+PzmQ3CO8Rd__;JSUlJSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh=
+_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkE0kwuWS$" style=3D"color: #33BDFF; tex=
+t-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=
+=3D"" font-size:=3D"" 14px;=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" =
+0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" non=
+e;?=3D"">Advertise</a></p><p class=3D"menu-item" style=3D"font-family: &quo=
+t;Overpass&quot;, Arial, sans-serif; color: #FFFFFF; font-size: 14px; line-=
+height: 18px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none; text-=
+align: left;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com=
+/portal/wts/ue*5EcmQ6eFe6bbr*5EFa9fR*5E6jOjdvO*7C*7C8DPzmQ3CO8Rd__;JSUlJSU!=
+!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq=
+2U8PV4rmlVxWgPUkADgoLLx$" style=3D"color: #33BDFF; text-decoration: none; f=
+ont-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" =
+14px;=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D=
+"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Contact</a></=
+p></th><th class=3D"six sub-columns right-side" style=3D"width: 50%;"><p cl=
+ass=3D"menu-category" style=3D"font-family: &quot;Overpass&quot;, Arial, sa=
+ns-serif; color: #FFFFFF; font-size: 16px; line-height: 24px; margin: 0 0 1=
+0px; -webkit-hyphens: none; hyphens: none; text-transform: uppercase; font-=
+weight: 700; text-align: left;">Subscriptions</p><p class=3D"menu-item" sty=
+le=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #FFFFFF;=
+ font-size: 14px; line-height: 18px; margin: 0 0 10px; -webkit-hyphens: non=
+e; hyphens: none; text-align: left;"><a href=3D"https://urldefense.com/v3/_=
+_https://qtx.omeclk.com/portal/unsubscribeconfirm/?qlQRAaLViEqG*2FHBkVs1RIK=
+*2B6CXZMdBVRA__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_=
+DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkCltRPH3$" style=3D"color: #33BDFF; text=
+-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=
+=3D"" font-size:=3D"" 14px;=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" =
+0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" non=
+e;?=3D"">Manage Your Subscription</a></p><p class=3D"menu-item" style=3D"fo=
+nt-family: &quot;Overpass&quot;, Arial, sans-serif; color: #FFFFFF; font-si=
+ze: 14px; line-height: 18px; margin: 0 0 10px; -webkit-hyphens: none; hyphe=
+ns: none; text-align: left;"><a href=3D"https://urldefense.com/v3/__https:/=
+/qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fR*5ELjOjdvOc__;JSUl!!H9nu=
+eQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV=
+4rmlVxWgPUkBxYl4tO$" style=3D"color: #33BDFF; text-decoration: none; font-f=
+amily: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=
+=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -w=
+ebkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Contact Support</a=
+></p></th></tr></tbody></table></td></tr><tr><td class=3D"content-wrapper t=
+eam-header" style=3D"padding: 0 40px; width: 100%; margin: 0; padding-botto=
+m: 0;"><p class=3D"menu-category" style=3D"font-family: &quot;Overpass&quot=
+;, Arial, sans-serif; color: #FFFFFF; font-size: 16px; line-height: 24px; m=
+argin: 0 0 10px; -webkit-hyphens: none; hyphens: none; text-transform: uppe=
+rcase; font-weight: 700; text-align: left;">Our team</p></td></tr><tr><td c=
+lass=3D"content-wrapper menu contacts" style=3D"padding: 0 40px 10px 40px; =
+width: 100%; margin: 0;"><table class=3D"columns group" style=3D"border-spa=
+cing: 0; border-collapse: collapse; box-sizing: border-box; margin: 0; widt=
+h: 100%;"><tbody><tr><th class=3D"six sub-columns left-side" style=3D"width=
+: 50%; padding-right: 10px;"><p class=3D"menu-item" style=3D"font-family: &=
+quot;Overpass&quot;, Arial, sans-serif; color: #FFFFFF; font-size: 14px; li=
+ne-height: 18px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none; te=
+xt-align: left;">Senior Editors: <a href=3D"https://urldefense.com/v3/__htt=
+ps://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRvajOjdvOc__;JSU!!H9n=
+ueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8P=
+V4rmlVxWgPUkC_kyvfL$" style=3D"color: #33BDFF; text-decoration: none; font-=
+family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px=
+;=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -=
+webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Ben Adams</a>, <a=
+ href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/uc*5=
+EcmQ6eFe6bbr*5EFa9fRvqjOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-E=
+D181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkECUCfvM$" style=3D"colo=
+r: #33BDFF; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D=
+"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" line-height:=3D"" 18px;=3D""=
+ margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyp=
+hens:=3D"" none;?=3D"">Annalee Armstrong</a>, <a href=3D"https://urldefense=
+.com/v3/__https://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRv6jOjdv=
+Oc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69=
+BcZwSWHuq2U8PV4rmlVxWgPUkBFmjj3s$" style=3D"color: #33BDFF; text-decoration=
+: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-si=
+ze:=3D"" 14px;=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D""=
+ 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Cono=
+r Hale</a>, <a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/p=
+ortal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRvLjOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOV=
+vpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkPqbKwh9$"=
+ style=3D"color: #33BDFF; text-decoration: none; font-family: " Overpass?,=
+=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" line-height:=
+=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"=
+" none;=3D"" hyphens:=3D"" none;?=3D"">Heather Landi</a>, <a href=3D"https:=
+//urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5E=
+Fa9fRwajOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh=
+_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkIeh7te-$" style=3D"color: #33BDFF; tex=
+t-decoration: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=
+=3D"" font-size:=3D"" 14px;=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" =
+0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" non=
+e;?=3D"">Paige Minemyer</a>, <a href=3D"https://urldefense.com/v3/__https:/=
+/qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRwqjOjdvOc__;JSU!!H9nueQs=
+Q!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rm=
+lVxWgPUkLnjqVLW$" style=3D"color: #33BDFF; text-decoration: none; font-fami=
+ly: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D=
+"" line-height:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webk=
+it-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Eric Sagonowsky</a></=
+p></th><th class=3D"six sub-columns right-side" style=3D"width: 50%;"><p cl=
+ass=3D"menu-item" style=3D"font-family: &quot;Overpass&quot;, Arial, sans-s=
+erif; color: #FFFFFF; font-size: 14px; line-height: 18px; margin: 0 0 10px;=
+ -webkit-hyphens: none; hyphens: none; text-align: left;">Editor-in-Chief: =
+<a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.com/portal/wts/uc=
+*5EcmQ6eFe6bbr*5EFa9fRw6jOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j=
+-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkAsSfG8g$" style=3D"co=
+lor: #33BDFF; text-decoration: none; font-family: " Overpass?,=3D"" Arial,=
+=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" line-height:=3D"" 18px;=
+=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"=
+" hyphens:=3D"" none;?=3D"">Ayla Ellison</a></p><p class=3D"menu-item" styl=
+e=3D"font-family: &quot;Overpass&quot;, Arial, sans-serif; color: #FFFFFF; =
+font-size: 14px; line-height: 18px; margin: 0 0 10px; -webkit-hyphens: none=
+; hyphens: none; text-align: left;">Publisher: <a href=3D"https://urldefens=
+e.com/v3/__https://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRyqjOjd=
+vOc__;JSU!!H9nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb6=
+9BcZwSWHuq2U8PV4rmlVxWgPUkGCofkFv$" style=3D"color: #33BDFF; text-decoratio=
+n: none; font-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-s=
+ize:=3D"" 14px;=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"=
+" 10px;=3D"" -webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Reb=
+ecca Willumson</a></p><p class=3D"menu-item" style=3D"font-family: &quot;Ov=
+erpass&quot;, Arial, sans-serif; color: #FFFFFF; font-size: 14px; line-heig=
+ht: 18px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none; text-alig=
+n: left;">Group Sales Director: <a href=3D"https://urldefense.com/v3/__http=
+s://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRy6jOjdvOc__;JSU!!H9nu=
+eQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV=
+4rmlVxWgPUkBq9p_JJ$" style=3D"color: #33BDFF; text-decoration: none; font-f=
+amily: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=
+=3D"" line-height:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -w=
+ebkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Angelique Alcover<=
+/a></p></th></tr></tbody></table></td></tr><tr><td class=3D"content-wrapper=
+ lead-text" style=3D"padding: 0 40px; width: 100%; margin: 0; padding-botto=
+m: 0;"><table class=3D"wrapper" style=3D"border-spacing: 0; border-collapse=
+: collapse; box-sizing: border-box; width: 320px;"><tbody><tr><td style=3D"=
+padding: 0;"><p class=3D"teaser small" style=3D"font-family: &quot;Overpass=
+&quot;, Arial, sans-serif; color: #FFFFFF; font-size: 14px; line-height: 20=
+px; margin: 0 0 10px; -webkit-hyphens: none; hyphens: none; text-align: lef=
+t; margin-bottom: 0; max-width: 320px;">This email was sent to bi_vox@pfize=
+r.com as part of the Fierce Life Sciences email list.</p></td></tr></tbody>=
+</table></td></tr><tr><td class=3D"content-wrapper border" style=3D"padding=
+: 40px 40px 20px; width: 100%; margin: 0;"><table class=3D"content-width se=
+ction-spacer divider-line" style=3D"border-spacing: 0; border-collapse: col=
+lapse; box-sizing: border-box; width: 100%;"><tbody><tr><td style=3D"paddin=
+g: 0; width: 520px; background-color: #00354E; line-height: 2px; font-size:=
+ 2px; height: 2px;">&nbsp;</td></tr></tbody></table></td></tr><tr><td class=
+=3D"content-wrapper bottom" style=3D"padding: 0 40px 20px 40px; width: 100%=
+; margin: 0;"><table class=3D"columns group" style=3D"border-spacing: 0; bo=
+rder-collapse: collapse; box-sizing: border-box; margin: 0 auto; width: 100=
+%;"><tbody><tr><td class=3D"six sub-columns left-side" style=3D"padding: 0;=
+ width: 50%;"><div class=3D"logo"><a href=3D"https://urldefense.com/v3/__ht=
+tps://qtx.omeclk.com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRyLjOjdvOc__;JSU!!H9=
+nueQsQ!4t5OnOn919SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8=
+PV4rmlVxWgPUkDXsIvRx$" style=3D"color: #33BDFF; text-decoration: none; font=
+-family: " Overpass?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 16p=
+x;=3D"" line-height:=3D"" 24px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" =
+-webkit-hyphens:=3D"" none;=3D"" hyphens:=3D"" none;?=3D""><img alt=3D"Ques=
+tex Signature" src=3D"https://s3.amazonaws.com/publicmarketing.qtxasset.com=
+/Newsletter/Redesign-2022/Questex_Signature-Logo-White.png" style=3D"width:=
+ 100px; outline: none; text-decoration: none; max-width: 100px; clear: both=
+; display: block; float: none;" width=3D"100"></a></div></td><td class=3D"s=
+ix sub-columns right-side" style=3D"padding: 0; width: 50%; vertical-align:=
+ bottom;"><p class=3D"menu-item" style=3D"font-family: &quot;Overpass&quot;=
+, Arial, sans-serif; color: #FFFFFF; font-size: 14px; line-height: 18px; ma=
+rgin: 0 0 10px; -webkit-hyphens: none; hyphens: none; text-align: right; ma=
+rgin-bottom: 0;"><a href=3D"https://urldefense.com/v3/__https://qtx.omeclk.=
+com/portal/wts/uc*5EcmQ6eFe6bbr*5EFa9fRzajOjdvOc__;JSU!!H9nueQsQ!4t5OnOn919=
+SnxOVvpuAG1K8Db2j-ED181W8H-qLho-hh_DnmaD06pb69BcZwSWHuq2U8PV4rmlVxWgPUkCeBK=
+DCm$" style=3D"color: #33BDFF; text-decoration: none; font-family: " Overpa=
+ss?,=3D"" Arial,=3D"" sans-serif;=3D"" font-size:=3D"" 14px;=3D"" line-heig=
+ht:=3D"" 18px;=3D"" margin:=3D"" 0=3D"" 0=3D"" 10px;=3D"" -webkit-hyphens:=
+=3D"" none;=3D"" hyphens:=3D"" none;?=3D"">Privacy Policy</a></p></td></tr>=
+</tbody></table></td></tr></tbody></table></div></div></td></tr></table></t=
+d></tr></table></div></div><img height=3D"1" width=3D"1" border=3D"0" src=
+=3D"https://qtx.omeclk.com/portal/wts/ue^cmQ6eFe6baCm-nxmc.gif"></body></ht=
+ml>=
+
+--_fe16fcb3-1bcd-4b1c-9c49-5085fe8efa40_--
+

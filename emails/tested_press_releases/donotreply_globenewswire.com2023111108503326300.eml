@@ -1,0 +1,472 @@
+﻿Received: from CO1PR01MB6533.prod.exchangelabs.com (2603:10b6:303:f5::18) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Sat, 11 Nov 2023 13:39:02
+ +0000
+Received: from CH0PR03CA0389.namprd03.prod.outlook.com (2603:10b6:610:119::28)
+ by CO1PR01MB6533.prod.exchangelabs.com (2603:10b6:303:f5::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6977.22; Sat, 11 Nov 2023 13:39:01 +0000
+Received: from DS3PEPF000099DA.namprd04.prod.outlook.com
+ (2603:10b6:610:119:cafe::57) by CH0PR03CA0389.outlook.office365.com
+ (2603:10b6:610:119::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.26 via Frontend
+ Transport; Sat, 11 Nov 2023 13:39:01 +0000
+Authentication-Results: spf=fail (sender IP is 148.168.40.5)
+ smtp.mailfrom=eu-west-1.amazonses.com; dkim=fail (signature did not verify)
+ header.d=globenewswire.com;dmarc=fail action=none
+ header.from=globenewswire.com;
+Received-SPF: Fail (protection.outlook.com: domain of eu-west-1.amazonses.com
+ does not designate 148.168.40.5 as permitted sender)
+ receiver=protection.outlook.com; client-ip=148.168.40.5;
+ helo=mail.pfizer.com;
+Received: from mail.pfizer.com (148.168.40.5) by
+ DS3PEPF000099DA.mail.protection.outlook.com (10.167.17.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7002.13 via Frontend Transport; Sat, 11 Nov 2023 13:39:00 +0000
+Received: from drmamrexdg03.amer.pfizer.com (141.173.144.47) by
+ drmamrexdf03.amer.pfizer.com (141.173.144.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Sat, 11 Nov 2023 08:38:58 -0500
+Received: from gromsgo.pfizer.com (10.128.230.30) by
+ drmamrexdg03.amer.pfizer.com (141.173.144.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34 via Frontend Transport; Sat, 11 Nov 2023 08:38:58 -0500
+Received: from pps.filterd (svaamrppa03.pfizer.com [127.0.0.1])
+	by svaamrppa03.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 3ABDbLug017277
+	for <bi_vox@pfizer.com>; Sat, 11 Nov 2023 08:38:58 -0500
+Authentication-Results-Original: pfizer.com;	spf=fail
+ smtp.mailfrom=0102018bbe9b50d7-b21e050a-bda7-4519-a41a-ce1660c80b0b-000000@eu-west-1.amazonses.com;
+	dkim=fail header.d=globenewswire.com
+ header.s=53n2hqdyrmsbc6xbob7ury3wnnplr4kz;	dkim=fail header.d=amazonses.com
+ header.s=shh3fegwg5fppqsuzphvschd53n6ihuv;	dmarc=fail
+ header.from=globenewswire.com
+Received: from som-feex-04.pfizer.com (som-feex-04pether3.pfizer.com [10.34.104.53])
+	by svaamrppa03.pfizer.com (PPS) with ESMTPS id 3ua4wmkube-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Sat, 11 Nov 2023 08:38:57 -0500
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by SOM-FEEX-04.pfizer.com (Postfix) with SMTP id 4SSGxX4yywz1J6ZD
+	for <bi_vox@pfizer.com>; Sat, 11 Nov 2023 13:38:56 +0000 (UTC)
+Received: from mailstream-east.mxrecord.io (mailstream-useast-egress001.mxrecord.io [52.0.67.109])
+	by SOM-FEEX-04.pfizer.com (Postfix) with ESMTPS id 4SSGxW314Dz1J6ZC
+	for <bi_vox@pfizer.com>; Sat, 11 Nov 2023 13:38:55 +0000 (UTC)
+Received: from mailstream036.us-east-1.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-east.mxrecord.io (Postfix) with ESMTP id 4SSGxW1w2Jz2GZnV
+	for <bi_vox@pfizer.com>; Sat, 11 Nov 2023 13:38:55 +0000 (UTC)
+Received-SPF: pass (mailstream-east.mxrecord.io: eu-west-1.amazonses.com designates 54.240.2.126 as permitted sender) client-ip=54.240.2.126; envelope-from=0102018bbe9b50d7-b21e050a-bda7-4519-a41a-ce1660c80b0b-000000@eu-west-1.amazonses.com; helo=a2-126.smtp-out.eu-west-1.amazonses.com;
+Received: from mailstream-east.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LOU3CNQ8
+        for bi_vox@pfizer.com;
+        Sat, 11 Nov 2023 13:38:54 +0000 (GMT)
+Received: from mx0b-00013f02.pphosted.com (mx0b-00013f02.pphosted.com [208.86.201.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-east.mxrecord.io (Postfix) with ESMTPS id 4SSGxV43MMz2GZnB
+	for <bi_vox@pfizer.com>; Sat, 11 Nov 2023 13:38:54 +0000 (UTC)
+Received: from pps.filterd (m0373977.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 3ABDbP2p032246
+	for <bi_vox@pfizer.com>; Sat, 11 Nov 2023 08:38:54 -0500
+Received: from a2-126.smtp-out.eu-west-1.amazonses.com (a2-126.smtp-out.eu-west-1.amazonses.com [54.240.2.126])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3ua6xjhhfr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=NOT)
+	for <BI_VOX@pfizer.com>; Sat, 11 Nov 2023 08:38:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=53n2hqdyrmsbc6xbob7ury3wnnplr4kz; d=globenewswire.com;
+	t=1699709931;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=MYCT9W0A2Du5tXQl324SST6LUz1h1kPkJ2TZEeMOZkQ=;
+	b=X1WH07DI8rPnVK5P7Xo6pOtTW7w/DK6cBayUDKA68OCuIkrZAKfxWx3EMf+dhzHO
+	GGxDuWzA9vQeBtP8e3fjEvsvCrzS0K62jM8Pswwvu8ZGfY+BYpEUys/C4Vb5ZMLYKSS
+	yX6e1ZQoUFPfftyn4K/e9dpCch0gULCfieV9JPfQ=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1699709931;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=MYCT9W0A2Du5tXQl324SST6LUz1h1kPkJ2TZEeMOZkQ=;
+	b=bLF+rpf45rQiwYeQ3XV5wmRzCV2usmQl+MnQbAvRivMBb6WrqyDHwFJcR2Pf/igm
+	AWimQVtwA7odFoLYRv9qq7mq9fowEp/iqp6K7N3NL6FmO6JRs4vacmzg7WPPuvMKqxx
+	3oMnBDX2gyI9bYJylTtyKeGhY0tc+hdrAPEwR1wA=
+X-Sender: "=?UTF-8?Q?Novo=20Nordisk?=" <donotreply@globenewswire.com>
+X-Receiver: BI_VOX@pfizer.com
+X-FireEye: Clean
+From: =?UTF-8?Q?Novo=20Nordisk?= <donotreply@globenewswire.com>
+To: BI_VOX@pfizer.com
+Reply-To: donotreply@globenewswire.com
+Date: Sat, 11 Nov 2023 13:38:51 +0000
+Message-ID: <0102018bbe9b50d7-b21e050a-bda7-4519-a41a-ce1660c80b0b-000000@eu-west-1.amazonses.com>
+Feedback-ID: 1.eu-west-1.lzb4fhJZei7Cr1QiW4H/IVCBlOzetPgeQ5iybk43ioI=:AmazonSES
+X-SES-Outgoing: 2023.11.11-54.240.2.126
+X-Proofpoint-ORIG-GUID: C0rimjz9iLN7jMPPKOiapKSQzyyZBu-E
+X-Proofpoint-GUID: C0rimjz9iLN7jMPPKOiapKSQzyyZBu-E
+X-CLX-Shades: MLX
+X-CLX-Response: 1TFkXGRsdEQpMehccGBkRCllEF2B4YX9laVlDY3pZEQpYWBdgaFIFb25LSx1 /XhEKeE4XbUZ+f2djXVwTZFwRCnhLF2BoUgVvbktLHX9eEQp5TBdsfnBiYHlFWmITbhEKQ0gXBx 4YGxEKQ1kXBxkaHREKQ0kXGgQaGhoRCllNF2dmchEKWUkXGx4acRsYEBp3BhsfHXEbGxsTHBAZG
+ ht3BhgaBhoRClleF2xseREKSUYXWkxDUE9YdUJFWV5PThEKSUcXeE9NEQpDThdpGlhDR0BQE0Nm ZB1AZ3p6YWVDS1pheXtQU1NwaF8HbxEKWFwXHwQaBBkZEwUbGgQbGxoEGxkeBBkfEBseGh8aEQp eWRdJQnlDYxEKTVwXHh4eEQpMWhdobU1NTREKTEYXb2tra2trEQpCTxdsTG8TexheeXpTExEKQ1
+ oXHx4EGB4aBBgEGxgcEQpCXhcbEQpCXBcbEQpeThcbEQpCSxdtRn5/Z2NdXBNkXBEKQkkXbUZ+f 2djXVwTZFwRCkJFF2B+S3h9TVJzZRxeEQpCThdtRn5/Z2NdXBNkXBEKQkwXYGhSBW9uS0sdf14R CkJsF2NfU3xaeG5mS2YeEQpCQBdhQlxObWFuZHBjaxEKQlgXa2FsblteBXpEBRwRClpYFxsaEQp
+ 5QxdlTBMFWHJ+R0trZBEKWUsXHxMaEhEKWksXHxMaEhEKcGcXY0NhGlNJT1loTmcQHRoRCnBoF2 xlfX1NTF8ZHkdDEBkaEQpwaBd6SGhZeUxeb0JYTRAZGhEKcGgXYltiZk9Pb0BCaxMQGRoRCnBoF 2hwY1N5Z2FAWX9pEBkaEQpwaBdsGFocWk9LTWh8WxAZGhEKcGgXY35AbGIaUHt8YHgQGRoRCnBo
+ F2ZAUk55Rl9hcmdnEBkaEQpwaBdkEmRcHxNEbm5lYRAZGhEKcH0XYX1+eFxLHUR8H2EQGRoRCnB 9F2MeQxtHRh9mAVh7EBoRCnB9F2djWk5CGE1EeRIeEBoRCnB9F21zH1tFGHxfRn5wEBoRCnB9F2 RBeBh/YBlCWF1rEBoRCnB9F2gFTBx/aERZeGVvEBoRCnB9F2IYfWldHx9ob19gEBoRCnBnF25Yf
+ 2FHRWBPQBJ4EB0aEQpwZxdmBRNSfW9DQHx4fRAdGhEKcGcXa19kBWVdQRtCTGEQHhIRCnBnF2dk Yl1DQUsST3pZEB4SEQpwZxdtWWdoAVN7bE4bTBAeEhEKcGcXeh9lQ3BbY2FdZFMQHRoRCnBnF2N fe395E3NIeXBiEB4SEQpwfRdtfXAaRUlhH1NGZRAZGhEKcH0Xb0QaG1MFWkJ+QGAQGRoRCnB9F2
+ JbSW9gaElgTkZsEBkaEQpwfRdtTEZ+Y0ROeW1PehAZGhEKcH0XZmZPaU9yQE15c0wQGRoRCnB9F 2FdG2JpS29yTkIBEBoRCnB/F2tFXHlSem1hTBkfEBMcEQpwXxdmb0x/RRoaaUdjbBAZGhEKcH8X YmNCeHBpa1lEXB4QGx4aEQpwXxdmZUZuZW1kY25aSBAbGBwRCnB/F3pQcmtaf3tfaUhGEBIYEQp
+ wXxdvH2l/UGNLRRx7TRAbGxsRCnBfF28YXEhrEn1aEmYcEBkaEQpwfxdrRVIZcn1JGUNTeBATHx EKcF8XaUljZlofTF9vR1oQHx4RCnB/F3paAXlwRXhIGFMTEBsYGhEKcF8XaAFkeRxYfhgTe38QG x4ZEQpwXxdnXnxNcAFwH3hIbBAbHhkRCnBsF2leaVBgZFMYZXJuEAcZGhEKbX4XGhEKWE0XSxEg
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-PFERule: PODI-Spoofsafe
+x-pfe-proofpoint-bulk: safe
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:amazonses.com -all
+x-pfepod-dmarc-rule: pass
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: allow
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-11_12,2023-11-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=low_aspam_lowpriority policy=low_aspam score=0 malwarescore=0
+ impostorscore=0 lowpriorityscore=100 phishscore=0 mlxlogscore=999
+ spamscore=0 mlxscore=0 priorityscore=623 clxscore=317 suspectscore=0
+ adultscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311110116 domainage_hfrom=5908
+ domainage_replyto=5908
+X-Proofpoint-Tag: lowpriority
+X-Area1Security-Origin: EXTERNAL 
+X-Area1Security-Processed: cceddb65c3bad315a89920d6a5e19d18;2;NONE;2023-11-11T13:38:55;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: =?UTF-8?Q?[EXTERNAL]_Novo_Nordisk_A/S:_Semaglutide_2.4_mg_(Wegovy=C2=AE)_?=
+ =?UTF-8?Q?cardiovascular_outcomes_data_presented_at_American_Heart_Associ?=
+ =?UTF-8?Q?ation_Scientific_Sessions_and_simultaneously_published_in_New_E?=
+ =?UTF-8?Q?ngland_Journal_of_Medicine_____________?=
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-11_12,2023-11-09_01,2023-05-22_02
+Return-Path:
+ 0102018bbe9b50d7-b21e050a-bda7-4519-a41a-ce1660c80b0b-000000@eu-west-1.amazonses.com
+X-OrganizationHeadersPreserved: drmamrexdf03.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 11 Nov 2023 13:39:01.0983
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 440138ad-986b-4987-09a4-08dbe2bb9050
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: drmamrexdg03.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: DS3PEPF000099DA.namprd04.prod.outlook.com
+X-CrossPremisesHeadersFiltered: DS3PEPF000099DA.namprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ DS3PEPF000099DA:EE_|CO1PR01MB6533:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: Pfizer.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id: 440138ad-986b-4987-09a4-08dbe2bb9050
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.40.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:iad-us-a-148-168-40-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2023 13:39:00.9889
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 440138ad-986b-4987-09a4-08dbe2bb9050
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.40.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: drmamrexdg03.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR01MB6533
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.5746903
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6977.026
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	s3aL4VMMA42qBox6pHZ3pZc4+TqbLtW6dWnzChnxktYl6QWrMExKE9RvnqH7PIiG7MdCjgRr0L7XMxSqnq/j60nWyTy2vWpSafJcXtVMAjGokvyrls55Qumc7TLQ3+YMvRtHM1g2rnFfcCjpq2M30ZQBnuc/jn4A7tCE8U68NNT1Ncp7mySxOqSnvRCpe/yfKOJmIO53/dc0GB4WndUPVWPAPtv7uRAhzBsmuibWNStHQlbXVWZaUYdVJpOIG8b5QG89rgdicncGtM9bei/1BcNpuxMkpyp+FdRXKKpPTnqPMywuOSl0hAppWZrZomZWKyB4+xOYRqOHOb3a8RollYuLClKjOXy0Kmb94ZBDb2+1F+nQBIrdDQPQF/tOltd9Lj33hrY5xaWMz6rNHPM3edVe8BLdmekwojAwIZwU5Rml1JUoQE8lSKvCWY9QIr/UkqeZlN+ZZUrKKrMyeORw2LSjrCozT4J3de32fx7RYMY4EDFTuMvF4aqfitUQBFZrbZVnqjuxqM+4gnXaFHABHWxqnS02Ktwe31fnrM2D9LHCOmX+8L6VwQCIGgSPTMMRarmPSb5hN7Nylx8lvsrDapweeYkxMagx90XEczr7trMlp31OrdYYyr3ZDwoLlwpvyDQUOqF7WAUe72ap/96W4kj4kRPOBGeo6l6cXkyhMRlSb0lihjG7hLx8PbH+xXfjaIQhVk+czIklHDM4vYd4+XLfTFpq4txnCAdE5pE8VL+rY+tSTbA9inOxOP0LQNcYzMvNlm8IeXd+yI/Giu+0xg==
+MIME-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><t=
+itle></title></head><body style=3D"font-family:Arial;font-size: 14px;"><spa=
+n style=3D"padding: 0px;"></span>
+<table style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"display: inline-block; margin: 0 auto; width: 33%; text-align:=
+ center;"><br><br></td>
+<!-- RIGHT LOGO -->
+<td style=3D"display: inline-block; float: right; width: 33%; text-align: r=
+ight;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div><br>
+<section>
+<article><img src=3D"https://ml-eu.globenewswire.com/media/a6c31fd6-04d5-46=
+33-bf83-c96de6b07a1e/medium/?v=3D07132020123000" alt=3D"" width=3D"120" hei=
+ght=3D"86"></article>
+</section>
+<p>&nbsp;<ul type=3D"disc"><li style=3D"margin-bottom:2pt;">Semaglutide 2.4=
+ mg delivered a statistically significant 20% risk reduction in major adver=
+se cardiovascular events (MACE) with risk reductions demonstrated consisten=
+tly across age, gender, ethnicity and starting body mass index (BMI).</li><=
+li style=3D"margin-bottom:2pt;">Beneficial effects were seen consistently a=
+cross measured cardiovascular endpoints with semaglutide 2.4 mg.</li><li st=
+yle=3D"margin-bottom:2pt;">Risk reductions in MACE were evident soon after =
+initiation, suggesting an effect of semaglutide 2.4 mg beyond weight loss a=
+lone.<br><br></li></ul>  <p><strong>Bagsv=C3=A6rd, Denmark, 11 November 202=
+3</strong> =E2=80=93 Novo Nordisk today announced the primary results of SE=
+LECT, its landmark phase 3 cardiovascular outcomes trial investigating the =
+effects of once-weekly semaglutide 2.4 mg (Wegovy<sup>=C2=AE</sup>) in adul=
+ts with established cardiovascular disease (CVD) and overweight or obesity =
+without diabetes at the American Heart Association (AHA) annual Scientific =
+Sessions in Philadelphia. The data were simultaneously published in the <em=
+>New England Journal of Medicine (NEJM).</em> <sup>1</sup></p>  <p>Previous=
+ly reported top-line results showed semaglutide 2.4 mg delivered a statisti=
+cally significant 20% risk reduction in MACE over a period of up to five ye=
+ars versus placebo (HR: 0.80; 95% confidence interval: 0.72; 0.90, p&lt;0.0=
+01). Today=E2=80=99s findings showed that risk reductions in MACE were achi=
+eved regardless of age, gender, ethnicity and starting body mass index (BMI=
+).<sup>1</sup> The results also demonstrated that the beneficial effects in=
+ MACE risk reduction were evident soon after treatment initiation, suggesti=
+ng an effect that is more rapid than what would be expected if the cardiova=
+scular effects were entirely mediated with the effects of semaglutide 2.4 m=
+g on body weight reduction.<sup>1</sup> This suggests that weight loss alon=
+e may not fully explain the benefits of semaglutide 2.4 mg in reducing the =
+risk of MACE.<sup>1 </sup></p>  <p>Every year almost 18 million people die =
+from CVD which is the leading cause of disability and death worldwide.<sup>=
+2</sup><sup>,3,4</sup> While cardiovascular mortality has decreased over th=
+e past two decades, obesity-related cardiovascular deaths have increased si=
+gnificantly.<sup>5</sup> Obesity leads to cardiovascular morbidity and mort=
+ality and is associated with risk factors such as high blood pressure and i=
+nflammation.<sup>3,6</sup></p>  <p>=E2=80=9CFor the first time, we have evi=
+dence that semaglutide 2.4 mg improves cardiovascular outcomes in at-risk p=
+atients with BMI of 27 and above with established CVD, without diabetes,=E2=
+=80=9D said Dr Michael Lincoff, lead study author, vice chair for research =
+in the Cleveland Clinic Department of Cardiovascular Medicine, and a paid c=
+onsultant for Novo Nordisk. =E2=80=9CThe three-point MACE risk reduction ob=
+served in SELECT suggests the potential for a new option in obesity treatme=
+nt, addressing some of the leading causes of preventable death worldwide.=
+=E2=80=9D</p>  <p>Analyses of the three components in MACE showed that the =
+risk of non-fatal myocardial infarction or heart attack was reduced by 28% =
+compared to placebo (HR: 0.72; 95% confidence interval: 0.61; 0.85), the ri=
+sk of cardiovascular death was reduced by 15% (HR: 0.85; 95% confidence int=
+erval: 0.71; 1.01, not statistically significant over the length of the tri=
+al) and the risk of non-fatal stroke was reduced by 7% compared to placebo =
+(HR: 0.93; 95% confidence interval: 0.74;1.15, not statistically significan=
+t over the length of the trial).<sup>1</sup> In addition, beneficial effect=
+s were seen consistently across measured cardiovascular endpoints.<sup>1</s=
+up> The confirmatory secondary endpoints showed that the risk of composite =
+heart failure events, comprising cardiovascular death, urgent heart failure=
+ visits and hospitalisations, was reduced by 18% compared to placebo (HR: 0=
+.82; 95% confidence interval: 0.71; 0.96) and the risk of death from any ca=
+use was reduced by 19% compared to placebo (HR: 0.81; 95% confidence interv=
+al: 0.71; 0.93).<sup>1</sup> As the result on cardiovascular death was not =
+statistically significant over the length of the trial, the remaining secon=
+dary confirmatory endpoints were not tested for superiority due to hierarch=
+ical testing.<sup>1</sup></p>  <p>The supportive secondary endpoints also s=
+howed beneficial effects of semaglutide 2.4 mg on other cardiovascular risk=
+ factors, including lowering blood pressure, cholesterol and blood sugar le=
+vels.<sup>1</sup> While the trial was not designed as a weight loss trial, =
+participants in the trial who received semaglutide still lost an average of=
+ 9.4% of total body weight which was sustained throughout the trial.<sup>1<=
+/sup></p>  <p>=E2=80=9CThis landmark study builds on more than 20 years of =
+research in obesity, a serious chronic disease associated with severe co-mo=
+rbidities and outcomes. The results from SELECT will be instrumental in cha=
+nging the way we perceive and treat obesity,=E2=80=9D said Martin Lange, ex=
+ecutive vice president and head of Development at Novo Nordisk. =E2=80=9CTh=
+ese results represent a pivotal moment for people with obesity and the glob=
+al scientific community as we look ahead to a new era of managing obesity a=
+nd potentially reducing cardiovascular risks with semaglutide 2.4 mg.=E2=80=
+=9D</p>  <p>In the trial, semaglutide 2.4 mg appeared to have a safe and we=
+ll-tolerated profile in line with previous semaglutide 2.4 mg trials.<sup>1=
+,</sup><sup>7,8</sup></p>  <p>Novo Nordisk has filed for a label update of =
+Wegovy<sup>=C2=AE</sup> in the US and EU to include an indication for risk =
+reduction of major adverse cardiovascular events in adults with a BMI of =
+=E2=89=A527 kg/m<sup>2</sup> and established cardiovascular disease. A deci=
+sion is expected in 2024. The Food and Drug Administration (FDA) recently g=
+ranted priority review for=E2=80=AFthe addition of the SELECT data=E2=80=AF=
+to the label for=E2=80=AFWegovy<sup>=C2=AE</sup>=E2=80=AFin the US.</p>  <p=
+><strong>About SELECT</strong><br>SELECT (Semaglutide Effects on Heart Dise=
+ase and Stroke in Patients with Overweight or Obesity) was a randomised, do=
+uble-blind, parallel-group, placebo-controlled trial designed to evaluate t=
+he efficacy of semaglutide 2.4 mg versus placebo as an adjunct to standard =
+of care for reducing the risk of MACE in people with established CVD with o=
+verweight or obesity with no prior history of diabetes.<sup>1</sup></p>  <p=
+>People included in the trial were aged =E2=89=A545 years with a BMI =E2=89=
+=A527 kg/m<sup>2</sup>. Baseline demographics by age group show that 24% we=
+re aged 45-54, 38% aged 55-64, 30% aged 65-74 and 8% aged 75 years plus. By=
+ race or ethnicity, 84% of trial participants were white, 10% Hispanic or L=
+atino, 8% Asian, 4% black and 3% other. The split between male and female p=
+articipants was 72% and 28% respectively.<sup>1</sup></p>  <p>The trial enr=
+olled 17,604 adults and has been conducted in 41 countries at more than 800=
+ investigator sites. SELECT was initiated in 2018 and is the largest trial =
+Novo Nordisk has ever conducted.<sup>1</sup></p>  <p><strong>About Wegovy</=
+strong><sup><strong>=C2=AE</strong></sup><strong> (semaglutide 2.4 mg)</str=
+ong><br>Wegovy<sup>=C2=AE </sup>(once-weekly subcutaneous semaglutide 2.4 m=
+g) is a GLP-1 receptor agonist indicated as an adjunct to a reduced calorie=
+ diet and increased physical activity for chronic weight management in adul=
+ts with a BMI of 30 kg/m<sup>2</sup> or greater (obesity), adults with a BM=
+I of 27 kg/m<sup>2</sup> or greater (overweight) in the presence of at leas=
+t one weight-related comorbid condition, and paediatric patients aged 12 ye=
+ars and older with an initial BMI at the 95th percentile or greater for age=
+ and gender (obesity)<sup>8</sup>. Wegovy<sup>=C2=AE</sup> is launched in t=
+he US, Denmark, Norway, Germany, UK, Iceland and Switzerland.</p>  <p><stro=
+ng>About Novo Nordisk</strong><br><em>Novo Nordisk is a leading global heal=
+thcare company, founded in 1923 and headquartered in Denmark. Our purpose i=
+s to drive change to defeat serious chronic diseases, built upon our herita=
+ge in diabetes. We do so by pioneering scientific breakthroughs, expanding =
+access to our medicines, and working to prevent and ultimately cure disease=
+. Novo Nordisk employs about 61,400 people in 80 countries and markets its =
+products in around 170 countries. For more information, visit </em><a href=
+=3D"https://urldefense.com/v3/__https://connect-eu.notified.com/Tracker?dat=
+a=3DL6MZDZUq8o0tWlciXDpzMDkhJ81DDoAFOBdcsTGj40DCCMt9MWg-f7QKhqNy6CUyZ_JRgJB=
+u7EaWkFmNhQzGJO0rSDvkeco37raeGtEAeCI=3D000286494322__;!!H9nueQsQ!-SBhYOXeWk=
+tjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF-EH8Ifo4hy2OM6PyIrABY=
+qXA6A$" rel=3D"nofollow" target=3D"_blank"><em>novonordisk.com</em></a><em>=
+,</em> <a href=3D"https://urldefense.com/v3/__https://connect-eu.notified.c=
+om/Tracker?data=3DU044w6fqXPIIxKHASd41LkmBNlHaiN-Cak4H4JZwGm83PL34EK0qBomYD=
+wX0nhVUqosQU-37-4f13SsiqE5PVaVvm9V_psMLEkL1xq9kaXg=3D000286494322__;!!H9nue=
+QsQ!-SBhYOXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF-EH8Ifo=
+4hy2OM6PyIrA3WkrWcQ$" rel=3D"nofollow" target=3D"_blank"><em>Facebook</em><=
+/a><em>, </em><a href=3D"https://urldefense.com/v3/__https://connect-eu.not=
+ified.com/Tracker?data=3DxPKBCiSFLN8Y9NwWfFiIXemIr6WXD-Go-dg0qS5ztRQ0ZrxZoK=
+UsnQ9pbW6nhz6eFUEwLPQKA4OZQrP6NW9lkiP8EWU2b5DiZ77Uwojp-24=3D000286494322__;=
+!!H9nueQsQ!-SBhYOXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF=
+-EH8Ifo4hy2OM6PyIrAMK8hLag$" rel=3D"nofollow" target=3D"_blank"><em>Instagr=
+am</em></a><em>, </em><a href=3D"https://urldefense.com/v3/__https://connec=
+t-eu.notified.com/Tracker?data=3D7pbl915TOmqE3l0soBCWm5dU4QEPziDkjB2tKfqDcS=
+ulQRmh6Ko_Fy4MYsk44sGn0YjLudq4RoLak1yYVqKOvQ=3D=3D000286494322__;!!H9nueQsQ=
+!-SBhYOXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF-EH8Ifo4hy=
+2OM6PyIrAs3iiaVg$" rel=3D"nofollow" target=3D"_blank"><em>X</em></a><em>, <=
+/em><a href=3D"https://urldefense.com/v3/__https://connect-eu.notified.com/=
+Tracker?data=3Dlg80sWwsqFpGDEieAZRiJFqaLdzGmVaa-83M7wtqx_1AqMslTPdyDwt5I6ij=
+ArvaQsLmYxXJv2io6pdB4yR0W3iWPZz_JGzi9h9lXEe6BqOaith9s1wkOcju5YX4AbvQ0002864=
+94322__;!!H9nueQsQ!-SBhYOXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJe=
+PeY6A4AF-EH8Ifo4hy2OM6PyIrA2hJF9RQ$" rel=3D"nofollow" target=3D"_blank"><em=
+>LinkedIn</em></a><em> and </em><a href=3D"https://urldefense.com/v3/__http=
+s://connect-eu.notified.com/Tracker?data=3DDzW3Y_z5kyOu_suvXuGkjVFg-goh0Efi=
+-JUCxJW77i5pEtddM6QCQiXb9YTBFWqhxyUGHJUAZJ3uXw2XvaW_46pnaDkTT2tmkNptRV-7AK0=
+=3D000286494322__;!!H9nueQsQ!-SBhYOXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24Bpa=
+SuZxT4lGJePeY6A4AF-EH8Ifo4hy2OM6PyIrBdBxpe7g$" rel=3D"nofollow" target=3D"_=
+blank"><em>YouTube</em></a><em>.</em></p>  <p><strong>Contact for further i=
+nformation:</strong></p> <table style=3D"border-collapse: collapse; width:3=
+26.25pt; border-collapse:collapse ;"><tr><td style=3D"width:217.54px;;verti=
+cal-align: top ; "><strong>Media:</strong></td><td style=3D"width:217.47px;=
+;vertical-align: top ; ">&nbsp;</td></tr><tr><td style=3D"width:217.54px;;v=
+ertical-align: top ; "><strong>Ambre James-Brown </strong><br>+45 3079 9289=
+<br><a href=3D"mailto:abmo@novonordisk.com" rel=3D"nofollow" target=3D"_bla=
+nk">abmo@novonordisk.com</a><br><br></td><td style=3D"width:217.47px;;verti=
+cal-align: top ; "><strong>Elizabeth DeLuca (US)</strong><br>+1 609 580 986=
+8<br><a href=3D"mailto:edel@novonordisk.com" rel=3D"nofollow" target=3D"_bl=
+ank">edel@novonordisk.com</a><br><br></td></tr><tr><td style=3D"width:217.5=
+4px;;vertical-align: top ; "><strong>Investors:</strong></td><td style=3D"w=
+idth:217.47px;;vertical-align: top ; ">&nbsp;</td></tr><tr><td style=3D"wid=
+th:217.54px;;vertical-align: top ; "><strong>Daniel Muusmann Bohsen</strong=
+><br>+45 3075 2175 <br><a href=3D"mailto:dabo@novonordisk.com" rel=3D"nofol=
+low" target=3D"_blank">dabo@novonordisk.com</a><br><br></td><td style=3D"wi=
+dth:217.47px;;vertical-align: top ; "><strong>Jacob Martin Wiborg Rode</str=
+ong><br>+45 3075 5956<br><a href=3D"mailto:jrde@novonordisk.com" rel=3D"nof=
+ollow" target=3D"_blank">jrde@novonordisk.com</a><br><br></td></tr><tr><td =
+style=3D"width:217.54px;;vertical-align: top ; "><strong>David Heiberg Land=
+sted</strong> <br>+45 3077 6915 <br><a href=3D"mailto:dhel@novonordisk.com"=
+ rel=3D"nofollow" target=3D"_blank">dhel@novonordisk.com</a><br><br></td><t=
+d style=3D"width:217.47px;;vertical-align: top ; "><strong>Mark Joseph Root=
+ (US)</strong> <br>+1 848 213 3219<br><a href=3D"mailto:mjhr@novonordisk.co=
+m" rel=3D"nofollow" target=3D"_blank">mjhr@novonordisk.com</a><br><br></td>=
+</tr><tr><td style=3D"width:217.54px;;vertical-align: top ; "><strong>Sina =
+Meyer </strong><br>+45 3075 6656 <a href=3D"mailto:azey@novonordisk.com" re=
+l=3D"nofollow" target=3D"_blank">azey@novonordisk.com</a><br><br></td><td s=
+tyle=3D"width:217.47px;;vertical-align: top ; "><strong>Frederik Taylor Pit=
+ter </strong><br>+45 3075 8259 <br><a href=3D"mailto:fptr@novonordisk.com" =
+rel=3D"nofollow" target=3D"_blank">fptr@novonordisk.com</a> <br><br></td></=
+tr></table> <p><strong>References</strong></p>  <ol style=3D"list-style-typ=
+e:decimal;"><li>Lincoff A, Brown-Frandsen K, Colhoun H, et al. Semaglutide =
+and Cardiovascular Outcomes in Obesity without Diabetes. <em>N Engl J Med</=
+em>. DOI: 10.1056/NEJMoa2307563.</li></ol>  <ol style=3D"list-style-type:de=
+cimal;"><li>World Health Organization. Cardiovascular Disease Fact Sheet. A=
+vailable at: <a href=3D"https://urldefense.com/v3/__https://www.who.int/new=
+s-room/fact-sheets/detail/cardiovascular-diseases-(cvds)__;!!H9nueQsQ!-SBhY=
+OXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF-EH8Ifo4hy2OM6Py=
+IrDN7Kmq8g$" rel=3D"nofollow" target=3D"_blank">https://www.who.int/news-ro=
+om/fact-sheets/detail/cardiovascular-diseases-(cvds)</a>. Last accessed: No=
+vember 2023.</li><li>Danaei G, Ding EL, Mozaffarian D, et al. The preventab=
+le causes of death in the United States: comparative risk assessment of die=
+tary, lifestyle, and metabolic risk factors. PLoS Med. 2009; 6:e1000058.</l=
+i><li>Joseph JJ, Deedwania P, Acharya T, et al. Comprehensive Management of=
+ Cardiovascular Risk Factors for Adults With Type 2 Diabetes: A Scientific =
+Statement From the American Heart Association. Circulation. 2022; 145:e722-=
+e759.</li><li>Raisi=E2=80=90Estabragh Z, Kobo O, Mieres J, et al. Racial Di=
+sparities in Obesity=E2=80=90Related Cardiovascular Mortality in the United=
+ States: Temporal Trends From 1999 to 2020. <em>Journal of the American Hea=
+rt Association. </em>2023;12:e028409.</li><li>Koliaki C, Liatis S, Kokkinos=
+ A. Obesity and cardiovascular disease: revisiting an old relationship. <em=
+>Metabolism. </em>2019;92:98-107.</li><li>Wilding, J. Batterham R. Calanna =
+S, et al. Once-Weekly Semaglutide in Adults with Overweight or Obesity. <em=
+>N Engl J Med</em>. 2021; 384:989-1002.</li><li>Wegovy<sup>=C2=AE</sup> (se=
+maglutide) injection 2.4 mg Prescribing Information. Plainsboro, NJ: Novo N=
+ordisk Inc.; 2023.</li></ol>  <p> <p id=3D"gnw_attachments_section-header">
+    <strong>Attachment</strong>
+</p>
+<ul id=3D"gnw_attachments_section-items">
+            <li>
+        <a target=3D"_blank" href=3D"https://urldefense.com/v3/__https://ml=
+-eu.globenewswire.com/Resource/Download/204ffb89-dd0f-46f1-918b-c6681355f85=
+2__;!!H9nueQsQ!-SBhYOXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6=
+A4AF-EH8Ifo4hy2OM6PyIrATHpXUwg$">PR231111-SELECT-AHA-2023</a>
+      </li>
+      </ul>
+</p>
+<p><span lang=3D"EN-GB" style=3D"mso-ansi-language: EN-GB; font-size: 10pt;=
+ font-family: 'Arial';">For more details about Novo Nordisk, please visit <=
+/span><span lang=3D"EN-GB" style=3D"font-size: 10pt; font-family: 'Arial';"=
+><a href=3D"https://urldefense.com/v3/__http://www.novonordisk.com/__;!!H9n=
+ueQsQ!-SBhYOXeWktjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF-EH8I=
+fo4hy2OM6PyIrBDulSayw$" target=3D"_blank">www.novonordisk.com</a></span><sp=
+an lang=3D"EN-GB" style=3D"mso-ansi-language: EN-GB; font-size: 10pt; font-=
+family: 'Arial';">; </span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri=
+, sans-serif;"><em><span style=3D"font-size: 10.0pt; font-family: 'Verdana'=
+,sans-serif;">Dear subscriber to Novo Nordisk press releases/company announ=
+cements<br> We use your email address to send you news from Novo Nordisk. I=
+f you want to know how we comply with data privacy protection, you can read=
+ more here: <span style=3D"color: #0563c1; text-decoration: underline;"><em=
+><span style=3D"font-size: 10.0pt; font-family: 'Verdana',sans-serif;"><a s=
+tyle=3D"color: #0563c1; text-decoration: underline;" href=3D"https://urldef=
+ense.com/v3/__https://shared.outlook.inky.com/link?domain=3Dwww.novonordisk=
+.com&amp;t=3DeyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eJxlkFtrwkAQhf_LPhtjtIEaK=
+Fh7EcSsSKsREWSTnSab7CXsbhJN6X_vptCX9m2YOYdzvvlEFohgFEWISasJVWg0TKAl4Sj6INzA=
+CIE7E1HkC6laJZWmzFTjTAmnHZz_t412ZlRYW5vo7J_9ruvGf1RnnxJLvFqzlmQ3j0jqNQa0p1l=
+eWHP2fw9SWZaBJ6EznmlSk2mWwriwgruc7R5FsuF8hGyhgdgLhxZc9MRBDM1IEk4y8Vqlt3lPj8=
+suna0nG3EIMjHvTvulTFdzdkpCTmd4Ro5rvhG4Td_mBU7iaTxdV1gcWJy89LjPA1xmAV7F4fYZ8=
+1P5eLd9j4PT0_0Vv1chLvcd7nfXTbl7GPAdyAUEYfxCKNVgjOtimrpW2o6h0aqGRc5VCgNVxzT8=
+vO3rGw88ixw.MEUCIQDDyWRfSZrY_50WdIjirzLjp-oBXb1g3wJAwyuBPTfqQgIgCNFbxhquyYR=
+68_idQrQ2R90bZBDvA1J9cQJgIb_HpGs__;!!H9nueQsQ!-SBhYOXeWktjvAPORNKNi5AdS9SNS=
+U7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF-EH8Ifo4hy2OM6PyIrAYT3dbdg$">https://www=
+.novonordisk.com/data-privacy-and-user-rights/privacy-notice-news-subscribe=
+.html</a></span></em></span></span></em><span style=3D"font-size: 10.0pt; f=
+ont-family: 'Verdana',sans-serif;">.</span><span style=3D"font-size: 10.0pt=
+; font-family: 'Arial',sans-serif;">&nbsp;</span><em><span style=3D"font-si=
+ze: 10.0pt; font-family: 'Verdana',sans-serif;">If you don=E2=80=99t want t=
+o subscribe anymore,&nbsp;</span><a style=3D"color: #0563c1; text-decoratio=
+n: underline;" href=3D"https://urldefense.com/v3/__https://shared.outlook.i=
+nky.com/link?domain=3Dwww.novonordisk.com&amp;t=3DeyJ0eXAiOiJKV1QiLCJhbGciO=
+iJFUzI1NiJ9.eJxlUNtqg0AQ_Zd9TjSXClUopOklEOKG0CQGEcLqTuPqXmR3zaaW_nu19Kl9G85=
+l5pz5RBaIYBRFiEmrCVVoNEygJeEoeifcwAhBTxNRXhZSXZVUmjJTe4USvXZw_kdb3ZtRaW1jos=
+zPfOec90eV-RKcGRNJxwIoI5nPiQVjxwP8S7bStLkpNMvBK63g_ebtAUWy5XyEbKmB2DOHK_THJ=
+n3sIQtJgkkhXuv8I-zoaeny-XqyEcdpIUKXHpYyX4UsTQJO53hOTmu-Efiav4UlTuJZPFvXWBxZ=
+nLx0uLtMcVVM8SoOts-Yp9Xj3XYfT9On-xve1wGuDg53u9um2j0MhQ3oMwjC-JlQqsGYPotpm0Z=
+p60GrVQOLC1c5DL0c0_DzqK9v-2eFog.MEQCIDlax1MeOhpvi1VIeeYuXyJkUFgJgtE9o108qz-=
+OlWRUAiBk_qsoY0gII47Qp8tTzBJvSu3jtVgcXAdkvgAcxWyNiw__;!!H9nueQsQ!-SBhYOXeWk=
+tjvAPORNKNi5AdS9SNSU7S1rL9D8XUF24BpaSuZxT4lGJePeY6A4AF-EH8Ifo4hy2OM6PyIrDpd=
+2Ye1w$">please go to novnordisk.com to unsubscribe.</a></em></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri=
+, sans-serif;">&nbsp;</p>
+<div style=3D"border-top: 1px solid #aba8a8; margin-top: 1em; padding: 1em =
+0; font-size: 11px !important; color: #aba8a8;">&nbsp;</div>
+</div>
+<img src=3D"https://contacts-eu.globenewswire.com/Ros/TrackEmailOpen?recipi=
+entId=3Dbase64v2%3aybaC8mVjE%2fJN%2b37bOSd8zzC9uEA5wbH8ek5TMS%2brE%2fazcaEC=
+GW%2fJM0qkyJQCced2" width=3D"1" height=3D"1" style=3D"display:none;"></body=
+></html>=
+

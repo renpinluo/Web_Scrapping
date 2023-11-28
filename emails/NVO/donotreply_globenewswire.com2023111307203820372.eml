@@ -1,0 +1,677 @@
+﻿Received: from PH0PR01MB8165.prod.exchangelabs.com (2603:10b6:510:297::16) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Mon, 13 Nov 2023 12:10:28
+ +0000
+Received: from BY3PR04CA0015.namprd04.prod.outlook.com (2603:10b6:a03:217::20)
+ by PH0PR01MB8165.prod.exchangelabs.com (2603:10b6:510:297::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6977.19; Mon, 13 Nov 2023 12:10:27 +0000
+Received: from CO1PEPF000042A9.namprd03.prod.outlook.com
+ (2603:10b6:a03:217:cafe::e0) by BY3PR04CA0015.outlook.office365.com
+ (2603:10b6:a03:217::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29 via Frontend
+ Transport; Mon, 13 Nov 2023 12:10:27 +0000
+Authentication-Results: spf=fail (sender IP is 148.168.40.5)
+ smtp.mailfrom=eu-west-1.amazonses.com; dkim=fail (signature did not verify)
+ header.d=globenewswire.com;dmarc=fail action=none
+ header.from=globenewswire.com;
+Received-SPF: Fail (protection.outlook.com: domain of eu-west-1.amazonses.com
+ does not designate 148.168.40.5 as permitted sender)
+ receiver=protection.outlook.com; client-ip=148.168.40.5;
+ helo=mail.pfizer.com;
+Received: from mail.pfizer.com (148.168.40.5) by
+ CO1PEPF000042A9.mail.protection.outlook.com (10.167.243.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7002.13 via Frontend Transport; Mon, 13 Nov 2023 12:10:27 +0000
+Received: from drmamrexdg02.amer.pfizer.com (141.173.144.46) by
+ drmamrexde01.amer.pfizer.com (141.173.144.39) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Mon, 13 Nov 2023 07:10:14 -0500
+Received: from mopmsgo.pfizer.com (10.34.104.59) by
+ drmamrexdg02.amer.pfizer.com (141.173.144.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34 via Frontend Transport; Mon, 13 Nov 2023 07:10:14 -0500
+Received: from pps.filterd (somamrppa09.pfizer.com [127.0.0.1])
+	by somamrppa09.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 3AD9WD6I008047
+	for <bi_vox@pfizer.com>; Mon, 13 Nov 2023 07:10:14 -0500
+Authentication-Results-Original: pfizer.com;	spf=fail
+ smtp.mailfrom=0102018bc896c948-e9b96caf-1172-4ada-8a5d-b48ab9bbe600-000000@eu-west-1.amazonses.com;
+	dkim=fail header.s=53n2hqdyrmsbc6xbob7ury3wnnplr4kz
+ header.d=globenewswire.com;	dkim=fail
+ header.s=shh3fegwg5fppqsuzphvschd53n6ihuv header.d=amazonses.com;	dmarc=fail
+ header.from=globenewswire.com
+Received: from som-feex-02.pfizer.com (som-feex-02-int.pfizer.com [10.34.104.38])
+	by somamrppa09.pfizer.com (PPS) with ESMTPS id 3uar4kc9af-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Mon, 13 Nov 2023 07:10:12 -0500
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by som-feex-02.pfizer.com (Postfix) with SMTP id 4STStD2Vtcz3B8JX
+	for <bi_vox@pfizer.com>; Mon, 13 Nov 2023 12:10:12 +0000 (UTC)
+Received: from mailstream-west.mxrecord.io (mailstream-uswest-egress002.mxrecord.io [52.11.209.211])
+	by som-feex-02.pfizer.com (Postfix) with ESMTPS id 4STStC2sbFz3B8JW
+	for <bi_vox@pfizer.com>; Mon, 13 Nov 2023 12:10:11 +0000 (UTC)
+Received: from mailstream023.us-west-2.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-west.mxrecord.io (Postfix) with ESMTP id 4STStB5KjFzLlhn
+	for <bi_vox@pfizer.com>; Mon, 13 Nov 2023 12:10:10 +0000 (UTC)
+Received-SPF: pass (mailstream-west.mxrecord.io: eu-west-1.amazonses.com designates 54.240.2.135 as permitted sender) client-ip=54.240.2.135; envelope-from=0102018bc896c948-e9b96caf-1172-4ada-8a5d-b48ab9bbe600-000000@eu-west-1.amazonses.com; helo=a2-135.smtp-out.eu-west-1.amazonses.com;
+Received: from mailstream-west.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LOWV46LO
+        for bi_vox@pfizer.com;
+        Mon, 13 Nov 2023 12:10:10 +0000 (GMT)
+Received: from mx0b-00013f02.pphosted.com (mx0b-00013f02.pphosted.com [208.86.201.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-west.mxrecord.io (Postfix) with ESMTPS id 4STStB1sLmzLljv
+	for <bi_vox@pfizer.com>; Mon, 13 Nov 2023 12:10:10 +0000 (UTC)
+Received: from pps.filterd (m0245723.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 3AD91UaB024017
+	for <bi_vox@pfizer.com>; Mon, 13 Nov 2023 07:10:09 -0500
+Received: from a2-135.smtp-out.eu-west-1.amazonses.com (a2-135.smtp-out.eu-west-1.amazonses.com [54.240.2.135])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3ubdekbn37-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=NOT)
+	for <BI_VOX@pfizer.com>; Mon, 13 Nov 2023 07:10:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=53n2hqdyrmsbc6xbob7ury3wnnplr4kz; d=globenewswire.com;
+	t=1699877407;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=oOusZf0+0rG0SdDZKt4oc++MyIg0ecujz+XTDnT6HAY=;
+	b=XCDFeM8z509HOCKrdUhJ2T8JehEdKhre8oYwi0vpoF+GENurLFtmhR/LspJlH0qe
+	zyhsnmS0M23HfnO9aQlT5XaPUQc7hXOTAER0ZsIDoDtlKTtWlDoGzCMmWoBRenUDGHd
+	qHs7x7H0gcFVibw100WdC9KGosIMiHBXu0TqcmEc=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1699877407;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=oOusZf0+0rG0SdDZKt4oc++MyIg0ecujz+XTDnT6HAY=;
+	b=qBj72zuoDwSQTfC0DrPSoQyrzEbSN6kR3LGRNEojB6mtpmfvhORcWYQQk9AfZ02o
+	I6Fwt8ZuRQYQxbB2HnkbSSYa3Xskwrtr4rup+i6/hPBt8VsKXCQMyc0azhbMN3ZJbWn
+	yZMLrRazMQsTz0AZFM/uyFAODVgN22Cj2V1ff9z8=
+X-Sender: "=?UTF-8?Q?Novo=20Nordisk?=" <donotreply@globenewswire.com>
+X-Receiver: BI_VOX@pfizer.com
+X-FireEye: Clean
+From: =?UTF-8?Q?Novo=20Nordisk?= <donotreply@globenewswire.com>
+To: BI_VOX@pfizer.com
+Reply-To: donotreply@globenewswire.com
+Date: Mon, 13 Nov 2023 12:10:07 +0000
+Message-ID: <0102018bc896c948-e9b96caf-1172-4ada-8a5d-b48ab9bbe600-000000@eu-west-1.amazonses.com>
+Feedback-ID: 1.eu-west-1.lzb4fhJZei7Cr1QiW4H/IVCBlOzetPgeQ5iybk43ioI=:AmazonSES
+X-SES-Outgoing: 2023.11.13-54.240.2.135
+X-CLX-Response: 1TFkXGRocEQpMehcfHRIRCllEF2B4YX9laVlDY3pZEQpYWBdgaFIFb25LSx1 /XhEKeE4XbUZ+f2djXVwTZFwRCnhLF2BoUgVvbktLHX9eEQp5TBdsfnBiYHlFWmITbhEKQ0gXBx gTExEKQ1kXBxgeHBEKQ0kXGgQaGhoRCllNF2dmchEKWUkXGx4acRsYEBp3BhseHXESGh8ZEBgdH
+ 3cGGBoGGhEKWV4XbGx5EQpJRhdaTENQT1h1QkVZXk9OEQpJRxd4T00RCkNOFxtbTVAbZktYc0Me S3ofSRpge0tZb3UHG0FMZ1lET3pYEQpYXBcfBBoEGRkTBRsaBBsbGgQbGR4EGR8QGx4aHxoRCl5 ZF0lCHUsSEQpNXBccGxoRCkxaF2htTU1NEQpMRhdva2tra2sRCkJPF2xMbxN7GF55elMTEQpDWh
+ cfHgQYHhoEGAQbGR8RCkJeFxsRCkJcFxsRCl5OFxsRCkJLF21Gfn9nY11cE2RcEQpCSRdtRn5/Z 2NdXBNkXBEKQkUXYH5LeH1NUnNlHF4RCkJOF21Gfn9nY11cE2RcEQpCTBdgaFIFb25LSx1/XhEK QmwXY19TfFp4bmZLZh4RCkJAF2FCeR1IfmRiHUxPEQpCWBdrYWxuW14FekQFHBEKWlgXGREKeUM
+ XaW96RHlkbmxcHXARCllLFx8TGxoRClpLFx8TGxoRCnBoF25PGRt8cwVYHGFTEBoRCnBoF2NbZn JCS3ASUx4YEBoRCnBoF2hdS396a0MBRn1CEBoRCnBoF2QceVlcHRl7SXtLEBoRCnBoF2VJQU8dX kdkWHwfEBoRCnBoF2BobXJ6Uk5CWm0cEBoRCnBoF2JHHW9AU1tCYm5AEBoRCnBoF2UeQmNYb2Nt
+ T0ldEBoRCnB9F2F9fnhcSx1EfB9hEBoRCnB/F2tFXHlSem1hTBkfEBMaEQpwXxdmb0x/RRoaaUd jbBAZGhEKcGwXaV5pUGBkUxhlcm4QGhEKbX4XGhEKWE0XSxEg
+X-Proofpoint-GUID: 1qgz1LarYi4aP5c0JQasE_-1kfMsnePr
+X-CLX-Shades: MLX
+X-Proofpoint-ORIG-GUID: 1qgz1LarYi4aP5c0JQasE_-1kfMsnePr
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-PFERule: PODI-Spoofsafe
+x-pfe-proofpoint-bulk: safe
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:amazonses.com -all
+x-pfepod-dmarc-rule: pass
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: allow
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-13_02,2023-11-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=low_aspam_lowpriority policy=low_aspam score=0 suspectscore=0
+ clxscore=306 malwarescore=0 phishscore=0 mlxscore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=100 bulkscore=0 mlxlogscore=999
+ priorityscore=578 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2311060000 definitions=main-2311130097
+ domainage_hfrom=5910 domainage_replyto=5910
+X-Proofpoint-Tag: lowpriority
+X-Area1Security-Origin: EXTERNAL 
+X-Area1Security-Processed: b298eed175bfe98b600c06bb418caa5a;2;NONE;2023-11-13T12:10:10;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: [EXTERNAL] Trading in Novo Nordisk shares by board members, executives and
+ associated persons             
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-13_02,2023-11-09_01,2023-05-22_02
+Return-Path:
+ 0102018bc896c948-e9b96caf-1172-4ada-8a5d-b48ab9bbe600-000000@eu-west-1.amazonses.com
+X-OrganizationHeadersPreserved: drmamrexde01.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 13 Nov 2023 12:10:27.2784
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 53ea8ced-48b2-4e0e-f81c-08dbe44185da
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: drmamrexdg02.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: CO1PEPF000042A9.namprd03.prod.outlook.com
+X-CrossPremisesHeadersFiltered: CO1PEPF000042A9.namprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ CO1PEPF000042A9:EE_|PH0PR01MB8165:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: pfizer.com
+X-MS-Office365-Filtering-Correlation-Id: 53ea8ced-48b2-4e0e-f81c-08dbe44185da
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.40.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:iad-us-a-148-168-40-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 12:10:27.1065
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53ea8ced-48b2-4e0e-f81c-08dbe44185da
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.40.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: drmamrexdg02.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR01MB8165
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.6473146
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6977.026
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	EAiV72yli71XOiJgkf0fYkOE8YRhK+ix9FrPCcCRU3p3ZF5ZzZ2gA2dmfj4gY8+oWY3QO8k73RF8MkkSENpmd62n6uBdOgAzWqBNv3qcios3xbJe5D24lIT9BpdDXPQq8zc1p1k6UruXEq1KrcpeJWHWJy36n8FwvA3IyWR2Q7iY74UUGLiGds954QfbTXhcQ4pvlkyWT5NY7tgxI58XcbqSH0ydPElONsoz3JbYGNrGGzpiLBxtRkTnp4W1d5iNFkOxZq6Unfnmbb4Dme6SyXHgZmf4DxG56Cw6XQR9WroiUA/e1qFtkPIWE9KAggfYhlUgAR9ZK8bF7lhKBxkF0TKNG1sjsNBFEBZBpIVFZgeFXdRO9yG1hRZQU1dQntYENpOn5ENoX+EfeG7Zg9w6QNJ1r9/XMIvN3FIzTzipoK/sPM/Su3nwHkBzum3BsRnYED2dqmkATBJOKJRCadgoG9Nxjnif2hOT2wYkPAFWdUzSpiOSwCK6ZK1dx/P8t46PbdY/GIwh9xaDQi4B3qGL2CTgjTH7q89A65Gih1yyONp9jyI53jMTHRZU7tOpWEIBccH4OLsPJrQLdX8Jm1BqJLvkgTRfS//fylwbzzOFwPvmZ1ERfOfwZfRDcy7KBm6k1RA/w8De1Ympw3iEW37wT6iBMILQoPj/gKI5p7w8oEH7YuIcOGI/4d2iuzNFCh0HSTbODBmDSWNYVLClFEskXFj0Gi+2gtElvSKjSfDTORQqILPWVtqQiUIUAM2RC5xOeOmnO/r7e3vfFSBQ8Qdtwg==
+MIME-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><t=
+itle></title></head><body style=3D"font-family:Arial;font-size: 14px;"><spa=
+n style=3D"padding: 0px;"></span>
+<table style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"display: inline-block; margin: 0 auto; width: 33%; text-align:=
+ center;"><br><br></td>
+<!-- RIGHT LOGO -->
+<td style=3D"display: inline-block; float: right; width: 33%; text-align: r=
+ight;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div><br>
+<section>
+<article><img src=3D"https://ml-eu.globenewswire.com/media/a6c31fd6-04d5-46=
+33-bf83-c96de6b07a1e/medium/?v=3D07132020123000" alt=3D"" width=3D"120" hei=
+ght=3D"86"></article>
+</section>
+<p>&nbsp;<p><strong>Bagsv=C3=A6rd, Denmark, 13 November 2023 </strong>=E2=
+=80=94 This company announcement discloses the data of the transaction(s) m=
+ade in Novo Nordisk shares by the company=E2=80=99s board members, executiv=
+es and their associated persons in accordance with Article 19 of Regulation=
+ No. 596/2014 on market abuse.</p>   <p>The company=E2=80=99s board members=
+, executives and their associated persons have given Novo Nordisk power of =
+attorney on their behalf to publish trading in Novo Nordisk shares by the c=
+ompany=E2=80=99s board members, executives and their associated persons.</p=
+>   <p>Please find below a statement of such trading in shares issued by No=
+vo Nordisk.</p>  <table style=3D"border-top: solid black 1pt ; border-right=
+: solid black 1pt ; border-bottom: solid black 1pt ; border-left: solid bla=
+ck 1pt ; border-collapse: collapse; margin-left:0; border-collapse:collapse=
+ ;"><tr><td style=3D"width:28.4px;;border-top: solid black 1pt ; border-rig=
+ht: solid black 1pt ; border-bottom: solid black 1pt ; border-left: solid b=
+lack 1pt ; vertical-align: top ; "><strong>1 </strong></td><td colspan=3D"5=
+" style=3D"width:567px;;border-top: solid black 1pt ; border-right: solid b=
+lack 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ; =
+vertical-align: top ; "><strong>Details of the person discharging manageria=
+l responsibilities/person closely associated </strong></td></tr><tr><td sty=
+le=3D"width:28.4px;;border-top: solid black 1pt ; border-right: solid black=
+ 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ; vert=
+ical-align: top ; ">a)</td><td style=3D"width:293.74px;;border-top: solid b=
+lack 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ;=
+ border-left: solid black 1pt ; vertical-align: top ; ">Name of the Board m=
+ember/Executive/Associated Person</td><td colspan=3D"4" style=3D"width:273.=
+27px;;border-top: solid black 1pt ; border-right: solid black 1pt ; border-=
+bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: to=
+p ; ">David Moore</td></tr><tr><td style=3D"width:28.4px;;border-top: solid=
+ black 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt=
+ ; border-left: solid black 1pt ; vertical-align: top ; "><strong>2 </stron=
+g></td><td colspan=3D"5" style=3D"width:567px;;border-top: solid black 1pt =
+; border-right: solid black 1pt ; border-bottom: solid black 1pt ; border-l=
+eft: solid black 1pt ; vertical-align: top ; "><strong>Reason for the notif=
+ication</strong></td></tr><tr><td style=3D"width:28.4px;;border-top: solid =
+black 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt =
+; border-left: solid black 1pt ; vertical-align: top ; ">a)</td><td style=
+=3D"width:293.74px;;border-top: solid black 1pt ; border-right: solid black=
+ 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ; vert=
+ical-align: top ; ">Position/status</td><td colspan=3D"4" style=3D"width:27=
+3.27px;;border-top: solid black 1pt ; border-right: solid black 1pt ; borde=
+r-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: =
+top ; ">Executive Vice President, head of Corporate Development</td></tr><t=
+r><td style=3D"width:28.4px;;border-top: solid black 1pt ; border-right: so=
+lid black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1=
+pt ; vertical-align: top ; ">b)</td><td style=3D"width:293.74px;;border-top=
+: solid black 1pt ; border-right: solid black 1pt ; border-bottom: solid bl=
+ack 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">Initial no=
+tification/Amendment</td><td colspan=3D"4" style=3D"width:273.27px;;border-=
+top: solid black 1pt ; border-right: solid black 1pt ; border-bottom: solid=
+ black 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">Initial=
+ notification</td></tr><tr><td style=3D"width:28.4px;;border-top: solid bla=
+ck 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; b=
+order-left: solid black 1pt ; vertical-align: top ; "><strong>3 </strong></=
+td><td colspan=3D"5" style=3D"width:567px;;border-top: solid black 1pt ; bo=
+rder-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left:=
+ solid black 1pt ; vertical-align: top ; "><strong>Details of the issuer</s=
+trong></td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1pt =
+; border-right: solid black 1pt ; border-bottom: solid black 1pt ; border-l=
+eft: solid black 1pt ; vertical-align: top ; ">a)</td><td style=3D"width:29=
+3.74px;;border-top: solid black 1pt ; border-right: solid black 1pt ; borde=
+r-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: =
+top ; ">Name</td><td colspan=3D"4" style=3D"width:273.27px;;border-top: sol=
+id black 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1=
+pt ; border-left: solid black 1pt ; vertical-align: top ; ">Novo Nordisk A/=
+S</td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1pt ; bor=
+der-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: =
+solid black 1pt ; vertical-align: top ; ">b)</td><td style=3D"width:293.74p=
+x;;border-top: solid black 1pt ; border-right: solid black 1pt ; border-bot=
+tom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ;=
+ ">LEI</td><td colspan=3D"4" style=3D"width:273.27px;;border-top: solid bla=
+ck 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; b=
+order-left: solid black 1pt ; vertical-align: top ; ">549300DAQ1CVT6CXN342<=
+/td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1pt ; borde=
+r-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: so=
+lid black 1pt ; vertical-align: top ; "><strong>4 </strong></td><td colspan=
+=3D"5" style=3D"width:567px;;border-top: solid black 1pt ; border-right: so=
+lid black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1=
+pt ; vertical-align: top ; "><strong>Details of the transaction(s)</strong>=
+</td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1pt ; bord=
+er-right: solid black 1pt ; border-left: solid black 1pt ; vertical-align: =
+top ; ">a)</td><td style=3D"width:293.74px;;border-top: solid black 1pt ; b=
+order-right: solid black 1pt ; border-left: solid black 1pt ; vertical-alig=
+n: top ; ">Description of the financial instrument,<br>type of instrument,<=
+/td><td colspan=3D"4" style=3D"width:273.27px;;border-top: solid black 1pt =
+; border-right: solid black 1pt ; border-left: solid black 1pt ; vertical-a=
+lign: top ; ">Shares<br><br></td></tr><tr><td style=3D"width:28.4px;;border=
+-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: sol=
+id black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D"width:293.74=
+px;;border-right: solid black 1pt ; border-bottom: solid black 1pt ; border=
+-left: solid black 1pt ; vertical-align: top ; ">Identification code</td><t=
+d colspan=3D"4" style=3D"width:273.27px;;border-right: solid black 1pt ; bo=
+rder-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-alig=
+n: top ; ">Novo Nordisk B DK0062498333</td></tr><tr><td style=3D"width:28.4=
+px;;border-top: solid black 1pt ; border-right: solid black 1pt ; border-bo=
+ttom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top =
+; ">b)</td><td style=3D"width:293.74px;;border-top: solid black 1pt ; borde=
+r-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: so=
+lid black 1pt ; vertical-align: top ; ">Nature of the transaction</td><td c=
+olspan=3D"4" style=3D"width:273.27px;;border-top: solid black 1pt ; border-=
+right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: soli=
+d black 1pt ; vertical-align: top ; ">Other transaction (acquisition of sha=
+res in accordance with the recruitment package)</td></tr><tr><td rowspan=3D=
+"5" style=3D"width:28.4px;;border-top: solid black 1pt ; border-right: soli=
+d black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt=
+ ; vertical-align: top ; ">c)<br><br><br><br><br><br><br><br></td><td rowsp=
+an=3D"5" style=3D"width:293.74px;;border-top: solid black 1pt ; border-righ=
+t: solid black 1pt ; border-bottom: solid black 1pt ; border-left: solid bl=
+ack 1pt ; vertical-align: top ; ">Price(s) and volume(s)<br><br><br><br><br=
+><br><br><br></td><td style=3D"width:15.8px;;border-top: solid black 1pt ; =
+border-left: solid black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=
+=3D"width:120.8px;;vertical-align: middle;   text-align: left;   padding-le=
+ft: 30.0px; border-top: solid black 1pt ; border-bottom: solid black 1pt ; =
+vertical-align: top ; ">&nbsp;</td><td style=3D"width:125.2px;;border-top: =
+solid black 1pt ; border-bottom: solid black 1pt ; vertical-align: top ; ">=
+&nbsp;</td><td style=3D"width:11.47px;;border-top: solid black 1pt ; border=
+-right: solid black 1pt ; vertical-align: top ; ">&nbsp;</td></tr><tr><td s=
+tyle=3D"width:15.8px;;border-right: solid black 1pt ; border-left: solid bl=
+ack 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D"width:120.8px;;bo=
+rder-top: solid black 1pt ; border-right: solid black 1pt ; border-bottom: =
+solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">Pr=
+ice(s)</td><td style=3D"width:125.2px;;border-top: solid black 1pt ; border=
+-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: sol=
+id black 1pt ; vertical-align: top ; ">Volume(s)</td><td style=3D"width:11.=
+47px;;border-right: solid black 1pt ; border-left: solid black 1pt ; vertic=
+al-align: top ; ">&nbsp;</td></tr><tr><td style=3D"width:15.8px;;border-rig=
+ht: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; =
+">&nbsp;</td><td style=3D"width:120.8px;;border-top: solid black 1pt ; bord=
+er-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: s=
+olid black 1pt ; vertical-align: top ; ">DKK 0.00</td><td style=3D"width:12=
+5.2px;;border-top: solid black 1pt ; border-right: solid black 1pt ; border=
+-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: t=
+op ; ">18,636 shares</td><td style=3D"width:11.47px;;border-right: solid bl=
+ack 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">&nbsp;</td=
+></tr><tr><td style=3D"width:15.8px;;border-right: solid black 1pt ; border=
+-left: solid black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D"wi=
+dth:120.8px;;border-top: solid black 1pt ; border-right: solid black 1pt ; =
+border-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-al=
+ign: top ; ">&nbsp;</td><td style=3D"width:125.2px;;border-top: solid black=
+ 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; bor=
+der-left: solid black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D=
+"width:11.47px;;border-right: solid black 1pt ; border-left: solid black 1p=
+t ; vertical-align: top ; ">&nbsp;</td></tr><tr><td style=3D"width:15.8px;;=
+border-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-al=
+ign: top ; ">&nbsp;</td><td style=3D"width:120.8px;;border-top: solid black=
+ 1pt ; border-bottom: solid black 1pt ; vertical-align: top ; ">&nbsp;</td>=
+<td style=3D"width:125.2px;;border-top: solid black 1pt ; border-bottom: so=
+lid black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D"width:11.47=
+px;;border-right: solid black 1pt ; border-bottom: solid black 1pt ; vertic=
+al-align: top ; ">&nbsp;</td></tr><tr><td style=3D"width:28.4px;;border-top=
+: solid black 1pt ; border-right: solid black 1pt ; border-bottom: solid bl=
+ack 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">d)</td><td=
+ style=3D"width:293.74px;;border-top: solid black 1pt ; border-right: solid=
+ black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt =
+; vertical-align: top ; ">Aggregated information  <ul type=3D"disc"><li>Agg=
+regated volume</li><li>Price</li></ul>  </td><td colspan=3D"4" style=3D"wid=
+th:273.27px;;border-top: solid black 1pt ; border-right: solid black 1pt ; =
+border-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-al=
+ign: top ; "><br><br>18,636 shares<br>DKK 0.00</td></tr><tr><td style=3D"wi=
+dth:28.4px;;border-top: solid black 1pt ; border-right: solid black 1pt ; b=
+order-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-ali=
+gn: top ; ">e)</td><td style=3D"width:293.74px;;border-top: solid black 1pt=
+ ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; border-=
+left: solid black 1pt ; vertical-align: top ; ">Date of the transaction</td=
+><td colspan=3D"4" style=3D"width:273.27px;;border-top: solid black 1pt ; b=
+order-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left=
+: solid black 1pt ; vertical-align: top ; ">2023-11-09</td></tr><tr><td sty=
+le=3D"width:28.4px;;border-top: solid black 1pt ; border-right: solid black=
+ 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ; vert=
+ical-align: top ; ">f)</td><td style=3D"width:293.74px;;border-top: solid b=
+lack 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ;=
+ border-left: solid black 1pt ; vertical-align: top ; ">Place of the transa=
+ction</td><td colspan=3D"4" style=3D"width:273.27px;;border-top: solid blac=
+k 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; bo=
+rder-left: solid black 1pt ; vertical-align: top ; ">Outside a trading venu=
+e</td></tr></table>  <p>&nbsp;</p>  <table style=3D"border-top: solid black=
+ 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; bor=
+der-left: solid black 1pt ; border-collapse: collapse; margin-left:0; borde=
+r-collapse:collapse ;"><tr><td style=3D"width:28.4px;;border-top: solid bla=
+ck 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; b=
+order-left: solid black 1pt ; vertical-align: top ; "><strong>1 </strong></=
+td><td colspan=3D"5" style=3D"width:567px;;border-top: solid black 1pt ; bo=
+rder-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left:=
+ solid black 1pt ; vertical-align: top ; "><strong>Details of the person di=
+scharging managerial responsibilities/person closely associated </strong></=
+td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1pt ; border=
+-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: sol=
+id black 1pt ; vertical-align: top ; ">a)</td><td style=3D"width:293.74px;;=
+border-top: solid black 1pt ; border-right: solid black 1pt ; border-bottom=
+: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">=
+Name of the Board member/Executive/Associated Person</td><td colspan=3D"4" =
+style=3D"width:273.27px;;border-top: solid black 1pt ; border-right: solid =
+black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ;=
+ vertical-align: top ; ">David Moore</td></tr><tr><td style=3D"width:28.4px=
+;;border-top: solid black 1pt ; border-right: solid black 1pt ; border-bott=
+om: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; =
+"><strong>2 </strong></td><td colspan=3D"5" style=3D"width:567px;;border-to=
+p: solid black 1pt ; border-right: solid black 1pt ; border-bottom: solid b=
+lack 1pt ; border-left: solid black 1pt ; vertical-align: top ; "><strong>R=
+eason for the notification</strong></td></tr><tr><td style=3D"width:28.4px;=
+;border-top: solid black 1pt ; border-right: solid black 1pt ; border-botto=
+m: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; "=
+>a)</td><td style=3D"width:293.74px;;border-top: solid black 1pt ; border-r=
+ight: solid black 1pt ; border-bottom: solid black 1pt ; border-left: solid=
+ black 1pt ; vertical-align: top ; ">Position/status</td><td colspan=3D"4" =
+style=3D"width:273.27px;;border-top: solid black 1pt ; border-right: solid =
+black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ;=
+ vertical-align: top ; ">Executive Vice President, head of Corporate Develo=
+pment</td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1pt ;=
+ border-right: solid black 1pt ; border-bottom: solid black 1pt ; border-le=
+ft: solid black 1pt ; vertical-align: top ; ">b)</td><td style=3D"width:293=
+.74px;;border-top: solid black 1pt ; border-right: solid black 1pt ; border=
+-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: t=
+op ; ">Initial notification/Amendment</td><td colspan=3D"4" style=3D"width:=
+273.27px;;border-top: solid black 1pt ; border-right: solid black 1pt ; bor=
+der-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-align=
+: top ; ">Initial notification</td></tr><tr><td style=3D"width:28.4px;;bord=
+er-top: solid black 1pt ; border-right: solid black 1pt ; border-bottom: so=
+lid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; "><str=
+ong>3 </strong></td><td colspan=3D"5" style=3D"width:567px;;border-top: sol=
+id black 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1=
+pt ; border-left: solid black 1pt ; vertical-align: top ; "><strong>Details=
+ of the issuer</strong></td></tr><tr><td style=3D"width:28.4px;;border-top:=
+ solid black 1pt ; border-right: solid black 1pt ; border-bottom: solid bla=
+ck 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">a)</td><td =
+style=3D"width:293.74px;;border-top: solid black 1pt ; border-right: solid =
+black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ;=
+ vertical-align: top ; ">Name</td><td colspan=3D"4" style=3D"width:273.27px=
+;;border-top: solid black 1pt ; border-right: solid black 1pt ; border-bott=
+om: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; =
+">Novo Nordisk A/S</td></tr><tr><td style=3D"width:28.4px;;border-top: soli=
+d black 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1p=
+t ; border-left: solid black 1pt ; vertical-align: top ; ">b)</td><td style=
+=3D"width:293.74px;;border-top: solid black 1pt ; border-right: solid black=
+ 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ; vert=
+ical-align: top ; ">LEI</td><td colspan=3D"4" style=3D"width:273.27px;;bord=
+er-top: solid black 1pt ; border-right: solid black 1pt ; border-bottom: so=
+lid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">5493=
+00DAQ1CVT6CXN342</td></tr><tr><td style=3D"width:28.4px;;border-top: solid =
+black 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt =
+; border-left: solid black 1pt ; vertical-align: top ; "><strong>4 </strong=
+></td><td colspan=3D"5" style=3D"width:567px;;border-top: solid black 1pt ;=
+ border-right: solid black 1pt ; border-bottom: solid black 1pt ; border-le=
+ft: solid black 1pt ; vertical-align: top ; "><strong>Details of the transa=
+ction(s)</strong></td></tr><tr><td style=3D"width:28.4px;;border-top: solid=
+ black 1pt ; border-right: solid black 1pt ; border-left: solid black 1pt ;=
+ vertical-align: top ; ">a)</td><td style=3D"width:293.74px;;border-top: so=
+lid black 1pt ; border-right: solid black 1pt ; border-left: solid black 1p=
+t ; vertical-align: top ; ">Description of the financial instrument,<br>typ=
+e of instrument,</td><td colspan=3D"4" style=3D"width:273.27px;;border-top:=
+ solid black 1pt ; border-right: solid black 1pt ; border-left: solid black=
+ 1pt ; vertical-align: top ; ">Shares<br><br></td></tr><tr><td style=3D"wid=
+th:28.4px;;border-right: solid black 1pt ; border-bottom: solid black 1pt ;=
+ border-left: solid black 1pt ; vertical-align: top ; ">&nbsp;</td><td styl=
+e=3D"width:293.74px;;border-right: solid black 1pt ; border-bottom: solid b=
+lack 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">Identific=
+ation code</td><td colspan=3D"4" style=3D"width:273.27px;;border-right: sol=
+id black 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1p=
+t ; vertical-align: top ; ">Novo Nordisk B DK0062498333</td></tr><tr><td st=
+yle=3D"width:28.4px;;border-top: solid black 1pt ; border-right: solid blac=
+k 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ; ver=
+tical-align: top ; ">b)</td><td style=3D"width:293.74px;;border-top: solid =
+black 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt =
+; border-left: solid black 1pt ; vertical-align: top ; ">Nature of the tran=
+saction</td><td colspan=3D"4" style=3D"width:273.27px;;border-top: solid bl=
+ack 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; =
+border-left: solid black 1pt ; vertical-align: top ; ">Sale of shares</td><=
+/tr><tr><td rowspan=3D"5" style=3D"width:28.4px;;border-top: solid black 1p=
+t ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; border=
+-left: solid black 1pt ; vertical-align: top ; ">c)<br><br><br><br><br><br>=
+<br><br></td><td rowspan=3D"5" style=3D"width:293.74px;;border-top: solid b=
+lack 1pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ;=
+ border-left: solid black 1pt ; vertical-align: top ; ">Price(s) and volume=
+(s)<br><br><br><br><br><br><br><br></td><td style=3D"width:15.8px;;border-t=
+op: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; =
+">&nbsp;</td><td style=3D"width:120.8px;;vertical-align: middle;   text-ali=
+gn: left;   padding-left: 30.0px; border-top: solid black 1pt ; border-bott=
+om: solid black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D"width=
+:125.2px;;border-top: solid black 1pt ; border-bottom: solid black 1pt ; ve=
+rtical-align: top ; ">&nbsp;</td><td style=3D"width:11.47px;;border-top: so=
+lid black 1pt ; border-right: solid black 1pt ; vertical-align: top ; ">&nb=
+sp;</td></tr><tr><td style=3D"width:15.8px;;border-right: solid black 1pt ;=
+ border-left: solid black 1pt ; vertical-align: top ; ">&nbsp;</td><td styl=
+e=3D"width:120.8px;;border-top: solid black 1pt ; border-right: solid black=
+ 1pt ; border-bottom: solid black 1pt ; border-left: solid black 1pt ; vert=
+ical-align: top ; ">Price(s)</td><td style=3D"width:125.2px;;border-top: so=
+lid black 1pt ; border-right: solid black 1pt ; border-bottom: solid black =
+1pt ; border-left: solid black 1pt ; vertical-align: top ; ">Volume(s)</td>=
+<td style=3D"width:11.47px;;border-right: solid black 1pt ; border-left: so=
+lid black 1pt ; vertical-align: top ; ">&nbsp;</td></tr><tr><td style=3D"wi=
+dth:15.8px;;border-right: solid black 1pt ; border-left: solid black 1pt ; =
+vertical-align: top ; ">&nbsp;</td><td style=3D"width:120.8px;;border-top: =
+solid black 1pt ; border-right: solid black 1pt ; border-bottom: solid blac=
+k 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">DKK 701.52</=
+td><td style=3D"width:125.2px;;border-top: solid black 1pt ; border-right: =
+solid black 1pt ; border-bottom: solid black 1pt ; border-left: solid black=
+ 1pt ; vertical-align: top ; ">8,217 shares</td><td style=3D"width:11.47px;=
+;border-right: solid black 1pt ; border-left: solid black 1pt ; vertical-al=
+ign: top ; ">&nbsp;</td></tr><tr><td style=3D"width:15.8px;;border-right: s=
+olid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">&nb=
+sp;</td><td style=3D"width:120.8px;;border-top: solid black 1pt ; border-ri=
+ght: solid black 1pt ; border-bottom: solid black 1pt ; border-left: solid =
+black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D"width:125.2px;;=
+border-top: solid black 1pt ; border-right: solid black 1pt ; border-bottom=
+: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">=
+&nbsp;</td><td style=3D"width:11.47px;;border-right: solid black 1pt ; bord=
+er-left: solid black 1pt ; vertical-align: top ; ">&nbsp;</td></tr><tr><td =
+style=3D"width:15.8px;;border-bottom: solid black 1pt ; border-left: solid =
+black 1pt ; vertical-align: top ; ">&nbsp;</td><td style=3D"width:120.8px;;=
+border-top: solid black 1pt ; border-bottom: solid black 1pt ; vertical-ali=
+gn: top ; ">&nbsp;</td><td style=3D"width:125.2px;;border-top: solid black =
+1pt ; border-bottom: solid black 1pt ; vertical-align: top ; ">&nbsp;</td><=
+td style=3D"width:11.47px;;border-right: solid black 1pt ; border-bottom: s=
+olid black 1pt ; vertical-align: top ; ">&nbsp;</td></tr><tr><td style=3D"w=
+idth:28.4px;;border-top: solid black 1pt ; border-right: solid black 1pt ; =
+border-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-al=
+ign: top ; ">d)</td><td style=3D"width:293.74px;;border-top: solid black 1p=
+t ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; border=
+-left: solid black 1pt ; vertical-align: top ; ">Aggregated information  <u=
+l type=3D"disc"><li>Aggregated volume</li><li>Price</li></ul>  </td><td col=
+span=3D"4" style=3D"width:273.27px;;border-top: solid black 1pt ; border-ri=
+ght: solid black 1pt ; border-bottom: solid black 1pt ; border-left: solid =
+black 1pt ; vertical-align: top ; "><br><br>8,217 shares<br>DKK 5,764,389.8=
+4</td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1pt ; bor=
+der-right: solid black 1pt ; border-bottom: solid black 1pt ; border-left: =
+solid black 1pt ; vertical-align: top ; ">e)</td><td style=3D"width:293.74p=
+x;;border-top: solid black 1pt ; border-right: solid black 1pt ; border-bot=
+tom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ;=
+ ">Date of the transaction</td><td colspan=3D"4" style=3D"width:273.27px;;b=
+order-top: solid black 1pt ; border-right: solid black 1pt ; border-bottom:=
+ solid black 1pt ; border-left: solid black 1pt ; vertical-align: top ; ">2=
+023-11-09</td></tr><tr><td style=3D"width:28.4px;;border-top: solid black 1=
+pt ; border-right: solid black 1pt ; border-bottom: solid black 1pt ; borde=
+r-left: solid black 1pt ; vertical-align: top ; ">f)</td><td style=3D"width=
+:293.74px;;border-top: solid black 1pt ; border-right: solid black 1pt ; bo=
+rder-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-alig=
+n: top ; ">Place of the transaction</td><td colspan=3D"4" style=3D"width:27=
+3.27px;;border-top: solid black 1pt ; border-right: solid black 1pt ; borde=
+r-bottom: solid black 1pt ; border-left: solid black 1pt ; vertical-align: =
+top ; ">Outside a trading venue</td></tr></table>  <p><em>Novo Nordisk is a=
+ leading global healthcare company, founded in 1923 and headquartered in De=
+nmark. Our purpose is to drive change to defeat serious chronic diseases, b=
+uilt upon our heritage in diabetes. We do so by pioneering scientific break=
+throughs, expanding access to our medicines, and working to prevent and ult=
+imately cure disease. Novo Nordisk employs about 61,400 people in 80 countr=
+ies and markets its products in around 170 countries. Novo Nordisk's B shar=
+es are listed on Nasdaq Copenhagen (Novo-B). Its ADRs are listed on the New=
+ York Stock Exchange (NVO). For more information, visit </em><a href=3D"htt=
+ps://urldefense.com/v3/__https://connect-eu.notified.com/Tracker?data=3Ddtq=
+-PUJiwIz17ylgxXBiXKD6TUnFFnfjvtKD2s9CgcIyDWJ_xFBn074GrgfWy0UtA7a-N14ZHhpqRV=
+5zyzh2Dl1g8ZUm1uNcLSLbx9sWeQ0=3D000286595749__;!!H9nueQsQ!4pw7STSUhxjPimlRJ=
+W9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG6joooNo0Su0iN3C-MaA$"=
+ rel=3D"nofollow" target=3D"_blank"><em>novonordisk.com</em></a><em>,</em> =
+<a href=3D"https://urldefense.com/v3/__https://connect-eu.notified.com/Trac=
+ker?data=3DZ8bpKEUgGzYPTXDYg5pY2PlrlPNA2rvUkPp3u53A7mDlkJZZAvEFK7UFu4Q3opkI=
+GiuYJVUj701nd1qLGov4YKRi3oW3tLMhqNk_3mfsDYM=3D000286595749__;!!H9nueQsQ!4pw=
+7STSUhxjPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG6joooNo=
+0Su0gE9pb7jg$" rel=3D"nofollow" target=3D"_blank"><em>Facebook</em></a><em>=
+, </em><a href=3D"https://urldefense.com/v3/__https://connect-eu.notified.c=
+om/Tracker?data=3DlHxuf1REQV4dRfdsowwNctj7HRLIXeoQSbYGYiNtd54aBo0TUe58SeDLr=
+1Eps1F7eZxiA3mMgQmgZBC4hVSRfKELlSYYL3AkcSEgU0NbF3o=3D000286595749__;!!H9nue=
+QsQ!4pw7STSUhxjPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG=
+6joooNo0Su0iY-TW0SQ$" rel=3D"nofollow" target=3D"_blank"><em>Instagram</em>=
+</a><em>, </em><a href=3D"https://urldefense.com/v3/__https://connect-eu.no=
+tified.com/Tracker?data=3DlAyDuYDOTfucx26KlPOxuzT7KNrp5SvxnQe7vErfSkWfeZHEx=
+7lvUm0LOZ4_ogiTSKWyGdPc0SYwBcAETwxcTg=3D=3D000286595749__;!!H9nueQsQ!4pw7ST=
+SUhxjPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG6joooNo0Su=
+0gbDZSrLg$" rel=3D"nofollow" target=3D"_blank"><em>X</em></a><em>, </em><a =
+href=3D"https://urldefense.com/v3/__https://connect-eu.notified.com/Tracker=
+?data=3DdTOEnci0oRp_lXIm8mK-jHvOU43v035ad4YWrfOWN39slqD9L1dw_0xgTu75tZKxL1p=
+rr_C3jWQq18iISB9QfdpZ_iLURPMrAyUTxnB-JjA=3D000286595749__;!!H9nueQsQ!4pw7ST=
+SUhxjPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG6joooNo0Su=
+0g4N9V5Sg$" rel=3D"nofollow" target=3D"_blank"><em>LinkedIn</em></a><em> an=
+d</em> <a href=3D"https://urldefense.com/v3/__https://connect-eu.notified.c=
+om/Tracker?data=3DJOamKtL0goJbFA86HyPh6xTC9aCx3pgFrCJGpTbsK3rGeE4dChsbRvWa4=
+CLRp_0VYyby4xpFH5Yw08Khb6lt0QQX6k2-hWDMJPqg5SyWEU8=3D000286595749__;!!H9nue=
+QsQ!4pw7STSUhxjPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG=
+6joooNo0Su0gQqJmAqg$" rel=3D"nofollow" target=3D"_blank"><em>YouTube</em></=
+a><em>.</em></p>   <p><strong>Contacts for further information</strong></p>=
+  <table style=3D"border-collapse: collapse; width:326.05pt; border-collaps=
+e:collapse ;"><tr><td style=3D"width:217.4px;;vertical-align: top ; "><stro=
+ng>Media:</strong></td><td style=3D"width:217.34px;;vertical-align: top ; "=
+>&nbsp;</td></tr><tr><td style=3D"width:217.4px;;vertical-align: top ; "><s=
+trong>Ambre James-Brown </strong><br>+45 3079 9289<br><a href=3D"mailto:abm=
+o@novonordisk.com" rel=3D"nofollow" target=3D"_blank">abmo@novonordisk.com<=
+/a><br><br></td><td style=3D"width:217.34px;;vertical-align: top ; "><stron=
+g>Elizabeth DeLuca (US)</strong><br>+1 609 580 9868<br><a href=3D"mailto:ed=
+el@novonordisk.com" rel=3D"nofollow" target=3D"_blank">edel@novonordisk.com=
+</a><br><br></td></tr><tr><td style=3D"width:217.4px;;vertical-align: top ;=
+ "><strong>Investors:</strong></td><td style=3D"width:217.34px;;vertical-al=
+ign: top ; ">&nbsp;</td></tr><tr><td style=3D"width:217.4px;;vertical-align=
+: top ; "><strong>Daniel Muusmann Bohsen</strong><br>+45 3075 2175 <br><a h=
+ref=3D"mailto:dabo@novonordisk.com" rel=3D"nofollow" target=3D"_blank">dabo=
+@novonordisk.com</a><br><br></td><td style=3D"width:217.34px;;vertical-alig=
+n: top ; "><strong>Jacob Martin Wiborg Rode</strong><br>+45 3075 5956<br><a=
+ href=3D"mailto:jrde@novonordisk.com" rel=3D"nofollow" target=3D"_blank">jr=
+de@novonordisk.com</a><br><br></td></tr><tr><td style=3D"width:217.4px;;ver=
+tical-align: top ; "><strong>David Heiberg Landsted</strong> <br>+45 3077 6=
+915 <br><a href=3D"mailto:dhel@novonordisk.com" rel=3D"nofollow" target=3D"=
+_blank">dhel@novonordisk.com</a><br><br></td><td style=3D"width:217.34px;;v=
+ertical-align: top ; "><strong>Mark Joseph Root (US)</strong> <br>+1 848 21=
+3 3219<br><a href=3D"mailto:mjhr@novonordisk.com" rel=3D"nofollow" target=
+=3D"_blank">mjhr@novonordisk.com</a><br><br></td></tr><tr><td style=3D"widt=
+h:217.4px;;vertical-align: top ; "><strong>Sina Meyer </strong><br>+45 3079=
+ 6656 <a href=3D"mailto:azey@novonordisk.com" rel=3D"nofollow" target=3D"_b=
+lank">azey@novonordisk.com</a><br><br></td><td style=3D"width:217.34px;;ver=
+tical-align: top ; "><strong>Frederik Taylor Pitter </strong><br>+45 3075 8=
+259 <a href=3D"mailto:fptr@novonordisk.com" rel=3D"nofollow" target=3D"_bla=
+nk">fptr@novonordisk.com</a><br><br></td></tr></table>  <p>Company announce=
+ment No 76 / 2023</p>   <p>&nbsp;</p> <p id=3D"gnw_attachments_section-head=
+er">
+    <strong>Attachment</strong>
+</p>
+<ul id=3D"gnw_attachments_section-items">
+            <li>
+        <a target=3D"_blank" href=3D"https://urldefense.com/v3/__https://ml=
+-eu.globenewswire.com/Resource/Download/f28a1abd-29a8-4dfa-8ba8-875690eac8e=
+2__;!!H9nueQsQ!4pw7STSUhxjPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQ=
+IXop3F0DveG6joooNo0Su0jdX-TnIg$">CA231113-Insider-trading</a>
+      </li>
+      </ul>
+</p>
+<p><span lang=3D"EN-GB" style=3D"mso-ansi-language: EN-GB; font-size: 10pt;=
+ font-family: 'Arial';">For more details about Novo Nordisk, please visit <=
+/span><span lang=3D"EN-GB" style=3D"font-size: 10pt; font-family: 'Arial';"=
+><a href=3D"https://urldefense.com/v3/__http://www.novonordisk.com/__;!!H9n=
+ueQsQ!4pw7STSUhxjPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0Dv=
+eG6joooNo0Su0jY2kkGig$" target=3D"_blank">www.novonordisk.com</a></span><sp=
+an lang=3D"EN-GB" style=3D"mso-ansi-language: EN-GB; font-size: 10pt; font-=
+family: 'Arial';">; </span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri=
+, sans-serif;"><em><span style=3D"font-size: 10.0pt; font-family: 'Verdana'=
+,sans-serif;">Dear subscriber to Novo Nordisk press releases/company announ=
+cements<br> We use your email address to send you news from Novo Nordisk. I=
+f you want to know how we comply with data privacy protection, you can read=
+ more here: <span style=3D"color: #0563c1; text-decoration: underline;"><em=
+><span style=3D"font-size: 10.0pt; font-family: 'Verdana',sans-serif;"><a s=
+tyle=3D"color: #0563c1; text-decoration: underline;" href=3D"https://urldef=
+ense.com/v3/__https://shared.outlook.inky.com/link?domain=3Dwww.novonordisk=
+.com&amp;t=3DeyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eJxlkFtrwkAQhf_LPhtjtIEaK=
+Fh7EcSsSKsREWSTnSab7CXsbhJN6X_vptCX9m2YOYdzvvlEFohgFEWISasJVWg0TKAl4Sj6INzA=
+CIE7E1HkC6laJZWmzFTjTAmnHZz_t412ZlRYW5vo7J_9ruvGf1RnnxJLvFqzlmQ3j0jqNQa0p1l=
+eWHP2fw9SWZaBJ6EznmlSk2mWwriwgruc7R5FsuF8hGyhgdgLhxZc9MRBDM1IEk4y8Vqlt3lPj8=
+suna0nG3EIMjHvTvulTFdzdkpCTmd4Ro5rvhG4Td_mBU7iaTxdV1gcWJy89LjPA1xmAV7F4fYZ8=
+1P5eLd9j4PT0_0Vv1chLvcd7nfXTbl7GPAdyAUEYfxCKNVgjOtimrpW2o6h0aqGRc5VCgNVxzT8=
+vO3rGw88ixw.MEUCIQDDyWRfSZrY_50WdIjirzLjp-oBXb1g3wJAwyuBPTfqQgIgCNFbxhquyYR=
+68_idQrQ2R90bZBDvA1J9cQJgIb_HpGs__;!!H9nueQsQ!4pw7STSUhxjPimlRJW9LXZsKY2OF1=
+hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG6joooNo0Su0jYaIgf5Q$">https://www=
+.novonordisk.com/data-privacy-and-user-rights/privacy-notice-news-subscribe=
+.html</a></span></em></span></span></em><span style=3D"font-size: 10.0pt; f=
+ont-family: 'Verdana',sans-serif;">.</span><span style=3D"font-size: 10.0pt=
+; font-family: 'Arial',sans-serif;">&nbsp;</span><em><span style=3D"font-si=
+ze: 10.0pt; font-family: 'Verdana',sans-serif;">If you don=E2=80=99t want t=
+o subscribe anymore,&nbsp;</span><a style=3D"color: #0563c1; text-decoratio=
+n: underline;" href=3D"https://urldefense.com/v3/__https://shared.outlook.i=
+nky.com/link?domain=3Dwww.novonordisk.com&amp;t=3DeyJ0eXAiOiJKV1QiLCJhbGciO=
+iJFUzI1NiJ9.eJxlUNtqg0AQ_Zd9TjSXClUopOklEOKG0CQGEcLqTuPqXmR3zaaW_nu19Kl9G85=
+l5pz5RBaIYBRFiEmrCVVoNEygJeEoeifcwAhBTxNRXhZSXZVUmjJTe4USvXZw_kdb3ZtRaW1jos=
+zPfOec90eV-RKcGRNJxwIoI5nPiQVjxwP8S7bStLkpNMvBK63g_ebtAUWy5XyEbKmB2DOHK_THJ=
+n3sIQtJgkkhXuv8I-zoaeny-XqyEcdpIUKXHpYyX4UsTQJO53hOTmu-Efiav4UlTuJZPFvXWBxZ=
+nLx0uLtMcVVM8SoOts-Yp9Xj3XYfT9On-xve1wGuDg53u9um2j0MhQ3oMwjC-JlQqsGYPotpm0Z=
+p60GrVQOLC1c5DL0c0_DzqK9v-2eFog.MEQCIDlax1MeOhpvi1VIeeYuXyJkUFgJgtE9o108qz-=
+OlWRUAiBk_qsoY0gII47Qp8tTzBJvSu3jtVgcXAdkvgAcxWyNiw__;!!H9nueQsQ!4pw7STSUhx=
+jPimlRJW9LXZsKY2OF1hzxs1smViEzGl_oRw_VCywTv6ahKGOQIXop3F0DveG6joooNo0Su0gF4=
+57-rg$">please go to novnordisk.com to unsubscribe.</a></em></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri=
+, sans-serif;">&nbsp;</p>
+<div style=3D"border-top: 1px solid #aba8a8; margin-top: 1em; padding: 1em =
+0; font-size: 11px !important; color: #aba8a8;">&nbsp;</div>
+</div>
+<img src=3D"https://contacts-eu.globenewswire.com/Ros/TrackEmailOpen?recipi=
+entId=3Dbase64v2%3ab9Ewd%2blGH7iP6gXNsN51%2bMIVdIYxUjFzRl6GOagtN3lHy8V1kW6O=
+H2qPGuw3x4ip" width=3D"1" height=3D"1" style=3D"display:none;"></body></htm=
+l>=
+

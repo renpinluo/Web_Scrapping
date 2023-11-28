@@ -1,0 +1,16 @@
+{"biopharmadive": ["/news", "/trendline"], 
+"fiercepharma": ["/pharma", "/sponsored", 
+"/marketing", "/manufacturing", "/research", "/special-reports"], 
+"fiercebiotech": ["/biotech", "medtech", "/sponsored", "/cro", "/research", "/special-reports"], 
+"modernhealthcare": ["/legal", "/policy", "/finance", "/digital-health", "/insurance", "/providers", "/labor", "/mergers-acquisions", "/education-events"], 
+"kffhealthnews": ["/news"], 
+"kff": ["/coronavirus-covid-19", "/global-health-policy", "/policy-watch", "/health-costs", "/health-reform", "/hivaids", "/medicaid", "/medicare", "/mental-health", "/patient-and-consumer-protections", "/private-insurance", "/racial-equity-and-health-policy", "/uninsured", "/womens-health-policy", "/e3t"], 
+"fda": ["/drugs", "/food", "/medical-devices", "/radiation-emitting-products", "/vaccines-blood-biologics", "/animal-veterinary", "/cosmetics", "/tobacco-products", "/news-events", "/safety","/science-research"], 
+"amgen":["/news-releases"], 
+"lilly":["/news-releases"], 
+"astrazeneca":["/media-centre"], 
+"bms":["/news"], 
+"evaluate":[],
+"globaldata":["/newsletter"],
+"statnews":["/20"]
+}

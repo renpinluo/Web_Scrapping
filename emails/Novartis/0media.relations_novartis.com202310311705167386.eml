@@ -1,0 +1,748 @@
+﻿Received: from PH0PR01MB6540.prod.exchangelabs.com (2603:10b6:510:98::8) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Tue, 31 Oct 2023 21:01:57
+ +0000
+Received: from CH5P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::6)
+ by PH0PR01MB6540.prod.exchangelabs.com (2603:10b6:510:98::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6933.29; Tue, 31 Oct 2023 21:01:55 +0000
+Received: from DS3PEPF000099D7.namprd04.prod.outlook.com
+ (2603:10b6:610:1f2:cafe::7b) by CH5P221CA0001.outlook.office365.com
+ (2603:10b6:610:1f2::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19 via Frontend
+ Transport; Tue, 31 Oct 2023 21:01:55 +0000
+Authentication-Results: spf=softfail (sender IP is 148.168.96.5)
+ smtp.mailfrom=gnw.novartis.com; dkim=fail (signature did not verify)
+ header.d=novartis.com;dmarc=fail action=oreject header.from=novartis.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ gnw.novartis.com discourages use of 148.168.96.5 as permitted sender)
+Received: from mail.pfizer.com (148.168.96.5) by
+ DS3PEPF000099D7.mail.protection.outlook.com (10.167.17.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6954.19 via Frontend Transport; Tue, 31 Oct 2023 21:01:55 +0000
+Received: from somamrexdg05.amer.pfizer.com (170.116.144.46) by
+ somamrexdf05.amer.pfizer.com (170.116.144.43) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16; Tue, 31 Oct 2023 17:01:37 -0400
+Received: from mopmsgo.pfizer.com (10.34.104.57) by
+ somamrexdg05.amer.pfizer.com (170.116.144.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16 via Frontend Transport; Tue, 31 Oct 2023 17:01:37 -0400
+Received: from pps.filterd (somamrppa07.pfizer.com [127.0.0.1])
+	by somamrppa07.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 39VKmWHJ012640
+	for <bi_vox@pfizer.com>; Tue, 31 Oct 2023 17:01:37 -0400
+Authentication-Results-Original: pfizer.com;	spf=softfail
+ smtp.mailfrom=0102018b878a933b-f4b27248-00e1-4e91-9887-fb336d7e3d00-000000@gnw.novartis.com;
+	dkim=fail header.s=63qbsolantppa6jjq5zsijtzjzmsekpw header.d=novartis.com;
+	dkim=fail header.s=shh3fegwg5fppqsuzphvschd53n6ihuv header.d=amazonses.com;
+	dmarc=fail header.from=novartis.com
+Received: from som-feex-01.pfizer.com (som-feex-01-int.pfizer.com [10.34.104.39])
+	by somamrppa07.pfizer.com (PPS) with ESMTPS id 3u1mnc0yfe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Tue, 31 Oct 2023 17:01:37 -0400
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by som-feex-01.pfizer.com (Postfix) with SMTP id 4SKjHP13N2z2CWY
+	for <bi_vox@pfizer.com>; Tue, 31 Oct 2023 21:01:37 +0000 (UTC)
+Received: from mailstream-west.mxrecord.io (mailstream-uswest-egress002.mxrecord.io [52.11.209.211])
+	by som-feex-01.pfizer.com (Postfix) with ESMTPS id 4SKjHM60GKz2CWy
+	for <bi_vox@pfizer.com>; Tue, 31 Oct 2023 21:01:35 +0000 (UTC)
+Received: from mailstream022.us-west-2.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-west.mxrecord.io (Postfix) with ESMTP id 4SKjHM1mlFz2LXF4
+	for <bi_vox@pfizer.com>; Tue, 31 Oct 2023 21:01:35 +0000 (UTC)
+Received-SPF: pass (mailstream-west.mxrecord.io: gnw.novartis.com designates 54.240.51.4 as permitted sender) client-ip=54.240.51.4; envelope-from=0102018b878a933b-f4b27248-00e1-4e91-9887-fb336d7e3d00-000000@gnw.novartis.com; helo=a51-4.smtp-out.eu-west-1.amazonses.com;
+Received: from mailstream-west.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LOETBY78
+        for bi_vox@pfizer.com;
+        Tue, 31 Oct 2023 21:01:34 +0000 (GMT)
+Received: from mx0b-00013f02.pphosted.com (mx0b-00013f02.pphosted.com [208.86.201.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-west.mxrecord.io (Postfix) with ESMTPS id 4SKjHH2v8kz2LXBL
+	for <bi_vox@pfizer.com>; Tue, 31 Oct 2023 21:01:31 +0000 (UTC)
+Received: from pps.filterd (m0240275.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 39VEN2o5015826
+	for <bi_vox@pfizer.com>; Tue, 31 Oct 2023 17:01:30 -0400
+Received: from a51-4.smtp-out.eu-west-1.amazonses.com (a51-4.smtp-out.eu-west-1.amazonses.com [54.240.51.4])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3u2v3fd9sm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=NOT)
+	for <BI_VOX@pfizer.com>; Tue, 31 Oct 2023 17:01:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=63qbsolantppa6jjq5zsijtzjzmsekpw; d=novartis.com; t=1698786087;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=6+h4nnqrI/FwMB3YW28Hbdv6p9XV3Q+sy3xrQlGr2Qs=;
+	b=AL04iVFA+TuZEeFjSJykFGJw/8FplybW3x0M//ZUHLWdJsD0S6FBOdPAyebOKDsc
+	AMAS1sNa7tZMhuoKVSxk1QkYbJwJ95l2KCjheRR8EAF0FJihXyvzlnTVejmMW/Djh3k
+	CrzA5fpQ1Pnttx/FXAOr76hZYkpIeruD9hxqsTJ8=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1698786087;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=6+h4nnqrI/FwMB3YW28Hbdv6p9XV3Q+sy3xrQlGr2Qs=;
+	b=FTqsDcdU+4BJlG85lB5h62ZIwtCvaAdfzENPiwCctbghw9nmL4LqmLDPIasZ+EeE
+	GiYQbt5npbdjYo/p0otPaTkqfkv5/gJ4h4YikfmcK7MlDPFuLaLkC4VWqi+F5B+BDmt
+	/uJepPExxrGQ6ybsi01SNo5aIwBAyIWdkJP4kFGw=
+X-Sender: "=?UTF-8?Q?Novartis=20Release?=" <media.relations@novartis.com>
+X-Receiver: BI_VOX@pfizer.com
+X-FireEye: Clean
+From: =?UTF-8?Q?Novartis=20Release?= <media.relations@novartis.com>
+To: BI_VOX@pfizer.com
+Reply-To: media.relations@novartis.com
+Date: Tue, 31 Oct 2023 21:01:27 +0000
+Message-ID: <0102018b878a933b-f4b27248-00e1-4e91-9887-fb336d7e3d00-000000@eu-west-1.amazonses.com>
+Feedback-ID: 1.eu-west-1.lzb4fhJZei7Cr1QiW4H/IVCBlOzetPgeQ5iybk43ioI=:AmazonSES
+X-SES-Outgoing: 2023.10.31-54.240.51.4
+X-Proofpoint-GUID: T2FpptastvuCBvVKDIVgpU9izAjLNSn9
+X-CLX-Shades: MLX
+X-CLX-Response: 1TFkXGB4dEQpMehcbHB4RCllEF25OEnpeb35SU0dzEQpYWBdib3oFTn0bc1l 5UhEKeE4XYVhiQ1x+U2h/YhsRCnhLF2JvegVOfRtzWXlSEQp5TBdiThxTZGBeeWdGWxEKQ0gXBx gSHREKQ1kXBxgdGBEKQ0kXGgQaGhoRCllNF2dmchEKWUkXGnEaEBp3BhgYHXEbHB0eEBJ3BhgaB
+ hoRClleF2xseREKSUYXWkxDUE9YdUJFWV5PThEKSUcXeE9NEQpDThd+GGxaWl5LWV5cX2loXHxh bmN8TVp/E0NQa0BmZHlEExEKWFwXHwQaBBkZEgUbGgQbGxoEGxkeBBkZEBseGh8aEQpeWRdJTl0 FbBEKTVwXHhkSEQpMWhdpaG1NTU0RCkxGF29ra2traxEKQk8XZBtnHFJCUH1gGWwRCkNaFx8eBB
+ geGgQfGwQeEQpCXhcbEQpCXBcbEQpeThcbEQpCSxdhWGJDXH5TaH9iGxEKQkkXYVhiQ1x+U2h/Y hsRCkJFF25oQkYTTFhlR21OEQpCThdhWGJDXH5TaH9iGxEKQkwXYm96BU59G3NZeVIRCkJsF296 S2Z7fm5NYEFyEQpCQBd6f3J/Q2kFfRl4SBEKQlgXa2FsblteBXpEBRwRClpYFxsSEQp5QxdtfVt
+ IWEFhYRsBWBEKWUsXGxoaHRkRClpLFxsaGh0ZEQpwaBdpbU1AGVxNHUNORhAaEQpwaBdgbnBFT0 4ZWF9EeBAaEQpwaBdnWEBnGRtAGwV6YxAaEQpwaBdlSWxdc00YSUBJHxAaEQpwaBdvH31oTgFIR 2NTXxAaEQpwaBdmG2x8HmVjZkR4QxAaEQpwaBdifGhdWkVYWUNeRBAaEQpwaBdjGQUdGmtzXRJm
+ axAaEQpwfRdnXmhBcE1QGHBBBRATEhEKcH0XZn9uXRhFZV4dTRoQGhEKcH0XbGhyZ14FQB8SEmE QGx4eEQpwfRdsW2ZGQBh6E25QYBAaEQpwfRdtW29mT20ZHGddBRAaEQpwfRdrAXgSSRhuUH9YZR AaEQpwfRd6ExxyWx9gYl5yRxAaEQpwfRdhbEV8TmlTc0ZnaBAaEQpwfRdkSHxbTHlbfFIBeBAaE
+ QpwfxdmY1pGW19HZQVcaBATHhEKcF8XZ15oQXBNUBhwQQUQExIRCnB/F2YBXmFFbUlLfB9zEBsa HBEKcF8XbBNnQElGAX5rbRIQExkRCnB/F2gZYmJjaFwFHR5FEBsZHREKcF8XbGxMbXp+fVlnW1w QGx4eEQpwfxdmeR1lf2kBHE9rZBAbGhwRCnBfF2dwZV5sZUITXE9eEBoRCnB/F2FPHxl5SWlceR
+ pmEBMdEQpwXxdvRwFLBWhgf1BQGBASHxEKcH8XbxtBaHpjZh5IZhMQGxoTEQpwXxdvXnpZGFIZR BleHRAdEhEKcH8XYVwZc0J5b3lCQF4QGxocEQpwXxd6SF9yTkAaWUBnTBAeGhEKcH8XbFx/aRNN QUtnXxgQHRMRCnBfF2tIUmVuGx9QUGB9EBwYEQpwfxdpQWBhElJ6XVtmExAZHhEKcF8XbRlvGH0
+ SGGtJRWkQGhEKcGwXaE1EbVkcAWdORlkQGhEKbX4XGhEKWE0XSxEg
+X-Proofpoint-ORIG-GUID: T2FpptastvuCBvVKDIVgpU9izAjLNSn9
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-PFERule: PODI-Spoofsafe
+x-pfe-proofpoint-bulk: safe
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:amazonses.com ~all
+x-pfepod-dmarc-rule: pass
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: allow
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-31_07,2023-10-31_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=low_aspam_notspam policy=low_aspam score=0 priorityscore=164
+ clxscore=247 impostorscore=0 bulkscore=0 adultscore=0 phishscore=0
+ suspectscore=0 spamscore=0 mlxlogscore=999 lowpriorityscore=1 mlxscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2310240000 definitions=main-2310310171 domainage_hfrom=10073
+ domainage_replyto=10073
+X-Area1Security-Origin: EXTERNAL 
+X-Area1Security-Processed: 0ccc376287db8ad077269450a5df8d8f;2;NONE;2023-10-31T21:01:35;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: =?UTF-8?Q?[EXTERNAL]_FDA_approves_Novartis_Cosentyx=C2=AE_as_the_first_ne?=
+ =?UTF-8?Q?w_biologic_treatment_option_for_hidradenitis_suppurativa_patien?=
+ =?UTF-8?Q?ts_in_nearly_a_decade_____________?=
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-31_07,2023-10-31_03,2023-05-22_02
+Return-Path:
+ 0102018b878a933b-f4b27248-00e1-4e91-9887-fb336d7e3d00-000000@gnw.novartis.com
+X-OrganizationHeadersPreserved: somamrexdf05.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 31 Oct 2023 21:01:55.2187
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 32493a1a-6c7d-47b5-c549-08dbda549d2d
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: somamrexdg05.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: DS3PEPF000099D7.namprd04.prod.outlook.com
+X-CrossPremisesHeadersFiltered: DS3PEPF000099D7.namprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ DS3PEPF000099D7:EE_|PH0PR01MB6540:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: Pfizer.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id: 32493a1a-6c7d-47b5-c549-08dbda549d2d
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.96.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:ewr-us-a-148-168-96-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2023 21:01:55.0468
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32493a1a-6c7d-47b5-c549-08dbda549d2d
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.96.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: somamrexdg05.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR01MB6540
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.0529969
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6907.032
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	E5hr08TPlR0vCL5KAXh8oTKuq/YdpHGeMe26m7+P7EvuhDLxWfPcAvQOcA6wlhniaiYX4dyMlkf/GSOTINsBE1l1cGbXGXHJA36UxbWEMUw+ol2Nu2jxgIPpqFHPPN7QvJZXJ7M/kMrTD7lrhowtZgRfJEgieipj9GeuOpWcZ+X405CgovkRAPWel5GScRpiW7qdz8ePMss70aETf5SWqOPMdRrGW3WIjc+N0hB9/4wTcnZ3+TtNf3L2lfKtDnNMDRUROk9ZAJIgzsFszLT+4akPC6f2RvlEuTlAdl02538REWv2MkpCKEwFNkFu93bXEJ2/GCMm1Hgs5bNsk7iDnB1I2DarccoivZ7fvYKnIoE+2NFN04BhnzcT4kuLijGYPriqZv8x2XgsDEIgf/K//BPyGuSGgbEu7BIm/vne+FoqfEk2p60icAGD8j3jWWh63NjehprlE8XeaqCWmrlNdSnCPVs2OBzgxP3c06dYwj++mnsUTW9ETIuVeSTYKRbVu9C1lPr/sxaAuYKvZw2a+K+tI/E8zwfl/3YBWrDxTa38+OF6njGSfmgDxugHXH8OaMZPNB/bJQfAfRfcxRfOjt6OaLNU1mold56hwrjPnq7xsB754btPD5QTgan171MuX4tmM0LXNaUIOj6/G0GO1jjUYjiPfAm5l3U6n4IO/Mxt1mTW6rM57+8gjGa9R7D9D5aQlGfW9y/ynJmL/9WJrzF85yQ6D2lTs+9tt9IW+vxdWeJnWRBsgoBUOMYjwPUktaaRBOesT4LXKcV/KwUnUA==
+MIME-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><t=
+itle></title></head><body style=3D"font-family:Arial;font-size: 14px;"><spa=
+n style=3D"padding: 0px;"></span>
+<table style=3D"width: 100%;">
+<tbody>
+<tr><!-- LEFT LOGO -->
+<td style=3D"display: inline-block; float: left; width: 33%; text-align: le=
+ft;"><a href=3D"https://urldefense.com/v3/__http://www.novartis.com__;!!H9n=
+ueQsQ!8aUQB3iUfYJ8jUUe4F8yy4Au_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6=
+P1NZYKfNUSDk0itBG0gvTGz$"><img src=3D"http://hugin.info/134323/B/762459.jpg=
+" alt=3D""></a></td>
+<!-- CENTRE LOGO -->
+<td style=3D"display: inline-block; margin: 0 auto; width: 33%; text-align:=
+ center;">&nbsp;</td>
+<!-- RIGHT LOGO -->
+<td style=3D"display: inline-block; float: right; width: 33%; text-align: r=
+ight;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div><br>
+<section>
+<article><strong><span style=3D"font-family: arial, helvetica, sans-serif; =
+font-size: 12pt;">FDA approves Novartis Cosentyx=C2=AE as the first new bio=
+logic treatment option for hidradenitis suppurativa patients in nearly a de=
+cade<br><br> </span></strong></article>
+<article><ul type=3D"disc"><li style=3D"font-size:11pt; font-family:'Arial'=
+;"><span style=3D"font-size:11pt; font-family:'Arial';"><em>FDA approval ba=
+sed on robust Phase III data in which Cosentyx</em></span><span style=3D"fo=
+nt-size:11pt; font-family:'Arial';"><sup><em>=C2=AE</em></sup></span><span =
+style=3D"font-size:11pt; font-family:'Arial';"><em> (secukinumab) showed ra=
+pid relief from symptoms of hidradenitis suppurativa (HS) as early as Week =
+2</em></span><span style=3D"font-size:11pt; font-family:'Arial';"><sup><em>=
+1</em></sup></span></li></ul>   <ul type=3D"disc"><li style=3D"font-size:11=
+pt; font-family:'Arial';"><span style=3D"font-size:11pt; font-family:'Arial=
+';"><em>As the only IL-17A inhibitor approved for HS, Cosentyx offers a mea=
+ningful new treatment option that demonstrated reductions in inflammatory n=
+odules and abscesses, and flares</em></span><span style=3D"font-size:11pt; =
+font-family:'Arial';"><sup><em>2</em></sup></span></li></ul>   <ul type=3D"=
+disc"><li style=3D"font-size:11pt; font-family:'Arial';"><span style=3D"fon=
+t-size:11pt; font-family:'Arial';"><em>HS is a chronic, progressive and oft=
+en painful disease that may affect 1 in 100 people worldwide</em></span><sp=
+an style=3D"font-size:11pt; font-family:'Arial';"><sup><em>3</em></sup></sp=
+an><span style=3D"font-size:11pt; font-family:'Arial';"><sup><em>,4</em></s=
+up></span>&nbsp;&nbsp;</li></ul>   <p style=3D"line-height:12pt; margin-top=
+:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; font-family:'Arial=
+';"><strong>Basel, October 31, 2023</strong></span><span style=3D"font-size=
+:10pt; font-family:'Arial';"> =E2=80=94 Novartis, a global leader in immuno=
+-dermatology and rheumatology, announced today that the US Food and Drug Ad=
+ministration (FDA) has approved Cosentyx</span><span style=3D"font-size:10p=
+t; font-family:'Arial';"><sup>=C2=AE</sup></span><span style=3D"font-size:1=
+0pt; font-family:'Arial';"> (secukinumab) to treat moderate to severe hidra=
+denitis suppurativa (HS) in adults. Cosentyx is the only FDA-approved fully=
+ human biologic that directly inhibits interleukin-17A (IL-17A), a cytokine=
+ believed to be involved in the inflammation of HS.</span><span style=3D"fo=
+nt-size:10pt; font-family:'Arial';"><sup>2</sup></span></p>   <p style=3D"l=
+ine-height:12pt; margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=
+=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"fo=
+nt-size:10pt; font-family:'Arial';">HS is a chronic, systemic and often pai=
+nful skin disease that causes recurring boil-like lumps that may burst into=
+ open wounds and cause irreversible scarring, often in the most intimate pa=
+rts of the body.</span><span style=3D"font-size:10pt; font-family:'Arial';"=
+><sup>3</sup></span><span style=3D"font-size:10pt; font-family:'Arial';"> I=
+t may take people living with HS an average of up to 10 years to get a corr=
+ect diagnosis, which can result in disease progression and significantly im=
+pact their quality of life.</span><span style=3D"font-size:10pt; font-famil=
+y:'Arial';"><sup>5</sup></span><span style=3D"font-size:10pt; font-family:'=
+Arial';"><sup>,6</sup></span><span style=3D"font-size:10pt; font-family:'Ar=
+ial';"> Until now, there has been only one biologic approved to treat HS.</=
+span><span style=3D"font-size:10pt; font-family:'Arial';"><sup>7</sup></spa=
+n></p>   <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;">=
+&nbsp;</p>   <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0p=
+t;"><span style=3D"font-size:10pt; font-family:'Arial';">=E2=80=9CFor many =
+patients, the daily impact of HS and the search for symptom relief can last=
+ years =E2=80=93 which can come with painful, irreversible physical and emo=
+tional scarring,=E2=80=9D said Alexa B. Kimball, MD, MPH, lead investigator=
+ of the SUNSHINE and SUNRISE trials, Professor of Dermatology at Harvard Me=
+dical School, President and CEO of Harvard Medical Faculty Physicians at Be=
+th Israel Deaconess Medical Center, Boston.&nbsp;=E2=80=9CThis approval mar=
+ks an important milestone for countless patients who have been faced with l=
+imited treatment possibilities and who now have a new option.=E2=80=9D</spa=
+n></p>   <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;">=
+&nbsp;</p>   <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D=
+"font-size:10pt; font-family:'Arial';">=E2=80=9CHS is one of the most devas=
+tating and exhausting skin diseases. The pain of flares can be debilitating=
+ and limits my ability to work or participate in social activities. It can =
+have a major impact on me physically and emotionally, including feelings of=
+ anxiety, stress and isolation,=E2=80=9D said Donna Atherton, EdD, Founder =
+and Chief Mission Officer, International Association of Hidradenitis Suppur=
+ativa Network (IAHSN).&nbsp;=E2=80=9CThe approval of a new treatment option=
+ brings fresh hope to me and the HS community that we may find relief from =
+the burden of the disease.=E2=80=9D</span></p>   <p style=3D"line-height:12=
+pt; margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"line-heigh=
+t:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; =
+font-family:'Arial';">The FDA approval was based on analyses from the large=
+st Phase III program in HS to date, SUNSHINE and SUNRISE, in which a higher=
+ proportion of patients given Cosentyx 300 mg either every two weeks or eve=
+ry four weeks achieved a Hidradenitis Suppurativa Clinical Response (HiSCR5=
+0) compared to placebo.</span><span style=3D"font-size:10pt; font-family:'A=
+rial';"><sup>1</sup></span><span style=3D"font-size:10pt; font-family:'Aria=
+l';"> Cosentyx for HS is approved as a 300 mg dose, administered every four=
+ weeks, with the option to increase to every two weeks if the patient has a=
+n inadequate response.</span><span style=3D"font-size:10pt; font-family:'Ar=
+ial';"><sup>1</sup></span></p>   <p style=3D"line-height:12pt; margin-top:0=
+pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"margin-left:0in; font-size=
+:10pt; font-family:'Arial'; line-height:normal; margin-top:0in; margin-bott=
+om:0in; margin-right:0in;">In both the SUNSHINE and SUNRISE studies, which =
+evaluated Cosentyx across 16-week (vs placebo) and 52-week treatment period=
+s, the onset of action of Cosentyx occurred as early as Week 2.<sup>1</sup>=
+ Efficacy progressively increased to Week 16 and was observed up to Week 52=
+.<sup>2</sup> <span style=3D"color:rgb(0, 0, 0);">The safety profile of Cos=
+entyx observed in these HS trials was consistent with its known safety prof=
+ile observed in the plaque psoriasis trials, affirming the differentiated s=
+afety profile of Cosentyx.<sup>1</sup></span></p>   <p style=3D"line-height=
+:12pt; margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"line-he=
+ight:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10p=
+t; font-family:'Arial';">=E2=80=9CCosentyx can offer effective, lasting rel=
+ief from HS symptoms so that people with HS have a chance to live every day=
+ with confidence,=E2=80=9D said Victor Bult=C3=B3, President, Novartis US. =
+=E2=80=9CWith this sixth indication approval for Cosentyx =E2=80=93 along w=
+ith ongoing studies in numerous other conditions =E2=80=93 we are reaffirmi=
+ng our commitment to reimagine medicine for those living with immunological=
+ diseases.=E2=80=9D </span></p>   <p style=3D"line-height:12pt; margin-top:=
+0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"margin-top:0pt; margin-bo=
+ttom:0pt;"><span style=3D"font-size:10pt; font-family:'Arial';"><strong>Abo=
+ut the SUNSHINE and SUNRISE trials</strong></span><span style=3D"font-size:=
+10pt; font-family:'Arial';"><sup>2</sup></span></p>   <p style=3D"margin-to=
+p:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; font-family:'Aria=
+l';">The SUNSHINE (NCT03713619) and SUNRISE (NCT03713632) trials comprise t=
+he largest Phase III program in hidradenitis suppurativa (HS), with a combi=
+ned enrollment of more than 1,000 patients. SUNSHINE and SUNRISE are identi=
+cal, global Phase III, multicenter, randomized, double-blind, placebo-contr=
+olled, parallel-group studies that evaluated the short- (16 weeks) and long=
+-term (up to 52 weeks) efficacy, safety and tolerability of two dose regime=
+ns of Cosentyx in adults with moderate to severe HS. A Hidradenitis Suppura=
+tiva Clinical Response (HiSCR50), the primary endpoint in the two pivotal t=
+rials, is defined as at least a 50% decrease in abscess and inflammatory no=
+dule (AN) count with no increase in the number of abscesses and/or draining=
+ tunnels. Secondary endpoints included a decrease in abscess and inflammato=
+ry nodules by at least 50% (AN50), the proportion of patients experiencing =
+a flare, and the proportion of patients with a skin pain numeric rating sca=
+le 30 response up to 16 weeks of treatment.</span><span style=3D"font-size:=
+10pt; font-family:'Arial';"><sup>2</sup></span></p>   <p style=3D"margin-to=
+p:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"line-height:12pt; margi=
+n-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; font-family:'=
+Arial';">Results from the US Food and Drug Administration (FDA)-requested a=
+nalyses at Week 16 showed that a significantly higher proportion of patient=
+s achieved HiSCR50 when treated with Cosentyx 300 mg dosed every two weeks =
+(after standard weekly loading doses), compared with placebo in both the SU=
+NSHINE and SUNRISE trials (44.5% vs 29.4% [*</span><span style=3D"font-size=
+:10pt; font-family:'Arial';"><em>P&lt;0.05</em></span><span style=3D"font-s=
+ize:10pt; font-family:'Arial';">] and 38.3% vs 26.1% [*</span><span style=
+=3D"font-size:10pt; font-family:'Arial';"><em>P&lt;0.05</em></span><span st=
+yle=3D"font-size:10pt; font-family:'Arial';">], respectively).</span><span =
+style=3D"font-size:10pt; font-family:'Arial';"><sup>1</sup></span><span sty=
+le=3D"font-size:10pt; font-family:'Arial';"> A greater proportion of patien=
+ts randomized to Cosentyx 300 mg dosed every four weeks (after standard wee=
+kly loading doses) achieved HiSCR50 compared with placebo in both SUNSHINE =
+(41.3% vs 29.4%) and SUNRISE (42.5% vs 26.1% [*</span><span style=3D"font-s=
+ize:10pt; font-family:'Arial';"><em>P&lt;0.05</em></span><span style=3D"fon=
+t-size:10pt; font-family:'Arial';">]) trials.</span><span style=3D"font-siz=
+e:10pt; font-family:'Arial';"><sup>1</sup></span></p>   <p style=3D"margin-=
+top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"margin-top:0pt; margi=
+n-bottom:0pt;"><span style=3D"background-color:rgb(255, 255, 255); color:rg=
+b(0, 0, 0); font-size:10pt; font-family:'Arial';">An exploratory analysis <=
+/span><span style=3D"font-size:10pt; font-family:'Arial';">assessed the lon=
+g-term effects of Cosentyx for each of the primary and secondary endpoints =
+for up to 52 weeks. HiSCR values observed at Week 16 following either dose =
+regimen of Cosentyx were improved over time to Week 52 (SUNSHINE: SECQ2W [5=
+6.4%]; SECQ4W [56.3%]; SUNRISE: SECQ2W [65.0%]; SECQ4W [62.2%]), with rapid=
+ improvements seen in patients who switched from placebo at Week 16.<sup>8<=
+/sup></span></p>   <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;&n=
+bsp;</p>   <p style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;=
+"><span style=3D"font-size:10pt; font-family:'Arial';">*Statistically signi=
+ficant versus placebo based on the pre-defined hierarchy (from the pre-spec=
+ified primary statistical analysis) with overall alpha =3D 0.05 (two-sided)=
+. </span></p>   <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p> =
+  <p style=3D"margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:=
+10pt; font-family:'Arial';"><strong>About Cosentyx</strong></span><span sty=
+le=3D"font-size:10pt; font-family:'Arial';"><sup><strong>=C2=AE</strong></s=
+up></span><span style=3D"font-size:10pt; font-family:'Arial';"><strong>&nbs=
+p;(secukinumab)</strong></span><span style=3D"font-size:10pt; font-family:'=
+Arial';">&nbsp;</span><br><span style=3D"font-size:10pt; font-family:'Arial=
+';">Cosentyx is the first and only fully human biologic that specifically t=
+argets and blocks interleukin-17A (IL-17A), an important cytokine involved =
+in the inflammation of psoriatic arthritis (PsA), moderate to severe plaque=
+ psoriasis, ankylosing spondylitis (AS) and non-radiographic axial spondylo=
+arthritis (nr-axSpA).</span><span style=3D"font-size:10pt; font-family:'Ari=
+al';"><sup>9,10</sup></span><span style=3D"font-size:10pt; font-family:'Ari=
+al';"> Cosentyx is a proven medicine and has been studied clinically for mo=
+re than 14 years. The medicine is backed by robust evidence, including 8&nb=
+sp;years of real-world data in adults and 5 years of long-term safety and e=
+fficacy across moderate to severe plaque psoriasis, PsA and AS.</span><span=
+ style=3D"font-size:10pt; font-family:'Arial';"><sup>11</sup></span><span s=
+tyle=3D"font-size:10pt; font-family:'Arial';"><sup>-17</sup></span><span st=
+yle=3D"font-size:10pt; font-family:'Arial';">&nbsp;These data strengthen th=
+e position of Cosentyx as a treatment across AS, nr-axSpA, PsA, moderate to=
+ severe plaque psoriasis (adult and pediatric) and two subtypes of juvenile=
+ idiopathic arthritis (JIA), enthesitis-related arthritis and juvenile psor=
+iatic arthritis.</span><span style=3D"font-size:10pt; font-family:'Arial';"=
+><sup>1</sup></span><span style=3D"font-size:10pt; font-family:'Arial';"> M=
+ore than 1 million patients have been treated with Cosentyx worldwide since=
+ its launch in 2015.</span><span style=3D"font-size:10pt; font-family:'Aria=
+l';"><sup>18</sup></span><span style=3D"font-size:10pt; font-family:'Arial'=
+;">&nbsp;Cosentyx is approved in more than 100 countries, most recently gai=
+ning approval for JIA and HS in the US and Europe.</span><span style=3D"fon=
+t-size:10pt; font-family:'Arial';"><sup>19,20</sup></span><span style=3D"fo=
+nt-size:10pt; font-family:'Arial';">&nbsp;&nbsp;</span></p>   <p style=3D"m=
+argin-top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"line-height:12p=
+t; margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; font-=
+family:'Arial';"><strong>Disclaimer</strong></span></p>   <p style=3D"line-=
+height:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:1=
+0pt; font-family:'Arial';">This press release contains forward-looking stat=
+ements within the meaning of the United States Private Securities Litigatio=
+n Reform Act of 1995. Forward-looking statements can generally be identifie=
+d by words such as =E2=80=9Cpotential,=E2=80=9D =E2=80=9Ccan,=E2=80=9D =E2=
+=80=9Cwill,=E2=80=9D =E2=80=9Cplan,=E2=80=9D =E2=80=9Cmay,=E2=80=9D =E2=80=
+=9Ccould,=E2=80=9D =E2=80=9Cwould,=E2=80=9D =E2=80=9Cexpect,=E2=80=9D =E2=
+=80=9Canticipate,=E2=80=9D =E2=80=9Cseek,=E2=80=9D =E2=80=9Clook forward,=
+=E2=80=9D =E2=80=9Cbelieve,=E2=80=9D =E2=80=9Ccommitted,=E2=80=9D =E2=80=9C=
+investigational,=E2=80=9D =E2=80=9Cpipeline,=E2=80=9D =E2=80=9Claunch,=E2=
+=80=9D or similar terms, or by express or implied discussions regarding pot=
+ential marketing approvals, new indications or labeling for the investigati=
+onal or approved products described in this press release, or regarding pot=
+ential future revenues from such products. You should not place undue relia=
+nce on these statements. Such forward-looking statements are based on our c=
+urrent beliefs and expectations regarding future events, and are subject to=
+ significant known and unknown risks and uncertainties. Should one or more =
+of these risks or uncertainties materialize, or should underlying assumptio=
+ns prove incorrect, actual results may vary materially from those set forth=
+ in the forward-looking statements. There can be no guarantee that the inve=
+stigational or approved products described in this press release will be su=
+bmitted or approved for sale or for any additional indications or labeling =
+in any market, or at any particular time. Nor can there be any guarantee th=
+at such products will be commercially successful in the future. In particul=
+ar, our expectations regarding such products could be affected by, among ot=
+her things, the uncertainties inherent in research and development, includi=
+ng clinical trial results and additional analysis of existing clinical data=
+; regulatory actions or delays or government regulation generally; global t=
+rends toward health care cost containment, including government, payor and =
+general public pricing and reimbursement pressures and requirements for inc=
+reased pricing transparency; our ability to obtain or maintain proprietary =
+intellectual property protection; the particular prescribing preferences of=
+ physicians and patients; general political, economic and business conditio=
+ns, including the effects of and efforts to mitigate pandemic diseases; saf=
+ety, quality, data integrity or manufacturing issues; potential or actual d=
+ata security and data privacy breaches, or disruptions of our information t=
+echnology systems, and other risks and factors referred to in Novartis AG=
+=E2=80=99s current Form 20-F on file with the US Securities and Exchange Co=
+mmission. Novartis is providing the information in this press release as of=
+ this date and does not undertake any obligation to update any forward-look=
+ing statements contained in this press release as a result of new informati=
+on, future events or otherwise.</span></p>   <p style=3D"line-height:12pt; =
+margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"line-height:12=
+pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt; font=
+-family:'Arial';"><strong>About Novartis</strong></span></p>   <p style=3D"=
+line-height:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"color:=
+rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">Novartis is a focused i=
+nnovative medicines company. Every day, we work to reimagine medicine to im=
+prove and extend people=E2=80=99s lives so that patients, healthcare profes=
+sionals and societies are empowered in the face of serious disease. Our med=
+icines reach more than 250 million people worldwide.</span></p>   <p style=
+=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p s=
+tyle=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=
+=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';">Reimagine med=
+icine with us: Visit us at </span><span style=3D"color:rgb(0, 0, 0); font-s=
+ize:10pt; font-family:'Arial';"><a href=3D"https://urldefense.com/v3/__http=
+s://www.novartis.com/__;!!H9nueQsQ!8aUQB3iUfYJ8jUUe4F8yy4Au_6gy1Z47lps7gRtR=
+mFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBPZimI7j$" rel=3D"nofollow" sty=
+le=3D"color:rgb(0, 0, 0); text-decoration:none;" target=3D"_blank">https://=
+www.novartis.com</a></span> <span style=3D"color:rgb(0, 0, 0); font-size:10=
+pt; font-family:'Arial';">and connect with us on </span><span style=3D"colo=
+r:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';"><a href=3D"https://ur=
+ldefense.com/v3/__https://www.linkedin.com/company/novartis__;!!H9nueQsQ!8a=
+UQB3iUfYJ8jUUe4F8yy4Au_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfN=
+USDk0itBIrw6nv5$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-decora=
+tion:none;" target=3D"_blank">LinkedIn</a></span><span style=3D"color:rgb(0=
+, 0, 0); font-size:10pt; font-family:'Arial';">, </span><span style=3D"colo=
+r:rgb(0, 0, 0); font-size:10pt; font-family:'Arial';"><a href=3D"https://ur=
+ldefense.com/v3/__https://www.facebook.com/novartis/__;!!H9nueQsQ!8aUQB3iUf=
+YJ8jUUe4F8yy4Au_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0it=
+BFK992BE$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-decoration:no=
+ne;" target=3D"_blank">Facebook</a></span><span style=3D"color:rgb(0, 0, 0)=
+; font-size:10pt; font-family:'Arial';">, </span><span style=3D"color:rgb(0=
+, 0, 0); font-size:10pt; font-family:'Arial';"><a href=3D"https://urldefens=
+e.com/v3/__https://twitter.com/Novartis__;!!H9nueQsQ!8aUQB3iUfYJ8jUUe4F8yy4=
+Au_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBFkpD63R$" re=
+l=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-decoration:none;" target=
+=3D"_blank">X/Twitter</a></span><span style=3D"color:rgb(0, 0, 0); font-siz=
+e:10pt; font-family:'Arial';"> and </span><span style=3D"color:rgb(0, 0, 0)=
+; font-size:10pt; font-family:'Arial';"><a href=3D"https://urldefense.com/v=
+3/__https://www.instagram.com/novartis/?hl=3Dde__;!!H9nueQsQ!8aUQB3iUfYJ8jU=
+Ue4F8yy4Au_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBFzNm=
+wAN$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-decoration:none;" =
+target=3D"_blank">Instagram</a></span><span style=3D"color:rgb(0, 0, 0); fo=
+nt-size:10pt; font-family:'Arial';">.</span></p>   <p style=3D"line-height:=
+12pt; margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>   <p style=3D"line-hei=
+ght:12pt; margin-top:0pt; margin-bottom:0pt;"><span style=3D"font-size:10pt=
+; font-family:'Arial';"><strong>References</strong></span></p>   <ol style=
+=3D"list-style-type:decimal;"><li style=3D"font-size:8pt; font-family:'Aria=
+l';"><span style=3D"font-size:8pt; font-family:'Arial';">Cosentyx Prescribi=
+ng Information. East Hanover, NJ: Novartis Pharmaceuticals Corp; October 20=
+23.</span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span styl=
+e=3D"font-size:8pt; font-family:'Arial';">Kimball AB, Jemec GBE, Alavi A, e=
+t al. Secukinumab in moderate to severe hidradenitis suppurativa (SUNSHINE =
+and SUNRISE): week 16 and 52 results of two identical, double-blind, placeb=
+o-controlled, phase 3 randomised trials.</span><span style=3D"font-size:8pt=
+; font-family:'Arial';"><em>=E2=80=AFLancet.&nbsp;</em></span><span style=
+=3D"font-size:8pt; font-family:'Arial';">2023; published online Feb 3. Avai=
+lable at:=E2=80=AF<span style=3D"color:rgb(0, 0, 0); font-size:8pt; font-fa=
+mily:'Arial';"><a href=3D"https://urldefense.com/v3/__https://doi.org/10.10=
+16/S0140-6736(23)00022-3__;!!H9nueQsQ!8aUQB3iUfYJ8jUUe4F8yy4Au_6gy1Z47lps7g=
+RtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBFCcNsaw$" rel=3D"nofollow" =
+style=3D"color:rgb(0, 0, 0);" target=3D"_blank">https://doi.org/10.1016/S01=
+40-6736(23)00022-3</a></span>=E2=80=AF[Last accessed: February 2023].</span=
+></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D"font=
+-size:8pt; font-family:'Arial';">MedLine Plus. Hidradenitis suppurativa [on=
+line]. Available at: </span><span style=3D"color:rgb(0, 0, 0); font-size:8p=
+t; font-family:'Arial';"><a href=3D"https://urldefense.com/v3/__https://med=
+lineplus.gov/genetics/condition/hidradenitis-suppurativa/__;!!H9nueQsQ!8aUQ=
+B3iUfYJ8jUUe4F8yy4Au_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUS=
+Dk0itBC6AeKIj$" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0);" target=3D"_b=
+lank">https://medlineplus</a></span><span style=3D"font-size:8pt; font-fami=
+ly:'Arial';"><span style=3D"color:rgb(0, 0, 0); font-size:8pt; font-family:=
+'Arial';"><a href=3D"https://urldefense.com/v3/__https://medlineplus.gov/ge=
+netics/condition/hidradenitis-suppurativa/__;!!H9nueQsQ!8aUQB3iUfYJ8jUUe4F8=
+yy4Au_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBC6AeKIj$"=
+ rel=3D"nofollow" style=3D"color:rgb(0, 0, 0);" target=3D"_blank">.gov/gene=
+tics/condition/hidradenitis-suppurativa/</a></span> [Last accessed: March 2=
+022].</span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span st=
+yle=3D"font-size:8pt; font-family:'Arial';">Sabat R, Jemec GBE, Matusiak L,=
+ et al. Hidradenitis suppurativa. </span><span style=3D"font-size:8pt; font=
+-family:'Arial';"><em>Nat Rev Dis Primers</em></span><span style=3D"font-si=
+ze:8pt; font-family:'Arial';"> 2020;6:18. doi: 10.1038/s41572-020-0149-1</s=
+pan></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D"f=
+ont-size:8pt; font-family:'Arial';">Kokolakis G, Wolk K, Schneider-Burrus S=
+, et al. Delayed Diagnosis of Hidradenitis Suppurativa and Its Effect on Pa=
+tients and Healthcare System. </span><span style=3D"font-size:8pt; font-fam=
+ily:'Arial';"><em>Dermatology</em></span><span style=3D"font-size:8pt; font=
+-family:'Arial';">. 2020;236:421-430.</span></li><li style=3D"font-size:8pt=
+; font-family:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';"=
+>Kimball AB, Okun MM, Williams DA, et al. Two phase 3 trials of adalimumab =
+for hidradenitis suppurativa. </span><span style=3D"font-size:8pt; font-fam=
+ily:'Arial';"><em>N Engl J Med</em></span><span style=3D"font-size:8pt; fon=
+t-family:'Arial';">. 2016;375:422-434.</span></li><li style=3D"font-size:8p=
+t; font-family:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';=
+">Martora F, Megna M, Battista T, et al. Adalimumab, Ustekinumab, and Secuk=
+inumab in the Management of Hidradenitis Suppurativa: A Review of the Real-=
+Life Experience. </span><span style=3D"font-size:8pt; font-family:'Arial';"=
+><em>Clin Cosmet Investig Dermatol.</em></span><span style=3D"font-size:8pt=
+; font-family:'Arial';"> 2023;16:135-148. Published 2023 Jan 19. doi:10.214=
+7/CCID.S391356 4.</span></li><li style=3D"font-size:8pt; font-family:'Arial=
+';"><span style=3D"font-size:8pt; font-family:'Arial';"> <span style=3D"fon=
+t-size:8pt; font-family:'Arial';">Kimball AB, Jemec GBE, Alavi A, et al. Ef=
+ficacy and Safety of Secukinumab in Patients with Moderate to Severe Hidrad=
+enitis Suppurativa from the Phase 3 SUNSHINE and SUNRISE Trials. Poster pre=
+sented at American Academy of Dermatology (AAD) 2023 Annual Meeting; March =
+17-21, 2023, New Orleans, LA.</span></span></li><li style=3D"font-size:8pt;=
+ font-family:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';">=
+Girolomoni G, Mrowietz U and Paul C. Psoriasis: rationale for targeting int=
+erleukin-17.</span><span style=3D"font-size:8pt; font-family:'Arial';"><em>=
+&nbsp;Br J Dermatol</em></span><span style=3D"font-size:8pt; font-family:'A=
+rial';">. 2012;167:717-24.</span></li><li style=3D"font-size:8pt; font-fami=
+ly:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';">McGonagle =
+DG, McInnes IB, Kirkham BW, et al. The role of IL-17A in axial spondyloarth=
+ritis and psoriatic arthritis: recent advances and controversies. </span><s=
+pan style=3D"font-size:8pt; font-family:'Arial';"><em>Annals Rheum Dis</em>=
+</span><span style=3D"font-size:8pt; font-family:'Arial';">. 2019;78:1167-1=
+178</span><span style=3D"background-color:rgb(255, 255, 255); color:rgb(34,=
+ 31, 31); letter-spacing:0.3pt; font-size:8pt; font-family:'Arial';">.</spa=
+n></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D"fon=
+t-size:8pt; font-family:'Arial';">Baraliakos X, Braun J, Deodhar A, et al. =
+Long-term efficacy and safety of secukinumab 150 mg in ankylosing spondylit=
+is: 5-year results from the phase III MEASURE 1 extension study. </span><sp=
+an style=3D"font-size:8pt; font-family:'Arial';"><em>RMD Open</em></span><s=
+pan style=3D"font-size:8pt; font-family:'Arial';">. 2019;5:e001005.</span><=
+/li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D"font-s=
+ize:8pt; font-family:'Arial';">Bissonnette R, Luger T, Tha=C3=A7i D, et al.=
+ Secukinumab demonstrates high sustained efficacy and a favourable safety p=
+rofile in patients with moderate-to-severe psoriasis through 5 years of tre=
+atment (SCULPTURE Extension Study). </span><span style=3D"font-size:8pt; fo=
+nt-family:'Arial';"><em>J Eur Acad Dermatol Venereol</em></span><span style=
+=3D"font-size:8pt; font-family:'Arial';">. 2018;32:1507-1514.</span></li><l=
+i style=3D"font-size:8pt; font-family:'Arial';"><span style=3D"font-size:8p=
+t; font-family:'Arial';">Mease PJ, Kavanaugh A, Reimold A, et al. Secukinum=
+ab Provides Sustained Improvements in the Signs and Symptoms of Psoriatic A=
+rthritis: Final 5-year Results from the Phase 3 FUTURE 1 Study. </span><spa=
+n style=3D"font-size:8pt; font-family:'Arial';"><em>ACR Open Rheumatol</em>=
+</span><span style=3D"font-size:8pt; font-family:'Arial';">. 2020;2:18-25.<=
+/span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D=
+"font-size:8pt; font-family:'Arial';">Data on file. CAIN457F2310 (MEASURE 1=
+ and 2): Pooled Safety Data. Novartis Pharmaceuticals Corp; July 23, 2018.<=
+/span></li><li style=3D"font-size:8pt; font-family:'Arial';"><span style=3D=
+"font-size:8pt; font-family:'Arial';">Data on file. CAIN457F2310 and CAIN45=
+7F2305 summary of 5-year clinical safety in (ankylosing spondylitis). Novar=
+tis Pharmaceuticals Corp; May 2019.</span></li><li style=3D"font-size:8pt; =
+font-family:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial';">D=
+ata on file. CAIN457F2312 Data Analysis Report. Novartis Pharmaceuticals Co=
+rp; November 2008.</span></li><li style=3D"font-size:8pt; font-family:'Aria=
+l';"><span style=3D"font-size:8pt; font-family:'Arial';">McInnes IB, Mease =
+PJ, Kirkham B, et al. Secukinumab, a human anti-interleukin-17A monoclonal =
+antibody, in patients with psoriatic arthritis (FUTURE 2): a randomised, do=
+uble-blind, placebo-controlled, phase 3 trial. </span><span style=3D"font-s=
+ize:8pt; font-family:'Arial';"><em>Lancet</em></span><span style=3D"font-si=
+ze:8pt; font-family:'Arial';"> 2015;386:1137-46.</span></li><li style=3D"fo=
+nt-size:8pt; font-family:'Arial';"><span style=3D"font-size:8pt; font-famil=
+y:'Arial';">Data on file. COSENTYX Access. Novartis Pharmaceuticals Corp; J=
+anuary 2023.</span></li><li style=3D"font-size:8pt; font-family:'Arial';"><=
+span style=3D"font-size:8pt; font-family:'Arial';">Novartis AG. 2021. Novar=
+tis Cosentyx<sup>=C2=AE</sup> receives FDA approval for the treatment of ch=
+ildren and adolescents with enthesitis-related arthritis and psoriatic arth=
+ritis. [Press release]. Available at:&nbsp;<span style=3D"color:rgb(0, 0, 0=
+); font-size:8pt; font-family:'Arial';"><a href=3D"https://urldefense.com/v=
+3/__https://www.novartis.com/news/media-releases/novartis-cosentyx-receives=
+-fda-approval-treatment-children-and-adolescents-enthesitis-related-arthrit=
+is-and-psoriatic-arthritis__;!!H9nueQsQ!8aUQB3iUfYJ8jUUe4F8yy4Au_6gy1Z47lps=
+7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBOv_9MCF$" rel=3D"nofollow=
+" style=3D"color:rgb(0, 0, 0);" target=3D"_blank">https://www.novartis.com/=
+news/media-releases/novartis-cosentyx-receives-fda-approval-treatment-child=
+ren-and-adolescents-enthesitis-related-arthritis-and-psoriatic-arthritis</a=
+></span> [Last accessed: February 2023].</span></li><li style=3D"font-size:=
+8pt; font-family:'Arial';"><span style=3D"font-size:8pt; font-family:'Arial=
+';">Novartis Europharm Limited. Cosentyx<sup>=C2=AE</sup> (secukinumab): Su=
+mmary of Product Characteristics. Available at:&nbsp;<span style=3D"color:r=
+gb(0, 0, 0); font-size:8pt; font-family:'Arial';"><a href=3D"https://urldef=
+ense.com/v3/__https://www.ema.europa.eu/en/documents/product-information/co=
+sentyx-epar-product-information_en.pdf__;!!H9nueQsQ!8aUQB3iUfYJ8jUUe4F8yy4A=
+u_6gy1Z47lps7gRtRmFNvebGOuy1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBKXJz4WC$" rel=
+=3D"nofollow" style=3D"color:rgb(0, 0, 0);" target=3D"_blank">https://www.e=
+ma.europa.eu/en/documents/product-information/cosentyx-epar-product-informa=
+tion_en.pdf</a></span> [Last accessed: July 2023].</span></li></ol>   <p al=
+ign=3D"center" style=3D"line-height:12pt; margin-top:0pt; margin-bottom:0pt=
+; text-align:center;"><span style=3D"font-size:10pt; font-family:'Arial';">=
+# # #</span></p>   <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</=
+p>   <p style=3D"margin-top:0pt; margin-bottom:0pt;">&nbsp;</p>  <table sty=
+le=3D"border-collapse: collapse; width:800px; border-collapse:collapse ;"><=
+tr><td colspan=3D"3" style=3D"vertical-align: top ; ">  <p style=3D"margin-=
+top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Ari=
+al';"><strong>Novartis Media Relations</strong></span></p>   <p style=3D"ma=
+rgin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family=
+:'Arial';">E-mail: </span><span style=3D"color:rgb(0, 0, 0); font-size:10pt=
+; font-family:'Arial';"><a href=3D"mailto:media.relations@novartis.com" rel=
+=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-decoration:none;" target=3D=
+"_blank">media.relations@novartis.com</a></span></p>   <p style=3D"margin-t=
+op:0pt; margin-bottom:0pt">&nbsp;</p>  </td><td style=3D"vertical-align: to=
+p ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>  </td><td=
+ colspan=3D"2" style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0p=
+t; margin-bottom:0pt">&nbsp;</p>  </td></tr><tr><td style=3D"max-width:200p=
+x; width:200px; min-width:200px;;vertical-align: top ; ">  <p style=3D"marg=
+in-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'=
+Arial';">Central</span></p>  </td><td colspan=3D"2" style=3D"max-width:200p=
+x; width:200px; min-width:200px;;vertical-align: top ; ">  <p style=3D"marg=
+in-top:0pt; margin-bottom:0pt">&nbsp;</p>  </td><td style=3D"max-width:200p=
+x; width:200px; min-width:200px;;vertical-align: top ; ">  <p style=3D"marg=
+in-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'=
+Arial';">North America</span></p>  </td><td colspan=3D"2" style=3D"max-widt=
+h:200px; width:200px; min-width:200px;;vertical-align: top ; ">  <p style=
+=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>  </td></tr><tr><td style=
+=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt=
+"><span style=3D"font-size:10pt; font-family:'Arial';">Richard Jarvis</span=
+></p>  </td><td colspan=3D"2" style=3D"vertical-align: top ; ">  <p style=
+=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-=
+family:'Arial';">+41 79 584 2326</span></p>  </td><td style=3D"vertical-ali=
+gn: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D=
+"font-size:10pt; font-family:'Arial';">Julie Masow</span></p>  </td><td col=
+span=3D"2" style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; m=
+argin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">+1 8=
+62 579 8456</span></p>  </td></tr><tr><td style=3D"vertical-align: top ; ">=
+  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:1=
+0pt; font-family:'Arial';">Anja von Treskow</span></p>   <p style=3D"margin=
+-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Ar=
+ial';">Anna Sch=C3=A4fers</span></p>  </td><td colspan=3D"2" style=3D"verti=
+cal-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span s=
+tyle=3D"font-size:10pt; font-family:'Arial';">+41 79 392 9697</span></p>   =
+<p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10p=
+t; font-family:'Arial';">+41 79 801 7267</span></p>  </td><td style=3D"vert=
+ical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span =
+style=3D"font-size:10pt; font-family:'Arial';">Michael Meo</span></p>   <p =
+style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; =
+font-family:'Arial';">Marlena Abdinoor</span></p>  </td><td colspan=3D"2" s=
+tyle=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom=
+:0pt"><span style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial=
+';">+1 862 274 5414</span></p>   <p style=3D"margin-top:0pt; margin-bottom:=
+0pt"><span style=3D"color:rgb(0, 0, 0); font-size:10pt; font-family:'Arial'=
+;">+</span><span style=3D"font-size:10pt; font-family:'Arial';">1 617 335 9=
+525</span></p>  </td></tr><tr><td style=3D"vertical-align: top ; "><span st=
+yle=3D"font-size:10pt; font-family:'arial';">Switzerland</span></td><td col=
+span=3D"2" style=3D"vertical-align: top ; ">&nbsp;</td><td style=3D"vertica=
+l-align: top ; ">&nbsp;</td><td colspan=3D"2" style=3D"vertical-align: top =
+; ">&nbsp;</td></tr><tr><td style=3D"vertical-align: top ; ">  <p style=3D"=
+margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-fami=
+ly:'arial';">Satoshi Sugimoto</span></p>  </td><td colspan=3D"2" style=3D"v=
+ertical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><sp=
+an style=3D"font-size:10pt; font-family:'arial';">+41 79 619 2035</span></p=
+>  </td><td style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; =
+margin-bottom:0pt">&nbsp;</p>  </td><td colspan=3D"2" style=3D"vertical-ali=
+gn: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>  </=
+td></tr><tr><td style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0=
+pt; margin-bottom:0pt">&nbsp;</p>  </td><td colspan=3D"2" style=3D"vertical=
+-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>=
+  </td><td style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; m=
+argin-bottom:0pt">&nbsp;</p>  </td><td colspan=3D"2" style=3D"vertical-alig=
+n: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>  </t=
+d></tr><tr><td colspan=3D"3" style=3D"vertical-align: top ; ">  <p style=3D=
+"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-fam=
+ily:'Arial';"><strong>Novartis Investor Relations</strong></span></p>   <p =
+style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; =
+font-family:'Arial';">Central investor relations line: +41 61 324 7944</spa=
+n></p>   <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font=
+-size:10pt; font-family:'Arial';">E-mail: </span><span style=3D"color:rgb(0=
+, 0, 0); font-size:10pt; font-family:'Arial';"><a href=3D"mailto:investor.r=
+elations@novartis.com" rel=3D"nofollow" style=3D"color:rgb(0, 0, 0); text-d=
+ecoration:none;" target=3D"_blank">investor.relations@novartis.com</a></spa=
+n></p>   <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>  </td><t=
+d colspan=3D"3" style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0=
+pt; margin-bottom:0pt">&nbsp;</p>  </td></tr><tr><td colspan=3D"2" style=3D=
+"vertical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><=
+span style=3D"font-size:10pt; font-family:'Arial';">Central</span></p>  </t=
+d><td style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; margin=
+-bottom:0pt">&nbsp;</p>  </td><td colspan=3D"2" style=3D"vertical-align: to=
+p ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-=
+size:10pt; font-family:'Arial';">North America</span></p>  </td><td style=
+=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt=
+">&nbsp;</p>  </td></tr><tr><td colspan=3D"2" style=3D"vertical-align: top =
+; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-si=
+ze:10pt; font-family:'Arial';">Samir Shah</span></p>  </td><td style=3D"ver=
+tical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span=
+ style=3D"font-size:10pt; font-family:'Arial';">+41 61 324 7944</span></p> =
+ </td><td colspan=3D"2" style=3D"vertical-align: top ; ">  <p style=3D"marg=
+in-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'=
+Arial';">Sloan Simpson</span></p>  </td><td style=3D"vertical-align: top ; =
+">  <p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size=
+:10pt; font-family:'Arial';">+1 862 345 4440</span></p>  </td></tr><tr><td =
+colspan=3D"2" style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt=
+; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">N=
+icole Zinsli-Somm</span></p>  </td><td style=3D"vertical-align: top ; ">  <=
+p style=3D"margin-top:0pt; margin-bottom:0pt"><span style=3D"font-size:10pt=
+; font-family:'Arial';">+41 61 324 3809</span></p>  </td><td colspan=3D"2" =
+style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; margin-botto=
+m:0pt"><span style=3D"font-size:10pt; font-family:'Arial';">Parag Mahanti</=
+span></p>  </td><td style=3D"vertical-align: top ; ">  <p style=3D"margin-t=
+op:0pt; margin-bottom:0pt"><span style=3D"color:rgb(0, 0, 0); font-size:10p=
+t; font-family:'Arial';">+1 </span><span style=3D"font-size:10pt; font-fami=
+ly:'Arial';">973 876 4912</span></p>  </td></tr><tr><td colspan=3D"2" style=
+=3D"vertical-align: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt=
+"><span style=3D"font-size:10pt; font-family:'Arial';">Isabella Zinck</span=
+></p>  </td><td style=3D"vertical-align: top ; ">  <p style=3D"margin-top:0=
+pt; margin-bottom:0pt"><span style=3D"font-size:10pt; font-family:'Arial';"=
+>+41 61 324 7188</span></p>  </td><td colspan=3D"2" style=3D"vertical-align=
+: top ; ">  <p style=3D"margin-top:0pt; margin-bottom:0pt">&nbsp;</p>  </td=
+><td style=3D"vertical-align: top ; ">  <p style=3D"line-height:12pt; margi=
+n-top:0pt; margin-bottom:0pt">&nbsp;</p>  </td></tr></table></article>
+</section>
+<p>&nbsp;</p>
+<p>If you would like to unsubscribe from the Novartis Press Release distrib=
+ution click on the following link to cancel your subscription directly:&nbs=
+p;<a href=3D"https://urldefense.com/v3/__https://www.novartis.com/news/stay=
+-up-to-date__;!!H9nueQsQ!8aUQB3iUfYJ8jUUe4F8yy4Au_6gy1Z47lps7gRtRmFNvebGOuy=
+1631nvEKrNR0CdHx9U6P1NZYKfNUSDk0itBEFLidZS$">https://www.novartis.com/news/=
+stay-up-to-date</a></p>
+<div style=3D"border-top: 1px solid #aba8a8; margin-top: 1em; padding: 1em =
+0; font-size: 11px !important; color: #aba8a8;">&nbsp;</div>
+</div>
+<img src=3D"https://contacts-eu.globenewswire.com/Ros/TrackEmailOpen?recipi=
+entId=3Dbase64v2%3acszonBKUuVfgFy5QoT79iU%2blaslyo165XzyZF3HVVnaPvwldzpgSye=
+ysi2w7x1eA" width=3D"1" height=3D"1" style=3D"display:none;"></body></html>=
+

@@ -1,0 +1,14 @@
+lxml==4.2.1
+selenium==3.11.0
+extract-msg
+imapclient
+tldextract
+pdfkit
+weasyprint
+asyncio
+pickle5
+beautifulsoup4
+boto3
+botocore
+fastapi
+reportlab

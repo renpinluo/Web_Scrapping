@@ -1,0 +1,1156 @@
+﻿Received: from LV8PR01MB8453.prod.exchangelabs.com (2603:10b6:408:189::22) by
+ BN8PR01MB5524.prod.exchangelabs.com with HTTPS; Mon, 20 Nov 2023 15:05:57
+ +0000
+Received: from BL1PR13CA0215.namprd13.prod.outlook.com (2603:10b6:208:2bf::10)
+ by LV8PR01MB8453.prod.exchangelabs.com (2603:10b6:408:189::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7002.27; Mon, 20 Nov 2023 15:05:56 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:208:2bf:cafe::15) by BL1PR13CA0215.outlook.office365.com
+ (2603:10b6:208:2bf::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.14 via Frontend
+ Transport; Mon, 20 Nov 2023 15:05:56 +0000
+Authentication-Results: spf=fail (sender IP is 148.168.40.5)
+ smtp.mailfrom=public.govdelivery.com; dkim=fail (signature did not verify)
+ header.d=public.govdelivery.com;dmarc=none action=none
+ header.from=public.govdelivery.com;
+Received-SPF: Fail (protection.outlook.com: domain of public.govdelivery.com
+ does not designate 148.168.40.5 as permitted sender)
+ receiver=protection.outlook.com; client-ip=148.168.40.5;
+ helo=mail.pfizer.com;
+Received: from mail.pfizer.com (148.168.40.5) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 15:05:56 +0000
+Received: from drmamrexdf02.amer.pfizer.com (141.173.144.43) by
+ drmamrexde01.amer.pfizer.com (141.173.144.39) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Mon, 20 Nov 2023 10:05:41 -0500
+Received: from gromsgo.pfizer.com (10.128.230.29) by
+ drmamrexdf02.amer.pfizer.com (141.173.144.43) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34 via Frontend Transport; Mon, 20 Nov 2023 10:05:41 -0500
+Received: from pps.filterd (svaamrppa02.pfizer.com [127.0.0.1])
+	by svaamrppa02.pfizer.com (8.17.1.19/8.17.1.19) with ESMTP id 3AKF2S6E008195
+	for <bi_vox@pfizer.com>; Mon, 20 Nov 2023 10:05:41 -0500
+Authentication-Results-Original: pfizer.com;	spf=fail
+ smtp.mailfrom=messages@public.govdelivery.com;	dkim=fail header.s=13q2
+ header.d=public.govdelivery.com;	dmarc=none
+Received: from som-feex-03.pfizer.com (som-feex-03pether3.pfizer.com [10.34.104.52])
+	by svaamrppa02.pfizer.com (PPS) with ESMTPS id 3ueshkhh5a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <bi_vox@pfizer.com>; Mon, 20 Nov 2023 10:05:40 -0500
+Received: from localhost.localdomain (localhost [127.0.0.1])
+	by SOM-FEEX-03.pfizer.com (Postfix) with SMTP id 4SYrRR0Myhz19GLv
+	for <bi_vox@pfizer.com>; Mon, 20 Nov 2023 15:05:38 +0000 (UTC)
+Received: from mailstream-west.mxrecord.io (mailstream-uswest-egress002.mxrecord.io [52.11.209.211])
+	by SOM-FEEX-03.pfizer.com (Postfix) with ESMTPS id 4SYrRL532tz19GKB
+	for <bi_vox@pfizer.com>; Mon, 20 Nov 2023 15:05:34 +0000 (UTC)
+Received: from mailstream029.us-west-2.production.area1.internal (localhost [127.0.0.1])
+	by mailstream-west.mxrecord.io (Postfix) with ESMTP id 4SYrRL0RwVz1nsDq
+	for <bi_vox@pfizer.com>; Mon, 20 Nov 2023 15:05:34 +0000 (UTC)
+Received-SPF: pass (mailstream-west.mxrecord.io: public.govdelivery.com designates 69.5.86.121 as permitted sender) client-ip=69.5.86.121; envelope-from=messages@public.govdelivery.com; helo=mailer086121.service.govdelivery.com;
+Received: from mailstream-west.mxrecord.io (localhost. [127.0.0.1])
+        by localhost
+        with SMTP (Area1Security-Mailstream 2.184.1) id LP71GAPM
+        for bi_vox@pfizer.com;
+        Mon, 20 Nov 2023 15:05:31 +0000 (GMT)
+Received: from mx0b-00013f02.pphosted.com (mx0b-00013f02.pphosted.com [208.86.201.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailstream-west.mxrecord.io (Postfix) with ESMTPS id 4SYrRH5vmyz1nsHw
+	for <bi_vox@pfizer.com>; Mon, 20 Nov 2023 15:05:31 +0000 (UTC)
+Received: from pps.filterd (m0373977.ppops.net [127.0.0.1])
+	by mx0b-00013f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 3AKF2GCE023217
+	for <bi_vox@pfizer.com>; Mon, 20 Nov 2023 10:05:31 -0500
+Received: from mailer086121.service.govdelivery.com (mailer086121.service.govdelivery.com [69.5.86.121])
+	by mx0b-00013f02.pphosted.com (PPS) with ESMTPS id 3uetm21yve-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <BI_VOX@pfizer.com>; Mon, 20 Nov 2023 10:05:30 -0500
+Received: from gasdp-smeds14-1.systems.dc.gdi ([10.1.36.89])
+	by mailer086121.service.govdelivery.com (-); Mon, 20 Nov 2023 15:05:27 +0000
+X-VirtualServer: VSG001, mailer086121.service.govdelivery.com, 10.1.37.21
+X-VirtualServerGroup: VSG001
+X-MailingID: 16837634::20231120.85909161::1001::MDB-PRD-BUL-20231120.85909161::BI_VOX@pfizer.com::141482_0_0
+X-SMHeaderMap: mid="X-MailingID"
+X-Destination-ID: BI_VOX@pfizer.com
+X-SMFBL: QklfVk9YQHBmaXplci5jb20=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=public.govdelivery.com; s=13q2; i=@public.govdelivery.com; h=Content-Transfer-Encoding:
+	Content-Type:x-subscriber:List-Unsubscribe:X-Accountcode:
+	Errors-To:MIME-Version:Message-ID:X-ReportingKey:Subject:Date:To:
+	Reply-To:From; bh=/o0EtgDEk4WCt+LflXGmWyVVFrFqIlG4Mf9ae/vtxno=;
+	b=o3DPoCIaQjNjiwoyCTznf0Nn4s+7WM72pNsIRv1A2+5wGqyhtKARphw0p5jqG9
+	ojqXDHXUfvz517zNZyZvsRFcqS3tqTtWjuAVB4fiAm018+Ss8tquXR2jGZs6mFn3
+	WpfpP18auDXhdmlNiCscu33OiuRCzGLdK8F7s9XBonRNzNdhNjDrFOVx7/X/Muqs
+	DgN3vvTDQv5zhWO8vdRqv95C4CbDkV93LlacBXlMR7Vi0XeIxoJQi7yGz3Dq18LZ
+	NZxMyyGsgZxZ7dMn9OnMayOrGwkkxZdGzZBuZ1wCZXUY2Yzwc6uo6JK0gvueo5zh
+	sdUhWIM5nccngrDXy/VZX1ng==
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_D69_F5D9_4646559A.03F7DBE7"
+x-subscriber: 3.sc8OEeI15ChPGiTDqrNjP3ddtNLYy/pCdbbxhBafLdsmQMXY+6fhzJDMnb3TiBM6J0i/7gbjaYvzXHuBcEGkxnICS0BAxZfqaVczXK2CJ+p14yVwr8jzrxP65Jn6dWRgB/9IOdCEzhb2vrS/+/okrQ==
+List-Unsubscribe: <https://public.govdelivery.com/accounts/USFDA/subscriber/one_click_unsubscribe?verification=5.9292e6efc31c5043e5f9f1b464fb48a8&destination=BI_VOX%40pfizer.com>
+X-Accountcode: USFDA
+Errors-To: messages@public.govdelivery.com
+Message-ID: <16837634.141482@public.govdelivery.com>
+X-ReportingKey: MJJJ2EWJK8F6-JJ11BHRJJJ::BI_VOX@pfizer.com::BI_VOX@pfizer.com
+Date: Mon, 20 Nov 2023 15:05:22 +0000
+To: BI_VOX@pfizer.com
+Reply-To: usfda@public.govdelivery.com
+X-FireEye: Clean
+From: "=?US-ASCII?Q?U.S._Food_and_Drug_Administration?=" <usfda@public.govdelivery.com>
+X-Proofpoint-ORIG-GUID: -jvJxh2yWhhab7dvsBuSLyRqQIwumiYZ
+X-Proofpoint-GUID: -jvJxh2yWhhab7dvsBuSLyRqQIwumiYZ
+X-CLX-Shades: MLX
+X-CLX-Response: 1TFkXGBIbEQpMehccHhgRCllEF2JmQR5BUmhfUngaEQpYWBdpR1l8RFBiZWZ FXxEKeE4XZkBSRmdIeRhzG0URCnhLF2lHWXxEUGJlZkVfEQp5TBdlT3wBHUZLSXBgRREKQ0gXBx 4fHxEKQ1kXBxIeEQpDSRcaBBoaGhEKWU0XZ2ZyEQpZSRcacRoQGncGGx4bcR4fHh4TEBsdHxt3B
+ hgaBhsYGhEKWV4XbGx5EQpJRhdaTENQT1h1QkVZXk9OEQpJRxd4T00RCkNOFwdAXGBSQhhTfUJC S0gdTlxZaF95ZlN4W3tjXV9HQ3NwEQpYXBcfBBoEGR4aBRsaBBsbGgQbGR4EGR8QGx4aHxoRCl5 ZF0lBeFp8EQpNXBcZGhMRCkxaF21NQ10RCkxGF29ra2traxEKQk8XYltbT21wXhlLSEQRCkNaFx
+ wTBB8EEhwEGxgbEQpCXhcbEQpZRRcTEQpFSRcbEQpFZhceEQpCRhdvbFNjGVBmU0RifxEKQkcXb Xt5bmRyWUdDaU0RCkJcFxsRCkJLF29kHkR9X0xGZ2h7EQpCSRdmQFJGZ0h5GHMbRREKQkUXbVp5 GUh/BU99c0ERCkJOF2ZAUkZnSHkYcxtFEQpCTBdpR1l8RFBiZWZFXxEKQmwXYlNkREhaGgFHeBI
+ RCkJAF3oYTR9OXBNhXHAcEQpCWBdrYWxuW14FekQFHBEKWlgXGx0RCnlDF3plQn5CBR0TeEAcEQ pZSxcSGx8YEQpaSxcSGx8YEQpwZxdlS3NJXgFMTB5vZhAZGhEKcGgXbRtpYHNhSUFvbnAQBx0aE QpwaBdsSB1BH3NrcHsbfRAcGhEKcGgXemcZY154fRpFH0gQBxgYEQpwaBdjYHkTYhNgQEkcXxAH
+ HRoRCnBoF2cBbm9PWX5Ob0BPEAcdGhEKcGgXYmBNc09da2scXGcQBx0aEQpwaBdvTlN+HXNBSW9 dGRAHGBgRCnBoF2ZzTmN+QGxcbllBEAcYGBEKcH0XbksTQUxPSGNIbxsQBxsSEQpwfRdvcl1ybH pMTWBmRBAHHRoRCnB9F2tGc34fbkhybUBOEAcdGhEKcH0XZWdoXR5daXtHXVAQBx0aEQpwfRdlZ
+ WsFWmBpGgEZaRAHHRoRCnB9F2NTZGtvGF97QHJeEAcdGhEKcH0XaGlBa05oZE9oe34QBx0aEQpw fRdna1kdRRJgSG9CQRAHHRoRCnB9F2FOcBJPHE0dZ1xAEAcdGhEKcH0Xa2FPYUFDbVJIQWkQBx0 aEQpwfRdtXhtYW3Bpfl0FSBAHHRoRCnB9F20eHmh4R0JbEnxCEB0SEQpwfRdpRF1tGURae0FpQB
+ AaEQpwfRdoQGtyU3tCQFpfQhAbHxIRCnBnF2x/WkFjbX1BGXhGEBoRCnB9F2V4H2Z5cAVnH3xPE BseGhEKcH0XZ3l8EkcfYnphSF0QGhEKcH0XZlhvfkNnfG4SBWcQHBoRCnB9F2FDRkBCbx8cZ2B+ EBoRCnB9F2AdG2dNG1BlaxpOEBoRCnB9F2BSBUcdY0ZFZ0VcEBoRCnB9F297cGwZfW9oExN/EBo
+ RCnB9F3pbWWZZYn1sYmNrEBoRCnB9F2sBGEljaF1OYRtPEBoRCnB9F24SQVpjZhJPUGFsEBoRCn B9F28TSBx6ex5BZG4dEBoRCnB9F29vTGBcZHNAbWRYEBoRCnB/F2NdfhlMRBxQGE4bEBseHBEKc F8XblMSWWlPSWhyGn4QEx8RCnB/F2hkaHMZYXlpQmVDEBMcEQpwXxdjcl9CXnxOaEFDWxAHHRoR
+ CnBfF2xyZR1AexxCZQVuEAcdGhEKcH8XaXJ4HEBPTEVnWHoQGRoRCnBfF2EdTVx6BUtwfRNvEAc dGhEKcF8XYWtES3t+ZhkTfm8QBx0aEQpwXxdgTkl6ZGFDfUdoSxAHHRoRCnBfF2dJf2xrRkEaQF lzEAcbEhEKcH8XbWRpTm0BTUV7TEAQExIRCnBfF2VEe0FFBU9AeWRGEBsaGhEKcH8XZnkdZX9pA
+ RxPa2QQEh4RCnBfF2ZmT34SThp6fXsdEAcdGhEKcH8XbxtBaHpjZh5IZhMQEhkRCnBfF2hkQFBN YW1TaVoeEBkaEQpwXxdhYRJQTG0ZTl1oexAbHxIRCnB/F2UeGQFZZH9QGG0cEBscHREKcF8XbWN nXV99b2ESHFMQGxwbEQpwfxdoQG9kTl9gbB5MTBAbHh8RCnBfF2J+UB5cb19nYUhMEBsZEhEKcF
+ 8XbWJfTmsaHGh9RHMQGx4TEQpwbBdtW2tsRGRGfB1iQhAbGx8RCm1+FxoRClhNF0sRIA==
+X-Proofpoint-PFERule: PODI-IntDisclamer
+x-Proofpoint-Inbound-Internet-Email: Internet-sourced
+x-pfepod-internet-traffic: external_mail
+x-pfepod-Insert-External-Tag: true
+x-pfepod-ewt-enabled: False
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:spf.as.service.govdelivery.com
+ include:spf.ep.service.govdelivery.com
+ include:spf.sp.service.govdelivery.com a mx -all
+ exp=spferror.service.govdelivery.com
+x-pfepod-dmarc-rule: norecord
+x-pfepod-dmarc-policy: default
+x-pfepod-dmarc-disp: none
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-20_14,2023-11-20_01,2023-05-22_02
+X-Proofpoint-PODISpam-Reason: orgsafe
+X-Proofpoint-PFERule: PODI-GSafe
+X-Area1Security-Disposition: BULK 4SYrRH5vmyz1nsHw-2023-11-20T15:05:31
+X-Area1Security-Origin: EXTERNAL 4SYrRH5vmyz1nsHw-2023-11-20T15:05:31
+X-Area1Security-Processed: e3687b1df9561158d4923ca4fd1e48ae;2;BULK;2023-11-20T15:05:34;3391b85a-e4ab-11e6-b842-60f81dcb6830
+Subject: [EXTERNAL] SBIA | A Joint US-FDA | MHRA-UK | Health Canada Good Clinical
+ Practice & Pharmacovigilance Compliance Workshop
+x-pfeonprem-source: External
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-20_14,2023-11-20_01,2023-05-22_02
+Return-Path: messages@public.govdelivery.com
+X-OrganizationHeadersPreserved: drmamrexde01.amer.pfizer.com
+X-MS-Exchange-Organization-ExpirationStartTime: 20 Nov 2023 15:05:56.6633
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ a6c0c54f-9000-4e73-d91c-08dbe9da32bf
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-Organization-AuthSource: drmamrexdf02.amer.pfizer.com
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 10
+X-CrossPremisesHeadersPromoted: BL02EPF0001A101.namprd05.prod.outlook.com
+X-CrossPremisesHeadersFiltered: BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ BL02EPF0001A101:EE_|LV8PR01MB8453:EE_|BN8PR01MB5524:EE_
+X-OriginatorOrg: Pfizer.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id: a6c0c54f-9000-4e73-d91c-08dbe9da32bf
+X-PFE-Code: Internal
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:148.168.40.5;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.pfizer.com;PTR:iad-us-a-148-168-40-5.pfizer.com;CAT:NONE;SFS:;DIR:INT;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 15:05:56.5539
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6c0c54f-9000-4e73-d91c-08dbe9da32bf
+X-MS-Exchange-CrossTenant-Id: 7a916015-20ae-4ad1-9170-eefd915e9272
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=7a916015-20ae-4ad1-9170-eefd915e9272;Ip=[148.168.40.5];Helo=[mail.pfizer.com]
+X-MS-Exchange-CrossTenant-AuthSource: drmamrexdf02.amer.pfizer.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR01MB8453
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.1965920
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6977.026
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	0ulHCTvW5x7evtoGSEsk7JW0eyOFe0qB9EzbGIkKFQsSh9Ls6jY2QoHyp/z2brZUK1PDNmxUa2Y0QuozGSGJQgPPn6ggctMsEyVhKa2GaTa+IsL/Nb15Xbfe+i6OIJWK1Np8xj8CCpBJ4IfILfkn6SV8qrJ3Jf3SAmRlKxawrc3HnT4Rzj2xA2kO6SI5tZpTWKkcgeENWAIwHDX4MbpUFCxyjm5eXZJJV4yTaEnDs6WtmbEF6VYlgjgW1AUyiNRGL2CaqOfozOJzWK7yuqDpv9S/agTRUfArmjmhasIX7hhX4+wqAly4e9X2eNpOqKifHZiBzxuQ9SO3DME1TLBCeDro1hf3VNXN8OOZ2h5VxJODU31pw4Lk+L+y09kDaCEROmR7l7c9MbeLDvTRF8Iy3PvdfMqPx5nm8pS18f9fksOESVw/+13as7d9Q7/pEFo4EoDUXmbZd1HRBGr/6qJf5ySSUS4K9uFXrPmlDSHtlGwqetyFeVMlsTGTmKXTqueuvYQ2hCYP5Iimr807XiVeWeGnW8o/9AVfgFJJKn8UqNLzerv+Yeoph0DqFaXC5gVmTD6o9hSgXRnV3Nj7bBGBq2IMY4Qic7EjSR+5yedHmk7PMVrZyeYErDcrrDXgf6eWealEr+/rbt6LElXlR2kp8lXjaOfHJfeF0mpul4RXCAGY7cIgHZIh1f2c7bgc3vOWmmK+VBpcs4lLGdgHR/k7I0Ir24bADATX6/fFM4GuxwrjPa96A9lmoN7PHcP+/cpj2upXrlh/tWbmfr3VGs5xk3ruf4uM8fsdPWkhV4PfOYUrA6EJ88zRwIc7hD4GL7VE
+MIME-Version: 1.0
+
+------=_NextPart_D69_F5D9_4646559A.03F7DBE7
+Content-Type: text/plain;	charset="UTF-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+?? Resuming face to face hybrid meetings!=20=20
+
+=20
+
+"Receive this email as a forward? Subscribe to CDER SBIA industry updates. =
+[ https://urldefense.com/v3/__https://public.govdelivery.com/accounts/USFDA=
+/subscriber/new?topic_id=3DUSFDA_352__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi=
+-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJY6AIMh-$  ]"
+
+CDER SBIA Webinar Registration=20=20
+=20
+
+CDER Small Business and Industry Assistance (SBIA) [ https://urldefense.com=
+/v3/__https://www.fda.gov/drugs/development-approval-process-drugs/cder-sma=
+ll-business-industry-assistance-sbia?utm_medium=3Demail&utm_source=3Dgovdel=
+ivery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5G=
+qBbDBPY3je6d2uOAwOrY-RaDJWAWxoNM$  ]
+
+presents
+
+A Joint US-FDA | MHRA-UK | Health Canada Good Clinical Practice & Pharmacov=
+igilance Compliance Workshop
+=20
+=20
+
+=20
+=20
+
+________________________________________________________________________
+
+=20
+
+*Day 1: Tuesday, Feb 13=C2=A0 |*=C2=A08:30 AM=C2=A0- 3:35=C2=A0PM=C2=A0ET
+
+*Day 2: *Wednesday***, Feb 14=C2=A0 |=C2=A0*8:30 AM=C2=A0- 3:50=C2=A0PM=C2=
+=A0ET
+
+*Day 3: Thursday, Feb 15 |=C2=A0*8:30 AM=C2=A0-=C2=A04:50 PM=C2=A0ET
+
+________________________________________________________________________
+
+=20
+
+*"Join us in person as we resume hybrid meetings!"*
+
+No Fee Registration [ https://urldefense.com/v3/__https://www.fda.gov/drugs=
+/news-events-human-drugs/joint-us-fda-mhra-uk-health-canada-good-clinical-p=
+ractice-pharmacovigilance-compliance-workshop?utm_medium=3Demail&utm_source=
+=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgD=
+AILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJQFjUN9E$  ]
+
+Agenda=C2=A0 [ https://urldefense.com/v3/__https://sbiaevents.com/files2024=
+/FDA-MHRA-HC-2024-Agenda.pdf?utm_medium=3Demail&utm_source=3Dgovdelivery__;=
+!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3=
+je6d2uOAwOrY-RaDJSNdZ020$  ]
+
+________________________________________________________________________
+
+=20
+=20
+=20
+=20
+=20
+
+*?? ABOUT THIS EVENT=C2=A0*
+
+
+  * This workshop will focus on Global Clinical Trials in Good Clinical Pra=
+ctice, Bioequivalence, and Pharmacovigilance in the post pandemic world. Pr=
+esentations and panel discussions will provide information on the recent up=
+dates made to ICH E6(r3) and regulatory perspectives on implementation of p=
+roportionate and risk-based approaches to the design and conduct of the tri=
+al to help ensure that the quality of the trial data generated is of suffic=
+ient quality to support good decision making.=20
+  * Panelists will discuss continuing developments in novel operational app=
+roaches, data sources, and technologies used in clinicals trials, as well a=
+s novel approaches to regulatory inspections.=20
+  * More... [ https://urldefense.com/v3/__https://www.fda.gov/drugs/news-ev=
+ents-human-drugs/joint-us-fda-mhra-uk-health-canada-good-clinical-practice-=
+pharmacovigilance-compliance-workshop?utm_medium=3Demail&utm_source=3Dgovde=
+livery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5=
+GqBbDBPY3je6d2uOAwOrY-RaDJQFjUN9E$  ]=20
+
+*?? TOPICS COVERED*
+
+
+  * Key updates to ICH E6(R3)=20
+  * The use of technology in clinical trials=20
+  * Updates for trials incorporating decentralized clinical trials (DCT) fe=
+atures=20
+  * Changes in clinical trial activities, inspections, and remote regulator=
+y assessments/ remote inspections=20
+  * More... [ https://urldefense.com/v3/__https://www.fda.gov/drugs/news-ev=
+ents-human-drugs/joint-us-fda-mhra-uk-health-canada-good-clinical-practice-=
+pharmacovigilance-compliance-workshop?utm_medium=3Demail&utm_source=3Dgovde=
+livery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5=
+GqBbDBPY3je6d2uOAwOrY-RaDJQFjUN9E$  ]=20
+=20
+=20
+
+*?? INTENDED AUDIENCE
+*
+
+
+  * Researchers and Clinical trial sponsors considering the use of decentra=
+lized trial design or Real-World Data=20
+  * Organisations sponsoring, conducting, managing or submitting bioequival=
+ence/bioavailability clinical trials for licensing purposes such as the Abb=
+reviated New Drug Application (ANDA) and Biologic License Application (BLA)=
+=20
+  * More... [ https://urldefense.com/v3/__https://www.fda.gov/drugs/news-ev=
+ents-human-drugs/joint-us-fda-mhra-uk-health-canada-good-clinical-practice-=
+pharmacovigilance-compliance-workshop?utm_medium=3Demail&utm_source=3Dgovde=
+livery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5=
+GqBbDBPY3je6d2uOAwOrY-RaDJQFjUN9E$  ]=20
+
+*
+?? FDA RESOURCES*
+
+
+  * Decentralized Clinical Trials for Drugs, Biological Products, and Devic=
+es [ https://urldefense.com/v3/__https://www.fda.gov/regulatory-information=
+/search-fda-guidance-documents/decentralized-clinical-trials-drugs-biologic=
+al-products-and-devices?utm_medium=3Demail&utm_source=3Dgovdelivery__;!!H9n=
+ueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2=
+uOAwOrY-RaDJYYEPVIL$  ]=20
+  * Electronic Systems, Electronic Records, and Electronic Signatures in Cl=
+inical Investigations: Q&A (FDA [ https://urldefense.com/v3/__https://www.f=
+da.gov/regulatory-information/search-fda-guidance-documents/electronic-syst=
+ems-electronic-records-and-electronic-signatures-clinical-investigations-qu=
+estions?utm_medium=3Demail&utm_source=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB=
+4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJSrSr=
+Xw1$  ]=20
+  * More... [ https://urldefense.com/v3/__https://www.fda.gov/drugs/news-ev=
+ents-human-drugs/joint-us-fda-mhra-uk-health-canada-good-clinical-practice-=
+pharmacovigilance-compliance-workshop?utm_medium=3Demail&utm_source=3Dgovde=
+livery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5=
+GqBbDBPY3je6d2uOAwOrY-RaDJQFjUN9E$  ]=20
+=20
+=20
+=20
+
+CONTINUING EDUCATION
+
+Real-time participation is required for the certificate of attendance which=
+ can be used in support of CEs for the following professional organizations=
+:=C2=A0*RAPS,=C2=A0*SOCRA, SQA, and ACRP**. Certificates are=C2=A0*only*=C2=
+=A0available during the two weeks post-event. For more information, see det=
+ails on our=C2=A0webpage [ https://urldefense.com/v3/__https://www.fda.gov/=
+drugs/news-events-human-drugs/joint-us-fda-mhra-uk-health-canada-good-clini=
+cal-practice-pharmacovigilance-compliance-workshop?utm_medium=3Demail&utm_s=
+ource=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnVi=
+VgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJQFjUN9E$  ].=C2=A0=C2=A0
+
+=20
+=20
+
+The Small Business and Industry Assistance (SBIA) program in the Center for=
+ Drug Evaluation and Research provides guidance, education [ https://urldef=
+ense.com/v3/__https://www.fda.gov/cdersbialearn?utm_medium=3Demail&utm_sour=
+ce=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgv=
+gDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJRwH8hK0$  ] and updates for regulated i=
+ndustry.
+
+
+  * Register for Upcoming Training [ https://urldefense.com/v3/__https://ww=
+w.fda.gov/cdersbia?utm_medium=3Demail&utm_source=3Dgovdelivery__;!!H9nueQsQ=
+!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwO=
+rY-RaDJbsAA_-E$  ]=20
+  * View the SBIA 2023 YouTube Playlist [ https://urldefense.com/v3/__https=
+://www.youtube.com/playlist?list=3DPLey4Qe-UxcxZ-0H3bmqxtczhlF4B0UbCC&utm_m=
+edium=3Demail&utm_source=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmq=
+Ki-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJf9_FSpu$  ]=20
+  * Subscribe to CDER SBIA Email Updates [ https://urldefense.com/v3/__http=
+s://public.govdelivery.com/accounts/USFDA/subscriber/new?topic_id=3DUSFDA_3=
+52__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBb=
+DBPY3je6d2uOAwOrY-RaDJY6AIMh-$  ]=20
+  * Connect on LinkedIn [ https://urldefense.com/v3/__https://www.linkedin.=
+com/showcase/cder-small-business-and-industry-assistance?utm_medium=3Demail=
+&utm_source=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7D=
+oQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJW94L40K$  ]=20
+  * Follow on X [ https://urldefense.com/v3/__https://twitter.com/FDA_Drug_=
+Info?utm_medium=3Demail&utm_source=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB4Hg=
+G1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJWlq4hjr=
+$  ]=20
+=20
+=20
+=20
+=20
+=20
+
+"This is an automated message delivery system. Replying to this message wil=
+l not reach the CDER SBIA staff. If you have comments or questions, contact=
+ us at=C2=A0"CDERSBIA@fda.hhs.gov=C2=A0or 1-866-405-5367 or (301) 796-6707.
+
+=C2=A0
+
+*SUBSCRIBER SERVICES: *
+
+Manage Subscriptions=C2=A0 [ https://urldefense.com/v3/__https://public.gov=
+delivery.com/accounts/USFDA/subscriber/edit?preferences=3Dtrue*tab1__;Iw!!H=
+9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6=
+d2uOAwOrY-RaDJVUxh6am$  ]=C2=A0|=C2=A0=C2=A0Unsubscribe All [ https://urlde=
+fense.com/v3/__https://public.govdelivery.com/accounts/USFDA/subscriber/one=
+_click_unsubscribe?verification=3D5.9292e6efc31c5043e5f9f1b464fb48a8&destin=
+ation=3DBI_VOX*40pfizer.com__;JQ!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLV=
+JA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJRlpgEYm$  ]=C2=A0=C2=A0|=
+=C2=A0=C2=A0Help [ https://urldefense.com/v3/__https://subscriberhelp.govde=
+livery.com/__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAIL=
+OEOp5GqBbDBPY3je6d2uOAwOrY-RaDJcm261We$  ]
+
+=20
+
+________________________________________________________________________
+
+ This email was sent to BI_VOX@pfizer.com using GovDelivery Communications =
+Cloud on behalf of: U.S. Food and Drug Administration =C2=B7=C2=A0
+10903 New Hampshire Ave=C2=A0=C2=B7=C2=A0Silver Spring, MD =C2=B7=C2=A0 209=
+93-0002=C2=A0=C2=B7=C2=A0=C2=A01-888-INFO-FDA GovDelivery logo [ https://ur=
+ldefense.com/v3/__https://subscriberhelp.granicus.com/?utm_medium=3Demail&u=
+tm_source=3Dgovdelivery__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQ=
+SnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJWFwhjys$  ]=20
+=20
+body .abe-column-block { min-height: 5px; } table.gd_combo_table img {margi=
+n-left:10px; margin-right:10px;} table.gd_combo_table div.govd_image_displa=
+y img, table.gd_combo_table td.gd_combo_image_cell img {margin-left:0px; ma=
+rgin-right:0px;}
+
+
+------=_NextPart_D69_F5D9_4646559A.03F7DBE7
+Content-Type: text/html;	charset="UTF-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns=3D"=
+http://www.w3.org/1999/xhtml" xml:lang=3D"en" lang=3D"en"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><t=
+itle>    SBIA | A Joint US-FDA | MHRA-UK | Health Canada Good Clinical Prac=
+tice &amp; Pharmacovigilance Compliance Workshop
+</title>
+    <meta content=3D"text/html; charset=3DUTF-8">
+<meta name=3D"viewport" content=3D"initial-scale=3D1.0">
+<meta name=3D"format-detection" content=3D"telephone=3Dno">
+<style type=3D"text/css">
+/*start reset css*/
+
+div { line-height: 1; }
+body, table, td, p, a, li, blockquote { -webkit-text-size-adjust: 100%; -ms=
+-text-size-adjust: 100%; }
+body { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
+table { border-spacing: 0; }
+table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+img { -ms-interpolation-mode: bicubic; }
+body { margin: 0; padding: 0; }
+img { border: none !important; height: auto; line-height: 1; outline: none;=
+ text-decoration: none; }
+table td { border-collapse: collapse !important; }
+.preheader { display: none !important; visibility: hidden; opacity: 0; colo=
+r: transparent; height: 0; width: 0; }
+
+table#yahoo .gd_combo_table img {margin-left:7px; margin-right:7px;}
+table#yahoo .gd_combo_table td.gd_combo_image_cell img, table#yahoo .gd_com=
+bo_table div.govd_image_display img {margin-left:0px; margin-right:0px;}
+/*end reset css*/
+a[x-apple-data-detectors] {
+color: inherit !important;
+text-decoration: none !important;
+font-size: inherit !important;
+font-family: inherit !important;
+font-weight: inherit !important;
+line-height: inherit !important;
+}
+/* outlook.com line-height control */
+.ExternalClass p,=20
+.ExternalClass span,
+.ExternalClass font,
+.ExternalClass td
+{line-height: 100%}
+
+@media only screen and (max-device-width: 480px) {
+table#yahoo, table#yahoo table { position: relative; }
+table#yahoo .govd_header { max-width: 480px !important; }
+table#yahoo .govd_hr img, table#yahoo .govd_hr_inner img { display:none !im=
+portant; }
+table#yahoo img { max-width: 400px !important; width: auto !important; }
+table#yahoo .govd_template_image { height: auto !important; max-width: 400p=
+x !important; width: auto !important; margin:0 !important; }
+table#yahoo table.gd_combo_table .govd_template_image { margin:0 5px 5px 5p=
+x !important; }
+table#yahoo #main-header .govd_template_image { max-width: 480px !important=
+; width: 100% !important; }
+table#yahoo .govd_content_container .govd_image_display { margin-left:0 !im=
+portant; }
+table#yahoo .container-fill, table.gd_tbl_wrap, table.gd_tbl_wrap table { m=
+ax-width: 480px !important; }
+.main-table, .mobile-footer, .mobile-tagline, table.gd_tbl_wrap, table.gd_t=
+bl_wrap table { width:100% !important; min-width:100% !important; max-width=
+:480px !important; }
+table#yahoo .tablecell, .tablecell { width:100% !important; display: block =
+!important; }
+table#yahoo p, table#yahoo p span, table#yahoo .gd_p, table#yahoo li { font=
+-size:13pt !important; }
+table#yahoo #view-in-browser p, table#yahoo #view-in-browser p span, table#=
+yahoo #view-in-browser .gd_p, table#yahoo #view-in-browser li { font-size:8=
+pt !important; }
+table#yahoo h1 { font-size:18pt !important; }
+table#yahoo h2 { font-size:16pt !important; }
+table#yahoo h3 { font-size:14pt !important; }
+table#yahoo #main-body .govd_hr {background:transparent none !important;}
+.mobile-hide {display:none !important;}
+.mobile-padding {padding:0 !important;}
+.mobile-columns {padding:10px 20px !important;}
+}
+
+</style>
+
+</head>
+<body style=3D"line-height:1.4;margin:0;padding:0;width:100% !important;">
+<table bgcolor=3D"#ffffff" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ style=3D"width: 100%;">
+<tbody>
+<tr bgcolor=3D"#ffffff">
+<td align=3D"center" style=3D"background-color: #ffffff; padding: 0px; font=
+-size:1px; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; colo=
+r:#ffffff" valign=3D"top">
+=F0=9F=93=A3 Resuming face to face hybrid meetings!
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<!--[if (gte mso 9)|(IE)]>
+  <table style=3D"display:none"><tr><td><a name=3D"gd_top" id=3D"gd_top"></=
+a></td></tr></table>
+<![endif]-->
+<a name=3D"gd_top" id=3D"gd_top"></a>
+
+ =20
+
+
+
+ =20
+  <table width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" border=3D"0" al=
+ign=3D"center" class=3D"gd_tbl_wrap"><tr><td style=3D"background-color: #FF=
+FFFF; margin: 0; padding: 0; width: 100% !important" bgcolor=3D"#FFFFFF"><t=
+able class=3D"main-table" width=3D"600" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0" id=3D"yahoo" style=3D"width: 600px; border-collapse: coll=
+apse;">
+
+<tr>
+<td>
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"view-in-browser" width=3D"100%" data-govdstyle=3D"all" data-govdt=
+itle=3D"View in Browser" class=3D"thin">
+<p style=3D"text-align: center; line-height: 1.1; margin-top: 10px !importa=
+nt; font-family: arial, helvetica, sans-serif; font-size: 12px;" align=3D"c=
+enter"><em>Receive this email as a forward? <a href=3D"https://urldefense.c=
+om/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjox=
+MDAsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vcHVibGljLmdvdmRlbGl2ZXJ5LmN=
+vbS9hY2NvdW50cy9VU0ZEQS9zdWJzY3JpYmVyL25ldz90b3BpY19pZD1VU0ZEQV8zNTIiLCJidW=
+xsZXRpbl9pZCI6IjIwMjMxMTIwLjg1OTA5MTYxIn0.0_v7LMPPrI894jyVJQjt4SoRfVd3WkLHx=
+TXyGcPkjaI/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zs=
+mmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJS4ZzNJK$" targ=
+et=3D"_blank" rel=3D"noopener" style=3D"color: #0E6DF3; text-decoration: un=
+derline; -ms-word-break: break-all; word-break: break-word; -webkit-hyphens=
+: none; -moz-hyphens: none; hyphens: none;">Subscribe to CDER SBIA industry=
+ updates.</a></em></p>
+<img class=3D"govd_template_image" src=3D"https://content.govdelivery.com/a=
+ttachments/fancy_images/USFDA/2020/12/3951861/fdayoutube-original_original.=
+png" style=3D"width: 600px; height: auto !important; max-height: auto !impo=
+rtant; border: none;" alt=3D"CDER SBIA Webinar Registration" width=3D"600" =
+height=3D"17">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td>
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" bgcolor=3D"#FFFFFF" style=3D"background-color: #FFF; b=
+order-collapse: collapse;">
+
+<tr>
+<td id=3D"header-bg" data-govdstyle=3D"all" data-govdtitle=3D"Header Backgr=
+ound">
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"main-header" width=3D"100%" data-govdstyle=3D"all" data-govdtitle=
+=3D"Main Header" class=3D"head" style=3D"background-color: #007BB9; padding=
+: 0px 10px;" bgcolor=3D"#007BB9">
+<h1 style=3D"text-align: center; line-height: 1.1; font-weight: bold; color=
+: #FFFFFF; font-family: helvetica; font-size: 19px; margin: 10px 0px 0px;" =
+align=3D"center"><a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/e=
+yJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDEsInVyaSI6ImJwMjpjbGljayI=
+sInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3YvZHJ1Z3MvZGV2ZWxvcG1lbnQtYXBwcm92YWwtcH=
+JvY2Vzcy1kcnVncy9jZGVyLXNtYWxsLWJ1c2luZXNzLWluZHVzdHJ5LWFzc2lzdGFuY2Utc2JpY=
+T91dG1fbWVkaXVtPWVtYWlsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnkiLCJidWxsZXRpbl9pZCI6=
+IjIwMjMxMTIwLjg1OTA5MTYxIn0.D0quAWHJuAyHnxH7VNIx7ff8gPSfpdVe0VToRS6wefE/s/3=
+046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA=
+7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJW0YaACS$" target=3D"_blank" =
+rel=3D"noopener" style=3D"color: #FFFFFF; text-decoration: none; -ms-word-b=
+reak: break-all; word-break: break-word; -webkit-hyphens: none; -moz-hyphen=
+s: none; hyphens: none;">CDER Small Business and Industry Assistance (SBIA)=
+</a></h1>
+<h1 style=3D"text-align: center; line-height: 1.1; font-weight: bold; color=
+: #FFFFFF; font-family: helvetica; font-size: 19px; margin: 10px 0px 0px;" =
+align=3D"center">presents</h1>
+<h1 style=3D"text-align: center; line-height: 1.1; font-weight: bold; color=
+: #FFFFFF; font-family: helvetica; font-size: 19px; margin: 10px 0px 0px;" =
+align=3D"center">A Joint US-FDA | MHRA-UK | Health Canada Good Clinical Pra=
+ctice &amp; Pharmacovigilance Compliance Workshop</h1>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+ =20
+<tr>
+<td>
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" bgcolor=3D"#FFFFFF" style=3D"background-color: #FFF; b=
+order-collapse: collapse;">
+
+<tr>
+<td>
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"main-header-2" width=3D"100%" data-govdstyle=3D"all" data-govdtit=
+le=3D"Main Header 2" style=3D"background-color: #222C67; padding: 5px;" bgc=
+olor=3D"#222C67">
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td id=3D"date-bg" data-govdstyle=3D"all" data-govdtitle=3D"Date Background=
+">
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"main-date" width=3D"100%" data-govdstyle=3D"all" data-govdtitle=
+=3D"Main Date" style=3D"padding: 15px;">
+<table class=3D"govd_hr" cellspacing=3D"0" border=3D"0" align=3D"center" wi=
+dth=3D"100%" cellpadding=3D"0" style=3D"border-collapse: collapse;"><tr cla=
+ss=3D"govd_hr_inner"><td width=3D"100%"><hr></td></tr></table>
+<p style=3D"text-align: center; line-height: 1.4; margin-top: 10px !importa=
+nt; margin-bottom: 10px !important; color: #000000; font-family: arial, hel=
+vetica, sans-serif; font-size: 15px;" align=3D"center"><strong>Day 1: Tuesd=
+ay<time datetime=3D"2023-12-06T16:00:00Z">, Feb 13&nbsp; |</time></strong><=
+time datetime=3D"2023-12-06T16:00:00Z"><time datetime=3D"2023-12-07T16:00:0=
+0Z">&nbsp;8<time datetime=3D"2023-12-07T16:00:00Z">:30 AM&nbsp;</time>- 3:3=
+5<time datetime=3D"2023-12-07T21:00:00Z">&nbsp;PM</time>&nbsp;ET</time></ti=
+me></p>
+<p style=3D"text-align: center; line-height: 1.4; margin-top: 10px !importa=
+nt; margin-bottom: 10px !important; color: #000000; font-family: arial, hel=
+vetica, sans-serif; font-size: 15px;" align=3D"center"><strong>Day 2: <stro=
+ng><time datetime=3D"2023-12-06T16:00:00Z">Wednesday</time></strong></stron=
+g><time datetime=3D"2023-12-07T16:00:00Z"><strong>, Feb 14&nbsp; |&nbsp;</s=
+trong>8<time datetime=3D"2023-12-07T16:00:00Z">:30 AM&nbsp;</time>- 3:50<ti=
+me datetime=3D"2023-12-07T21:00:00Z">&nbsp;PM</time>&nbsp;ET</time></p>
+<p style=3D"text-align: center; line-height: 1.4; margin-top: 10px !importa=
+nt; margin-bottom: 10px !important; color: #000000; font-family: arial, hel=
+vetica, sans-serif; font-size: 15px;" align=3D"center"><strong>Day 3: Thurs=
+day, Feb 15 |&nbsp;</strong>8<time datetime=3D"2023-12-07T16:00:00Z">:30 AM=
+&nbsp;</time>-&nbsp;<time datetime=3D"2023-12-07T21:00:00Z">4:50 PM</time>&=
+nbsp;ET</p>
+<table class=3D"govd_hr" cellspacing=3D"0" border=3D"0" align=3D"center" wi=
+dth=3D"100%" cellpadding=3D"0" style=3D"border-collapse: collapse;"><tr cla=
+ss=3D"govd_hr_inner"><td width=3D"100%"><hr></td></tr></table>
+<p style=3D"text-align: center; line-height: 1.4; margin-top: 10px !importa=
+nt; margin-bottom: 10px !important; color: #000000; font-family: arial, hel=
+vetica, sans-serif; font-size: 15px;" align=3D"center"><strong><em>Join us =
+in person as we resume hybrid meetings!</em></strong></p>
+<h3 style=3D"text-align: center; line-height: 1.1; font-weight: bold; margi=
+n-top: 10px !important; margin-bottom: 10px !important; color: #000000; fon=
+t-family: helvetica; font-size: 14px;" align=3D"center">
+<a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1Ni=
+J9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDIsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBz=
+Oi8vd3d3LmZkYS5nb3YvZHJ1Z3MvbmV3cy1ldmVudHMtaHVtYW4tZHJ1Z3Mvam9pbnQtdXMtZmR=
+hLW1ocmEtdWstaGVhbHRoLWNhbmFkYS1nb29kLWNsaW5pY2FsLXByYWN0aWNlLXBoYXJtYWNvdm=
+lnaWxhbmNlLWNvbXBsaWFuY2Utd29ya3Nob3A_dXRtX21lZGl1bT1lbWFpbCZ1dG1fc291cmNlP=
+WdvdmRlbGl2ZXJ5IiwiYnVsbGV0aW5faWQiOiIyMDIzMTEyMC44NTkwOTE2MSJ9.X8KFAuEXZEA=
+YLgbzX4cCG7Vjw4uPBulnJeab8RQpNls/s/3046837151/br/231240055875-l__;!!H9nueQs=
+Q!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAw=
+OrY-RaDJXmgRVPd$" target=3D"_blank" rel=3D"noopener" style=3D"color: #fffff=
+f; text-decoration: none; -ms-word-break: break-all; word-break: break-word=
+; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; background-colo=
+r: #1373cb; border-radius: 4px; border-color: #1373cb; border-style: solid;=
+ border-width: 9px 20px;">No Fee Registration</a><br><br>
+</h3>
+<h3 style=3D"text-align: center; line-height: 1.1; font-weight: bold; margi=
+n-top: 10px !important; margin-bottom: 10px !important; color: #000000; fon=
+t-family: helvetica; font-size: 14px;" align=3D"center"><a href=3D"https://=
+urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9s=
+aW5rX2lkIjoxMDMsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vc2JpYWV2ZW50cy5=
+jb20vZmlsZXMyMDI0L0ZEQS1NSFJBLUhDLTIwMjQtQWdlbmRhLnBkZj91dG1fbWVkaXVtPWVtYW=
+lsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnkiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTIwLjg1OTA5M=
+TYxIn0.gqwCR7PFNsP1rnc2nW60EpSSdGxFG9BNr51ob4k4FcI/s/3046837151/br/23124005=
+5875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5=
+GqBbDBPY3je6d2uOAwOrY-RaDJXqMzTRP$" target=3D"_blank" rel=3D"noopener" styl=
+e=3D"color: #ffffff; text-decoration: none; -ms-word-break: break-all; word=
+-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: non=
+e; background-color: #1373cb; border-radius: 4px; border-color: #1373cb; bo=
+rder-style: solid; border-width: 9px 20px;">Agenda&nbsp;</a></h3>
+<table class=3D"govd_hr" cellspacing=3D"0" border=3D"0" align=3D"center" wi=
+dth=3D"100%" cellpadding=3D"0" style=3D"border-collapse: collapse;"><tr cla=
+ss=3D"govd_hr_inner"><td width=3D"100%"><hr></td></tr></table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td>
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"main-body" width=3D"100%" data-govdstyle=3D"all" data-govdtitle=
+=3D"Main Body" style=3D"background-color: #222C67; padding: 5px;" bgcolor=
+=3D"#222C67">
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+ =20
+<tr>
+<td id=3D"columns-bg-1" data-govdstyle=3D"all" data-govdtitle=3D"Columns Ba=
+ckground 1">
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td width=3D"65%" class=3D"tablecell" align=3D"left" valign=3D"top">
+<table width=3D"100%" align=3D"left" cellpadding=3D"0" cellspacing=3D"0" st=
+yle=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"left-column-1" width=3D"100%" data-govdstyle=3D"all" data-govdtit=
+le=3D"Left Column 1" style=3D"padding: 5px;">
+<p style=3D"line-height: 1.4; margin-top: 10px !important; margin-bottom: 1=
+0px !important; color: #000000; font-family: arial, helvetica, sans-serif; =
+font-size: 14px;"><strong>=F0=9F=94=B9 ABOUT THIS EVENT&nbsp;</strong></p>
+<ul>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;">This workshop will focus =
+on Global Clinical Trials in Good Clinical Practice, Bioequivalence, and Ph=
+armacovigilance in the post pandemic world. Presentations and panel discuss=
+ions will provide information on the recent updates made to ICH E6(r3) and =
+regulatory perspectives on implementation of proportionate and risk-based a=
+pproaches to the design and conduct of the trial to help ensure that the qu=
+ality of the trial data generated is of sufficient quality to support good =
+decision making.</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;">Panelists will discuss co=
+ntinuing developments in novel operational approaches, data sources, and te=
+chnologies used in clinicals trials, as well as novel approaches to regulat=
+ory inspections.</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;"><a href=3D"https://urldef=
+ense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2=
+lkIjoxMDQsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3YvZHJ1Z=
+3MvbmV3cy1ldmVudHMtaHVtYW4tZHJ1Z3Mvam9pbnQtdXMtZmRhLW1ocmEtdWstaGVhbHRoLWNh=
+bmFkYS1nb29kLWNsaW5pY2FsLXByYWN0aWNlLXBoYXJtYWNvdmlnaWxhbmNlLWNvbXBsaWFuY2U=
+td29ya3Nob3A_dXRtX21lZGl1bT1lbWFpbCZ1dG1fc291cmNlPWdvdmRlbGl2ZXJ5IiwiYnVsbG=
+V0aW5faWQiOiIyMDIzMTEyMC44NTkwOTE2MSJ9.4_UE2FEPYmt6Mma9b758UKHWdIHdHQQ-YW21=
+cxjfWzY/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmq=
+Ki-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJakqNrFW$" target=
+=3D"_blank" rel=3D"noopener" style=3D"color: #0000EE; text-decoration: unde=
+rline; -ms-word-break: break-all; word-break: break-word; -webkit-hyphens: =
+none; -moz-hyphens: none; hyphens: none;">More...</a></li>
+</ul>
+<p style=3D"line-height: 1.4; margin-top: 10px !important; margin-bottom: 1=
+0px !important; color: #000000; font-family: arial, helvetica, sans-serif; =
+font-size: 14px;"><strong>=F0=9F=94=B9 TOPICS COVERED</strong></p>
+<ul>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;">Key updates to ICH E6(R3)=
+</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;">The use of technology in =
+clinical trials</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;">Updates for trials incorp=
+orating decentralized clinical trials (DCT) features</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;">Changes in clinical trial=
+ activities, inspections, and remote regulatory assessments/ remote inspect=
+ions</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 14px; margin: 0 0 7px;"><a href=3D"https://urldef=
+ense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2=
+lkIjoxMDUsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3YvZHJ1Z=
+3MvbmV3cy1ldmVudHMtaHVtYW4tZHJ1Z3Mvam9pbnQtdXMtZmRhLW1ocmEtdWstaGVhbHRoLWNh=
+bmFkYS1nb29kLWNsaW5pY2FsLXByYWN0aWNlLXBoYXJtYWNvdmlnaWxhbmNlLWNvbXBsaWFuY2U=
+td29ya3Nob3A_dXRtX21lZGl1bT1lbWFpbCZ1dG1fc291cmNlPWdvdmRlbGl2ZXJ5IiwiYnVsbG=
+V0aW5faWQiOiIyMDIzMTEyMC44NTkwOTE2MSJ9.0qmHjNvEMYu1ddgD3ECrmFIU6zNx7jkqLQEK=
+0ebQFQI/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmq=
+Ki-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJdUznp3T$" target=
+=3D"_blank" rel=3D"noopener" style=3D"color: #0000EE; text-decoration: unde=
+rline; -ms-word-break: break-all; word-break: break-word; -webkit-hyphens: =
+none; -moz-hyphens: none; hyphens: none;">More...</a></li>
+</ul>
+</td>
+</tr> =20
+</table>
+</td>
+<td width=3D"35%" class=3D"tablecell" align=3D"right" valign=3D"top" style=
+=3D"background-color: #EEEEEE;" bgcolor=3D"#EEEEEE">
+<table width=3D"100%" align=3D"left" cellpadding=3D"0" cellspacing=3D"0" st=
+yle=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"right-column-1" width=3D"100%" data-govdstyle=3D"all" data-govdti=
+tle=3D"Right Column 1" style=3D"padding: 5px;">
+<p style=3D"line-height: 1.4; margin-top: 10px !important; margin-bottom: 1=
+0px !important; color: #000000; font-family: helvetica; font-size: 14px;"><=
+strong>=F0=9F=94=B9 INTENDED AUDIENCE<br></strong></p>
+<ul>
+<li style=3D"line-height: 1.4; color: #000000; font-family: helvetica; font=
+-size: 14px; margin: 0 0 7px;">Researchers and Clinical trial sponsors cons=
+idering the use of decentralized trial design or Real-World Data</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: helvetica; font=
+-size: 14px; margin: 0 0 7px;">Organisations sponsoring, conducting, managi=
+ng or submitting bioequivalence/bioavailability clinical trials for licensi=
+ng purposes such as the Abbreviated New Drug Application (ANDA) and Biologi=
+c License Application (BLA)</li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: helvetica; font=
+-size: 14px; margin: 0 0 7px;"><a href=3D"https://urldefense.com/v3/__https=
+://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDYsInVyaSI6I=
+mJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3YvZHJ1Z3MvbmV3cy1ldmVudHMt=
+aHVtYW4tZHJ1Z3Mvam9pbnQtdXMtZmRhLW1ocmEtdWstaGVhbHRoLWNhbmFkYS1nb29kLWNsaW5=
+pY2FsLXByYWN0aWNlLXBoYXJtYWNvdmlnaWxhbmNlLWNvbXBsaWFuY2Utd29ya3Nob3A_dXRtX2=
+1lZGl1bT1lbWFpbCZ1dG1fc291cmNlPWdvdmRlbGl2ZXJ5IiwiYnVsbGV0aW5faWQiOiIyMDIzM=
+TEyMC44NTkwOTE2MSJ9.dAMaGx_WKh_tE3l-xkhMqwKQ0XEne9LCaSP-bC78i-8/s/304683715=
+1/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnVi=
+VgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJdxtGwTR$" target=3D"_blank" rel=3D"n=
+oopener" style=3D"color: #0000EE; text-decoration: underline; -ms-word-brea=
+k: break-all; word-break: break-word; -webkit-hyphens: none; -moz-hyphens: =
+none; hyphens: none;">More...</a></li>
+</ul>
+<div>
+<p style=3D"line-height: 1.4; margin-top: 10px !important; margin-bottom: 1=
+0px !important; color: #000000; font-family: helvetica; font-size: 14px;"><=
+strong><br>=F0=9F=94=B9 FDA RESOURCES</strong></p>
+<ul>
+<li style=3D"line-height: 1.4; color: #000000; font-family: helvetica; font=
+-size: 14px; margin: 0 0 7px;"><a href=3D"https://urldefense.com/v3/__https=
+://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDcsInVyaSI6I=
+mJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3YvcmVndWxhdG9yeS1pbmZvcm1h=
+dGlvbi9zZWFyY2gtZmRhLWd1aWRhbmNlLWRvY3VtZW50cy9kZWNlbnRyYWxpemVkLWNsaW5pY2F=
+sLXRyaWFscy1kcnVncy1iaW9sb2dpY2FsLXByb2R1Y3RzLWFuZC1kZXZpY2VzP3V0bV9tZWRpdW=
+09ZW1haWwmdXRtX3NvdXJjZT1nb3ZkZWxpdmVyeSIsImJ1bGxldGluX2lkIjoiMjAyMzExMjAuO=
+DU5MDkxNjEifQ.mm4SsWjuDrcGE3BbQTQfgEwREwebQ5Fsb2zqx0DpRvE/s/3046837151/br/2=
+31240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDA=
+ILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJVviwypv$" title=3D"Decentralized Clinical =
+Trials for Drugs, Biological Products, and Devices" data-entity-substitutio=
+n=3D"canonical" data-entity-type=3D"node" data-entity-uuid=3D"69af073d-dd6b=
+-4265-a3d7-62ea2fbf33e1" style=3D"color: #0000EE; text-decoration: underlin=
+e; -ms-word-break: break-all; word-break: break-word; -webkit-hyphens: none=
+; -moz-hyphens: none; hyphens: none;">Decentralized Clinical Trials for Dru=
+gs, Biological Products, and Devices</a></li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: helvetica; font=
+-size: 14px; margin: 0 0 7px;"><a href=3D"https://urldefense.com/v3/__https=
+://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDgsInVyaSI6I=
+mJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3YvcmVndWxhdG9yeS1pbmZvcm1h=
+dGlvbi9zZWFyY2gtZmRhLWd1aWRhbmNlLWRvY3VtZW50cy9lbGVjdHJvbmljLXN5c3RlbXMtZWx=
+lY3Ryb25pYy1yZWNvcmRzLWFuZC1lbGVjdHJvbmljLXNpZ25hdHVyZXMtY2xpbmljYWwtaW52ZX=
+N0aWdhdGlvbnMtcXVlc3Rpb25zP3V0bV9tZWRpdW09ZW1haWwmdXRtX3NvdXJjZT1nb3ZkZWxpd=
+mVyeSIsImJ1bGxldGluX2lkIjoiMjAyMzExMjAuODU5MDkxNjEifQ.eOLeHa-sBgxnEzAw8WnF-=
+kG1xq9TAdNZIT2WPUnyti4/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3=
+oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJU_=
+EHsyG$" title=3D"Electronic Systems, Electronic Records, and Electronic Sig=
+natures in Clinical Investigations:  Questions and Answers" data-entity-sub=
+stitution=3D"canonical" data-entity-type=3D"node" data-entity-uuid=3D"6e699=
+c2f-84d4-4af1-ac3f-74d2f8de1189" style=3D"color: #0000EE; text-decoration: =
+underline; -ms-word-break: break-all; word-break: break-word; -webkit-hyphe=
+ns: none; -moz-hyphens: none; hyphens: none;">Electronic Systems, Electroni=
+c Records, and Electronic Signatures in Clinical Investigations: Q&amp;A (F=
+DA</a></li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: helvetica; font=
+-size: 14px; margin: 0 0 7px;"><a href=3D"https://urldefense.com/v3/__https=
+://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMDksInVyaSI6I=
+mJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5nb3YvZHJ1Z3MvbmV3cy1ldmVudHMt=
+aHVtYW4tZHJ1Z3Mvam9pbnQtdXMtZmRhLW1ocmEtdWstaGVhbHRoLWNhbmFkYS1nb29kLWNsaW5=
+pY2FsLXByYWN0aWNlLXBoYXJtYWNvdmlnaWxhbmNlLWNvbXBsaWFuY2Utd29ya3Nob3A_dXRtX2=
+1lZGl1bT1lbWFpbCZ1dG1fc291cmNlPWdvdmRlbGl2ZXJ5IiwiYnVsbGV0aW5faWQiOiIyMDIzM=
+TEyMC44NTkwOTE2MSJ9.TJEWu5q6zxjTS9eWv_-6XZgEhjO2Zm0hP4-arVeixwU/s/304683715=
+1/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnVi=
+VgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJTmPh_g0$" target=3D"_blank" rel=3D"n=
+oopener" style=3D"color: #0000EE; text-decoration: underline; -ms-word-brea=
+k: break-all; word-break: break-word; -webkit-hyphens: none; -moz-hyphens: =
+none; hyphens: none;">More...</a></li>
+</ul>
+</div>
+</td>
+</tr> =20
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+ =20
+<tr>
+<td id=3D"footer-bg-1" data-govdstyle=3D"all" data-govdtitle=3D"Footer Back=
+ground 1" style=3D"background-color: #222C67; padding: 10px 0px 0px;" bgcol=
+or=3D"#222C67">
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"main-footer-1" width=3D"100%" data-govdstyle=3D"all" data-govdtit=
+le=3D"Main Footer 1" class=3D"head" style=3D"background-color: #D5D6DA; pad=
+ding: 5px;" bgcolor=3D"#D5D6DA">
+<h2 style=3D"line-height: 1.1; font-weight: bold; color: #000000; font-fami=
+ly: arial, helvetica, sans-serif; font-size: 20px; margin: 10px 0px;">CONTI=
+NUING EDUCATION</h2>
+<p align=3D"left" style=3D"line-height: 1.4; font-size: 12px; color: #00000=
+0; font-family: arial, helvetica, sans-serif; text-align: left; margin: 10p=
+x 0px;">Real-time participation is required for the certificate of attendan=
+ce which can be used in support of CEs for the following professional organ=
+izations:&nbsp;<strong>RAPS,&nbsp;<strong>SOCRA, SQA, and ACRP</strong></st=
+rong>. Certificates are&nbsp;<strong>only</strong>&nbsp;available during th=
+e two weeks post-event. For more information, see details on our&nbsp;<a hr=
+ef=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.ey=
+JidWxsZXRpbl9saW5rX2lkIjoxMTAsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd=
+3d3LmZkYS5nb3YvZHJ1Z3MvbmV3cy1ldmVudHMtaHVtYW4tZHJ1Z3Mvam9pbnQtdXMtZmRhLW1o=
+cmEtdWstaGVhbHRoLWNhbmFkYS1nb29kLWNsaW5pY2FsLXByYWN0aWNlLXBoYXJtYWNvdmlnaWx=
+hbmNlLWNvbXBsaWFuY2Utd29ya3Nob3A_dXRtX21lZGl1bT1lbWFpbCZ1dG1fc291cmNlPWdvdm=
+RlbGl2ZXJ5IiwiYnVsbGV0aW5faWQiOiIyMDIzMTEyMC44NTkwOTE2MSJ9.vjGmtbKVSX6rmyyK=
+inbNuGYsyRVEG_QOoztDZ89sYOo/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5=
+EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-R=
+aDJQnq6FMS$" target=3D"_blank" rel=3D"noopener" style=3D"color: #0000EE; te=
+xt-decoration: underline; -ms-word-break: break-all; word-break: break-word=
+; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none;">webpage</a>.&n=
+bsp;&nbsp;</p>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+ =20
+<tr>
+<td id=3D"footer-bg-2" data-govdstyle=3D"all" data-govdtitle=3D"Footer Back=
+ground 2">
+<table class=3D"main-table" width=3D"100%" align=3D"center" cellpadding=3D"=
+0" cellspacing=3D"0" style=3D"border-collapse: collapse;">
+<tr>
+<td id=3D"main-footer-2" width=3D"100%" data-govdstyle=3D"all" data-govdtit=
+le=3D"Main Footer 2" style=3D"background-color: #EEEEEE; padding: 4px;" bgc=
+olor=3D"#EEEEEE">
+<p style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetica=
+, sans-serif; font-size: 12px; text-align: left; margin-bottom: 0px;" align=
+=3D"left">The Small Business and Industry Assistance (SBIA) program in the =
+Center for Drug Evaluation and Research provides guidance, <a href=3D"https=
+://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpb=
+l9saW5rX2lkIjoxMTEsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d3LmZkYS5n=
+b3YvY2RlcnNiaWFsZWFybj91dG1fbWVkaXVtPWVtYWlsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnk=
+iLCJidWxsZXRpbl9pZCI6IjIwMjMxMTIwLjg1OTA5MTYxIn0.b-6-4rxc96ihyV36mC1KMVl6lL=
+0GUDko2lL7AOOhEfE/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4Hg=
+G1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJSWFZ4t7=
+$" target=3D"_blank" data-targettype=3D"webpage" rel=3D"noopener" style=3D"=
+color: #007BB9; text-decoration: underline; -ms-word-break: break-all; word=
+-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: non=
+e;">education</a> and updates for regulated industry.</p>
+<ul>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 12px; text-align: left; margin: 0 0 7px;"><a href=
+=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJi=
+dWxsZXRpbl9saW5rX2lkIjoxMTIsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d=
+3LmZkYS5nb3YvY2RlcnNiaWE_dXRtX21lZGl1bT1lbWFpbCZ1dG1fc291cmNlPWdvdmRlbGl2ZX=
+J5IiwiYnVsbGV0aW5faWQiOiIyMDIzMTEyMC44NTkwOTE2MSJ9.q3FVweulPKB6NEq9gtayQSoF=
+HzLuvEXt0sGUz2-1zjg/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4=
+HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJaOVwa=
+JJ$" target=3D"_blank" rel=3D"noopener" style=3D"color: #007BB9; text-decor=
+ation: underline; -ms-word-break: break-all; word-break: break-word; -webki=
+t-hyphens: none; -moz-hyphens: none; hyphens: none;">Register for Upcoming =
+Training</a></li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 12px; text-align: left; margin: 0 0 7px;"><a href=
+=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJi=
+dWxsZXRpbl9saW5rX2lkIjoxMTMsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d=
+3LnlvdXR1YmUuY29tL3BsYXlsaXN0P2xpc3Q9UExleTRRZS1VeGN4Wi0wSDNibXF4dGN6aGxGNE=
+IwVWJDQyZ1dG1fbWVkaXVtPWVtYWlsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnkiLCJidWxsZXRpb=
+l9pZCI6IjIwMjMxMTIwLjg1OTA5MTYxIn0.u1y7Ogq9qccve6OEcoy2J8s4OMwydcMI5mEp4sGf=
+aTU/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-B=
+gYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJdjsAqaz$" target=3D"_=
+blank" rel=3D"noopener" style=3D"color: #007BB9; text-decoration: underline=
+; -ms-word-break: break-all; word-break: break-word; -webkit-hyphens: none;=
+ -moz-hyphens: none; hyphens: none;">View the SBIA 2023 YouTube Playlist</a=
+></li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 12px; text-align: left; margin: 0 0 7px;"><a href=
+=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJi=
+dWxsZXRpbl9saW5rX2lkIjoxMTQsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vcHV=
+ibGljLmdvdmRlbGl2ZXJ5LmNvbS9hY2NvdW50cy9VU0ZEQS9zdWJzY3JpYmVyL25ldz90b3BpY1=
+9pZD1VU0ZEQV8zNTIiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTIwLjg1OTA5MTYxIn0.NSt1lHD1e=
+p962wwiHFRCYAPQnTbAuSKwhsVJEyfb0wE/s/3046837151/br/231240055875-l__;!!H9nue=
+QsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uO=
+AwOrY-RaDJXB49CK8$" target=3D"_blank" rel=3D"noopener" style=3D"color: #007=
+BB9; text-decoration: underline; -ms-word-break: break-all; word-break: bre=
+ak-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none;">Subscri=
+be to CDER SBIA Email Updates</a></li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 12px; text-align: left; margin: 0 0 7px;"><a href=
+=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJi=
+dWxsZXRpbl9saW5rX2lkIjoxMTUsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vd3d=
+3LmxpbmtlZGluLmNvbS9zaG93Y2FzZS9jZGVyLXNtYWxsLWJ1c2luZXNzLWFuZC1pbmR1c3RyeS=
+1hc3Npc3RhbmNlP3V0bV9tZWRpdW09ZW1haWwmdXRtX3NvdXJjZT1nb3ZkZWxpdmVyeSIsImJ1b=
+GxldGluX2lkIjoiMjAyMzExMjAuODU5MDkxNjEifQ.Pfmga3Fuvgw-9ac5z28iIXfDDJWtt5xaX=
+xCdLIxO6lw/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zs=
+mmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJfb5Zdzd$" targ=
+et=3D"_blank" rel=3D"noopener" style=3D"color: #007BB9; text-decoration: un=
+derline; -ms-word-break: break-all; word-break: break-word; -webkit-hyphens=
+: none; -moz-hyphens: none; hyphens: none;">Connect on LinkedIn</a></li>
+<li style=3D"line-height: 1.4; color: #000000; font-family: arial, helvetic=
+a, sans-serif; font-size: 12px; text-align: left; margin: 0 0 7px;"><a href=
+=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJi=
+dWxsZXRpbl9saW5rX2lkIjoxMTYsInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vdHd=
+pdHRlci5jb20vRkRBX0RydWdfSW5mbz91dG1fbWVkaXVtPWVtYWlsJnV0bV9zb3VyY2U9Z292ZG=
+VsaXZlcnkiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTIwLjg1OTA5MTYxIn0.F4uophv9J6h2MIM4L=
+YUahWs94yonXjh7_tKwqIgIOFY/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5E=
+C2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-Ra=
+DJYYWnEnO$" target=3D"_blank" rel=3D"noopener" style=3D"color: #007BB9; tex=
+t-decoration: underline; -ms-word-break: break-all; word-break: break-word;=
+ -webkit-hyphens: none; -moz-hyphens: none; hyphens: none;">Follow on X</a>=
+</li>
+</ul>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+</table>
+</td>
+</tr>
+
+</table>
+</td>
+</tr>
+</table></td></tr></table>
+ =20
+
+
+<div id=3D"mail_footer">
+    <table class=3D"mobile-footer" style=3D"width: 600px; padding-top: 10px=
+;" width=3D"600" cellspacing=3D"0" cellpadding=3D"0" align=3D"center">
+<tbody>
+<tr>
+<td style=3D"text-align: center !important;">
+<p style=3D"margin: 0in;" align=3D"center"><font size=3D"2"><em><span style=
+=3D"font-size: 8.5pt; font-family: 'Helvetica',sans-serif;">This is an auto=
+mated message delivery system. Replying to this message will not reach the =
+CDER SBIA staff. If you have comments or questions, contact us at&nbsp;</sp=
+an></em><span style=3D"font-size: 8.5pt; font-family: 'Helvetica',sans-seri=
+f;"><a href=3D"mailto:CDERSBIA@fda.hhs.gov" target=3D"_blank" rel=3D"noopen=
+er"><span style=3D"color: #007bb9;">CDERSBIA@fda.hhs.gov</span></a>&nbsp;or=
+ 1-866-405-5367 or (301) 796-6707.</span></font></p>
+<p style=3D"margin: 0in;"><font size=3D"2"><span style=3D"font-size: 8.5pt;=
+ font-family: 'Helvetica',sans-serif;">&nbsp;</span></font></p>
+<p align=3D"center"><font size=3D"2"><strong><span style=3D"font-size: 8.5p=
+t; font-family: 'Helvetica',sans-serif;">SUBSCRIBER SERVICES: </span></stro=
+ng></font></p>
+<p align=3D"center"><font size=3D"2"><span style=3D"font-size: 8.5pt; font-=
+family: 'Helvetica',sans-serif;"><a href=3D"https://urldefense.com/v3/__htt=
+ps://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMTcsInVyaSI=
+6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vcHVibGljLmdvdmRlbGl2ZXJ5LmNvbS9hY2NvdW=
+50cy9VU0ZEQS9zdWJzY3JpYmVyL2VkaXQ_cHJlZmVyZW5jZXM9dHJ1ZSN0YWIxIiwiYnVsbGV0a=
+W5faWQiOiIyMDIzMTEyMC44NTkwOTE2MSJ9.T0zShPQH1DEokaQyQrVXSi1HhRl-WgqrpkjziB6=
+tbkk/s/3046837151/br/231240055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-=
+BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2uOAwOrY-RaDJaYdKM0P$" target=3D"=
+_blank" rel=3D"noopener"><span style=3D"color: #007bb9;">Manage Subscriptio=
+ns</span>&nbsp;</a>&nbsp;|&nbsp;&nbsp;<span style=3D"color: #007bb9;"><a hr=
+ef=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.ey=
+JxdWVyeV9wYXJhbXMiOlsidmVyaWZpY2F0aW9uIiwiZGVzdGluYXRpb24iXSwiYnVsbGV0aW5fb=
+Glua19pZCI6MTE4LCJ1cmkiOiJicDI6Y2xpY2siLCJ1cmwiOiJodHRwczovL3B1YmxpYy5nb3Zk=
+ZWxpdmVyeS5jb20vYWNjb3VudHMvVVNGREEvc3Vic2NyaWJlci9vbmVfY2xpY2tfdW5zdWJzY3J=
+pYmUiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTIwLjg1OTA5MTYxIn0.-LE5vqZ-Uj4zGY1aSqrF4z=
+WHt7_KiBd2U2HsHbHwPCA/s/3046837151/br/231240055875-l?verification=3D5.9292e=
+6efc31c5043e5f9f1b464fb48a8&amp;destination=3DBI_VOX*40pfizer.com__;JQ!!H9n=
+ueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEOp5GqBbDBPY3je6d2=
+uOAwOrY-RaDJRJ9Pg9t$" target=3D"_blank" rel=3D"noopener">Unsubscribe All</a=
+></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span style=3D"color: #007bb9;"><a href=3D=
+"https://urldefense.com/v3/__https://lnks.gd/l/eyJhbGciOiJIUzI1NiJ9.eyJidWx=
+sZXRpbl9saW5rX2lkIjoxMTksInVyaSI6ImJwMjpjbGljayIsInVybCI6Imh0dHBzOi8vc3Vic2=
+NyaWJlcmhlbHAuZ292ZGVsaXZlcnkuY29tLyIsImJ1bGxldGluX2lkIjoiMjAyMzExMjAuODU5M=
+DkxNjEifQ.4Mip5KloBuaK2uJRHwGPqJqQIbSxAjSIK8C41yAQYl8/s/3046837151/br/23124=
+0055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOE=
+Op5GqBbDBPY3je6d2uOAwOrY-RaDJbX483VO$" target=3D"_blank" rel=3D"noopener">H=
+elp</a></span></span></font></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div id=3D"tagline">
+    <table style=3D"border-collapse: collapse; margin: 0px auto; width: 100=
+%;" border=3D"0" cellspacing=3D"0" cellpadding=3D"0">
+<tbody>
+<tr>
+<td style=3D"padding: 0 10px 0 10px;" valign=3D"top">
+<table class=3D"mobile-tagline" style=3D"border-collapse: collapse; margin:=
+ 0px auto; width: 100%;" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" a=
+lign=3D"right">
+<tbody>
+<tr>
+<td style=3D"padding: 10px 0 0 0;" colspan=3D"2" valign=3D"top"><hr></td>
+</tr>
+<tr>
+<td style=3D"padding: 10px 5px 10px 0;" align=3D"left" valign=3D"top"><span=
+ style=3D"color: #757575; font-size: 10px; font-family: arial, helvetica, s=
+ans-serif;">This email was sent to BI_VOX@pfizer.com using GovDelivery Comm=
+unications Cloud on behalf of: U.S. Food and Drug Administration =C2=B7&nbs=
+p;<br>10903 New Hampshire Ave&nbsp;=C2=B7&nbsp;Silver Spring, MD =C2=B7&nbs=
+p; 20993-0002&nbsp;=C2=B7&nbsp;&nbsp;1-888-INFO-FDA</span></td>
+<td style=3D"width: 95px; padding-top: 10px;" align=3D"right" valign=3D"top=
+" width=3D"95"><a href=3D"https://urldefense.com/v3/__https://lnks.gd/l/eyJ=
+hbGciOiJIUzI1NiJ9.eyJidWxsZXRpbl9saW5rX2lkIjoxMjAsInVyaSI6ImJwMjpjbGljayIsI=
+nVybCI6Imh0dHBzOi8vc3Vic2NyaWJlcmhlbHAuZ3JhbmljdXMuY29tLz91dG1fbWVkaXVtPWVt=
+YWlsJnV0bV9zb3VyY2U9Z292ZGVsaXZlcnkiLCJidWxsZXRpbl9pZCI6IjIwMjMxMTIwLjg1OTA=
+5MTYxIn0.LUv7ZIdW0KWULMvaTXKfT3FbMh_kPlwAiwRumLxJ8zo/s/3046837151/br/231240=
+055875-l__;!!H9nueQsQ!5w5EC2H3oB4HgG1aV8zsmmqKi-BgYhLVJA7DoQSnViVgvgDAILOEO=
+p5GqBbDBPY3je6d2uOAwOrY-RaDJY21a8ZM$" target=3D"_blank" rel=3D"noopener"><i=
+mg src=3D"https://content.govdelivery.com/images/govd-logo-dark.png" border=
+=3D"0" alt=3D"GovDelivery logo" width=3D"95" height=3D"27" align=3D"right">=
+</a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<style type=3D"text/css">body .abe-column-block { min-height: 5px; } table.=
+gd_combo_table img {margin-left:10px; margin-right:10px;} table.gd_combo_ta=
+ble div.govd_image_display img, table.gd_combo_table td.gd_combo_image_cell=
+ img {margin-left:0px; margin-right:0px;}</style>
+
+</div>
+
+<img src=3D"https://links.govdelivery.com/track?enid=3DZWFzPTEmYnVsbGV0aW5y=
+ZWNpcGllbnRpZD0yMzEyNDAwNTU4NzUtbCZzdWJzY3JpYmVyaWQ9MzA0NjgzNzE1MSZtc2lkPSZ=
+hdWlkPSZtYWlsaW5naWQ9MjAyMzExMjAuODU5MDkxNjEmbWVzc2FnZWlkPU1EQi1QUkQtQlVMLT=
+IwMjMxMTIwLjg1OTA5MTYxJmRhdGFiYXNlaWQ9MTAwMSZ0eXBlPW9wZW4mc2VyaWFsPTE2ODM3N=
+jM0JmVtYWlsaWQ9QklfVk9YQHBmaXplci5jb20mdXNlcmlkPUJJX1ZPWEBwZml6ZXIuY29tJnRh=
+cmdldGlkPSZmbD0mbXZpZD0mZXh0cmE9JiYm" width=3D"1" height=3D"1" style=3D"bor=
+der-width:0; border-style:hidden;" alt=3D""></body>
+</html>
+
+
+------=_NextPart_D69_F5D9_4646559A.03F7DBE7--
+

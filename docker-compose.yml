@@ -1,0 +1,31 @@
+version: "3"
+services:
+  scraper:
+    #platform: linux/amd64
+    image: web-scraper
+    build: .
+    depends_on:
+      - grid
+    volumes:
+    - ./emails:/emails
+    - ./tests:/tests
+    - ./test_templates:/test_templates
+    - ./output:/output
+    - ./debug:/debug
+    - ./output_pdfs:/output_pdfs
+    - ./output_html:/output_html
+  grid:
+    #platform: linux/amd64
+    #image: selenium/standalone-chrome:116.0
+    image: selenium/standalone-firefox:4.12.1-20230912
+    shm_size: 2gb
+    environment:
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=4
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+      - "7900:7900"
